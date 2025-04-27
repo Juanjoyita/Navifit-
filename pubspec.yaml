@@ -1,0 +1,32 @@
+name: navifit_1
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  appwrite: ^11.0.1
+  get: ^4.6.5
+  get_storage: ^2.0.3
+  flutter_svg: ^2.0.10
+  google_fonts: ^5.0.0
+  flutter_screenutil: ^5.0.0+2
+  flutter_local_notifications: ^16.1.0
+  geolocator: ^14.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.13.0
+  flutter_localizations:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  rename: ^3.0.1  # Alternative to flutter_launcher_name that supports null safety
+
+flutter:
+  uses-material-design: true
