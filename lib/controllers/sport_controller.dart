@@ -1,16 +1,19 @@
 import 'package:get/get.dart';
-import '../models/sport_model.dart';
 
 class SportController extends GetxController {
-  var sports = <SportModel>[
-    SportModel(id: '1', name: 'Running'),
-    SportModel(id: '2', name: 'Senderismo'),
-    SportModel(id: '3', name: 'Ciclismo'),
-  ].obs;
+  var sports = ['Running', 'Ciclismo', 'Senderismo'].obs;
+  var selectedSport = ''.obs;
+  var selectedDifficulty = ''.obs;
 
-  var selectedSport = Rxn<SportModel>();
-
-  void selectSport(SportModel sport) {
+  void selectSport(String sport) {
     selectedSport.value = sport;
+  }
+
+  void selectDifficulty(String difficulty) {
+    selectedDifficulty.value = difficulty;
+  }
+
+  bool isValidSelection() {
+    return selectedSport.isNotEmpty && selectedDifficulty.isNotEmpty;
   }
 }

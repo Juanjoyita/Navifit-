@@ -29,9 +29,15 @@ class AuthController extends GetxController {
   Future<void> login(String email, String password) async {
     try {
       isLoading.value = true;
+      try {
+        await _appwriteService.logout();
+        await Future.delayed(Duration(milliseconds: 500)); // Espera breve tras logout
+      } catch (e) {
+        // Si no hay sesión activa, ignora el error
+      }
       await _appwriteService.login(email: email, password: password);
       await fetchUser();
-      Get.offAllNamed('/selectSport'); // Redireccionar a seleccionar deporte
+      Get.offAllNamed('/selectSport');
     } catch (e) {
       Get.snackbar('Error de Login', e.toString());
     } finally {

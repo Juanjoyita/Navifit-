@@ -1,12 +1,36 @@
-import 'package:get/get.dart';
-import '../services/location_service.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 
 class LocationController extends GetxController {
-  final LocationService _locationService = LocationService();
   var currentPosition = Rxn<Position>();
 
-  Future<void> updateLocation() async {
-    currentPosition.value = await _locationService.getCurrentLocation();
+  @override
+  void onInit() {
+    super.onInit();
+    getCurrentLocation();
+  }
+
+  Future<void> getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Los servicios de ubicación están desactivados.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Permisos de ubicación denegados.');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Permisos de ubicación permanentemente denegados.');
+    }
+
+    currentPosition.value = await Geolocator.getCurrentPosition();
   }
 }
