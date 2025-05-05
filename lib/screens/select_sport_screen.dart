@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:navifit_1/controllers/mission_controller.dart';
 import '../controllers/sport_controller.dart';
 import '../controllers/location_controller.dart';
 import '../widgets/sport_card.dart';
@@ -54,18 +55,26 @@ class SelectSportScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               if (sportController.isValidSelection()) {
+                // Imprime los valores seleccionados en consola
+                print('Deporte seleccionado: ${sportController.selectedSport.value}');
+                print('Dificultad seleccionada: ${sportController.selectedDifficulty.value}');
                 try {
                   final locationController = Get.find<LocationController>();
-                  await locationController.getCurrentLocation(); // Espera a que se cargue la ubicación
-                  Get.toNamed('/map'); // Navega al mapa solo si todo va bien
+                  await locationController.getCurrentLocation();
+                  final missionController = Get.find<MissionController>();
+                  await missionController.fetchMissions(
+                    sportController.selectedSport.value,
+                    sportController.selectedDifficulty.value,
+                  );
+                  Get.toNamed('/map');
                 } catch (e) {
-                  Get.snackbar("Error", "No se pudo obtener la ubicación: $e");
+                  Get.snackbar("Error", "No se pudo obtener la ubicación o las rutas: $e");
                 }
               } else {
                 Get.snackbar("Falta información", "Debes elegir un deporte y una dificultad");
               }
             },
-            child: const Text("Continuar"),
+            child: const Text("Aplicar"),
           ),
           const SizedBox(height: 20),
         ],

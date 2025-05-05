@@ -55,7 +55,7 @@ class MapScreen extends StatelessWidget {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      Get.toNamed('/createRoute'); // Pantalla 6
+                      Get.toNamed('/createRoute'); // Ir a pantalla 6
                     },
                     icon: const Icon(Icons.alt_route),
                     label: const Text('Crear mi propia ruta'),
@@ -63,7 +63,7 @@ class MapScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Get.toNamed('/missionRoute'); // Pantalla 5
+                      Get.toNamed('/missionRoute'); // Ir a pantalla 5
                     },
                     icon: const Icon(Icons.flag),
                     label: const Text('Seguir Misión 1'),

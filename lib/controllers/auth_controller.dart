@@ -1,11 +1,13 @@
 // lib/controllers/auth_controller.dart
 
+import 'package:appwrite/appwrite.dart';
 import 'package:get/get.dart';
 import '../services/appwrite_service.dart';
 import 'package:appwrite/models.dart' as models;
 
 class AuthController extends GetxController {
-  final AppwriteService _appwriteService = AppwriteService();
+  final AppwriteService _appwriteService;
+  AuthController(Databases databases) : _appwriteService = AppwriteService(databases);
 
   // Variables reactivas
   var isLoading = false.obs;
