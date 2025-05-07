@@ -14,7 +14,6 @@ import 'controllers/mission_controller.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
 import 'screens/select_sport_screen.dart';
-import 'screens/route_list_screen.dart';
 import 'screens/create_route_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/map_screen.dart' as map_screen; // Pantalla 4

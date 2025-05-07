@@ -12,14 +12,33 @@ class SelectSportScreen extends StatelessWidget {
 
   final List<String> difficulties = ['Fácil', 'Media', 'Difícil'];
 
+  // Paleta de colores premium
+  final Color darkGray = const Color(0xFF2C2C2C);
+  final Color premiumRed = const Color(0xFFE31937); // Rojo más sofisticado que #FF0000
+  final Color gold = const Color(0xFFFFD700);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Selecciona tu Deporte")),
+      backgroundColor: darkGray, // Fondo gris oscuro
+      appBar: AppBar(
+        title: const Text("Selecciona tu Deporte", style: TextStyle(color: Colors.white)),
+        backgroundColor: darkGray,
+        elevation: 0,
+        iconTheme: IconThemeData(color: gold), // Ícono dorado
+      ),
       body: Column(
         children: [
-          const SizedBox(height: 10),
-          const Text("Elige un deporte", style: TextStyle(fontSize: 20)),
+          const SizedBox(height: 20),
+          Text(
+            "Elige un deporte", 
+            style: TextStyle(
+              fontSize: 20,
+              color: gold, // Texto dorado
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 15),
           Obx(() => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: sportController.sports.map((sport) {
@@ -28,55 +47,100 @@ class SelectSportScreen extends StatelessWidget {
                     sport: sport,
                     isSelected: isSelected,
                     onTap: () => sportController.selectSport(sport),
-                    color: isSelected ? Colors.red : Colors.black, // Color según selección
+                    color: isSelected ? premiumRed : Colors.white.withOpacity(0.7), // Rojo para selección, gris claro para no seleccionado
                   );
                 }).toList(),
               )),
           const SizedBox(height: 30),
-          const Text("Elige una dificultad", style: TextStyle(fontSize: 20)),
+          Text(
+            "Elige una dificultad", 
+            style: TextStyle(
+              fontSize: 20,
+              color: gold, // Texto dorado
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
           Obx(() => Column(
                 children: difficulties.map((difficulty) {
                   final isSelected = sportController.selectedDifficulty.value == difficulty;
-                  return RadioListTile<String>(
-                    title: Text(
-                      difficulty,
-                      style: TextStyle(
-                        color: isSelected ? Colors.red : Colors.black, // Color según selección
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: darkGray,
+                      border: Border.all(
+                        color: isSelected ? gold : Colors.transparent,
+                        width: 1.5,
                       ),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    value: difficulty,
-                    groupValue: sportController.selectedDifficulty.value,
-                    activeColor: Colors.red, // Color del radio seleccionado
-                    onChanged: (value) => sportController.selectDifficulty(value!),
+                    child: RadioListTile<String>(
+                      title: Text(
+                        difficulty,
+                        style: TextStyle(
+                          color: isSelected ? gold : Colors.white70, // Dorado si está seleccionado
+                          fontSize: 16,
+                        ),
+                      ),
+                      value: difficulty,
+                      groupValue: sportController.selectedDifficulty.value,
+                      activeColor: gold, // Radio button dorado
+                      onChanged: (value) => sportController.selectDifficulty(value!),
+                    ),
                   );
                 }).toList(),
               )),
           const Spacer(),
-          ElevatedButton(
-            onPressed: () async {
-              if (sportController.isValidSelection()) {
-                // Imprime los valores seleccionados en consola
-                print('Deporte seleccionado: ${sportController.selectedSport.value}');
-                print('Dificultad seleccionada: ${sportController.selectedDifficulty.value}');
-                try {
-                  final locationController = Get.find<LocationController>();
-                  await locationController.getCurrentLocation();
-                  final missionController = Get.find<MissionController>();
-                  await missionController.fetchMissions(
-                    sportController.selectedSport.value,
-                    sportController.selectedDifficulty.value,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: premiumRed, // Fondo rojo
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(color: gold, width: 1.5), // Borde dorado
+                ),
+                elevation: 5,
+              ),
+              onPressed: () async {
+                if (sportController.isValidSelection()) {
+                  print('Deporte seleccionado: ${sportController.selectedSport.value}');
+                  print('Dificultad seleccionada: ${sportController.selectedDifficulty.value}');
+                  try {
+                    final locationController = Get.find<LocationController>();
+                    await locationController.getCurrentLocation();
+                    final missionController = Get.find<MissionController>();
+                    await missionController.fetchMissions(
+                      sportController.selectedSport.value,
+                      sportController.selectedDifficulty.value,
+                    );
+                    Get.toNamed('/map');
+                  } catch (e) {
+                    Get.snackbar(
+                      "Error", 
+                      "No se pudo obtener la ubicación o las rutas: $e",
+                      backgroundColor: darkGray,
+                      colorText: gold,
+                    );
+                  }
+                } else {
+                  Get.snackbar(
+                    "Falta información", 
+                    "Debes elegir un deporte y una dificultad",
+                    backgroundColor: premiumRed.withOpacity(0.9),
+                    colorText: Colors.white,
                   );
-                  Get.toNamed('/map');
-                } catch (e) {
-                  Get.snackbar("Error", "No se pudo obtener la ubicación o las rutas: $e");
                 }
-              } else {
-                Get.snackbar("Falta información", "Debes elegir un deporte y una dificultad");
-              }
-            },
-            child: const Text("Aplicar"),
+              },
+              child: const Text(
+                "Aplicar",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
         ],
       ),
     );
