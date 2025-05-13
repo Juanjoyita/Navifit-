@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:appwrite/appwrite.dart'; // Asegúrate de tenerlo en pubspec.yaml
-import 'dart:convert';
+
 
 // Controladores
 import 'controllers/auth_controller.dart';

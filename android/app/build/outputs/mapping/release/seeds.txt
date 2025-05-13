@@ -1,0 +1,683 @@
+com.google.android.gms.common.api.Scope
+io.flutter.view.TextureRegistry$SurfaceTextureEntry
+androidx.window.area.reflectionguard.WindowAreaComponentApi3Requirements
+androidx.fragment.app.DialogFragment
+com.google.android.gms.common.api.GoogleApiActivity
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry
+io.flutter.embedding.engine.FlutterOverlaySurface
+androidx.lifecycle.ReportFragment$LifecycleCallbacks
+com.linusu.flutter_web_auth_2.FlutterWebAuth2Plugin
+androidx.lifecycle.ProcessLifecycleOwner$attach$1$onActivityPreCreated$1
+com.baseflow.geolocator.GeolocatorPlugin
+com.google.android.gms.common.api.internal.zzd
+com.google.android.gms.common.annotation.KeepName
+com.google.android.gms.common.api.Status
+androidx.core.app.RemoteActionCompatParcelizer
+com.google.android.gms.common.SupportErrorDialogFragment
+io.flutter.embedding.engine.plugins.lifecycle.HiddenLifecycleReference
+androidx.core.app.RemoteActionCompat
+io.flutter.plugins.urllauncher.WebViewActivity
+androidx.window.area.reflectionguard.ExtensionWindowAreaStatusRequirements
+androidx.lifecycle.ProcessLifecycleInitializer
+io.flutter.plugins.urllauncher.UrlLauncherPlugin
+androidx.profileinstaller.ProfileInstallReceiver
+androidx.window.extensions.core.util.function.Predicate
+androidx.core.app.CoreComponentFactory
+com.google.android.gms.common.GooglePlayServicesMissingManifestValueException
+dev.fluttercommunity.plus.packageinfo.PackageInfoPlugin
+com.google.android.gms.common.util.DynamiteApi
+androidx.annotation.Keep
+androidx.versionedparcelable.CustomVersionedParcelable
+androidx.window.extensions.core.util.function.Consumer
+io.flutter.view.TextureRegistry$ImageConsumer
+androidx.profileinstaller.ProfileInstallerInitializer
+dev.fluttercommunity.plus.device_info.DeviceInfoPlusPlugin
+com.google.android.gms.common.internal.ReflectedParcelable
+com.google.android.gms.dynamite.DynamiteModule$DynamiteLoaderClassLoader
+androidx.lifecycle.SavedStateHandlesVM
+androidx.versionedparcelable.ParcelImpl
+io.flutter.view.TextureRegistry$GLTextureConsumer
+com.google.android.gms.common.api.internal.LifecycleCallback
+android.support.v4.graphics.drawable.IconCompatParcelizer
+com.baseflow.geolocator.GeolocatorLocationService
+io.flutter.view.TextureRegistry$ImageTextureEntry
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback
+android.support.v4.app.RemoteActionCompatParcelizer
+androidx.window.area.reflectionguard.ExtensionWindowAreaPresentationRequirements
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper
+io.flutter.view.AccessibilityViewEmbedder
+androidx.core.graphics.drawable.IconCompat
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback$AnimationCallback
+androidx.lifecycle.LifecycleDispatcher$DispatcherActivityCallback
+androidx.loader.app.LoaderManagerImpl$LoaderViewModel
+com.google.android.gms.auth.api.signin.GoogleSignInAccount
+androidx.startup.InitializationProvider
+io.flutter.view.FlutterCallbackInformation
+io.flutter.plugins.GeneratedPluginRegistrant
+androidx.browser.browseractions.BrowserActionsFallbackMenuView
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer
+com.google.android.gms.common.GooglePlayServicesIncorrectManifestValueException
+io.flutter.view.TextureRegistry$SurfaceProducer
+androidx.lifecycle.ReportFragment
+io.flutter.plugins.pathprovider.PathProviderPlugin
+io.flutter.embedding.engine.FlutterJNI
+com.google.android.gms.common.GooglePlayServicesManifestException
+androidx.lifecycle.ProcessLifecycleOwner$attach$1
+com.google.android.gms.common.ErrorDialogFragment
+com.google.android.gms.common.api.internal.BasePendingResult
+io.flutter.plugin.platform.SingleViewPresentation
+androidx.core.graphics.drawable.IconCompatParcelizer
+androidx.window.extensions.core.util.function.Function
+com.google.android.gms.common.api.internal.zzb
+androidx.window.area.reflectionguard.WindowAreaComponentApi2Requirements
+io.flutter.embedding.engine.FlutterOverlaySurface: int id
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: io.flutter.embedding.engine.renderer.FlutterRenderer this$0
+androidx.lifecycle.Lifecycle$Event: androidx.lifecycle.Lifecycle$Event ON_PAUSE
+androidx.lifecycle.ProcessLifecycleOwner$attach$1$onActivityPreCreated$1: androidx.lifecycle.ProcessLifecycleOwner this$0
+io.flutter.embedding.engine.FlutterJNI: io.flutter.embedding.engine.FlutterJNI$AccessibilityDelegate accessibilityDelegate
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: int numTrims
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack: java.util.List finalClippingPaths
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: boolean ignoringFence
+io.flutter.plugin.platform.SingleViewPresentation: io.flutter.plugin.platform.SingleViewPresentation$AccessibilityDelegatingFrameLayout rootView
+com.google.android.gms.common.internal.zav: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: android.media.Image image
+com.google.android.gms.common.Feature: android.os.Parcelable$Creator CREATOR
+androidx.concurrent.futures.AbstractResolvableFuture: java.lang.Object value
+io.flutter.plugin.platform.SingleViewPresentation: java.lang.String TAG
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: long id
+io.flutter.plugin.platform.SingleViewPresentation: boolean startFocused
+androidx.concurrent.futures.AbstractResolvableFuture$Waiter: java.lang.Thread thread
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: boolean released
+androidx.lifecycle.Lifecycle$Event: androidx.lifecycle.Lifecycle$Event[] $VALUES
+androidx.fragment.app.FragmentState: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: long lastDequeueTime
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: boolean VERBOSE_LOGS
+io.flutter.view.AccessibilityViewEmbedder: android.view.View rootAccessibilityView
+androidx.concurrent.futures.AbstractResolvableFuture$Waiter: androidx.concurrent.futures.AbstractResolvableFuture$Waiter next
+io.flutter.view.AccessibilityViewEmbedder: android.util.SparseArray flutterIdToOrigin
+io.flutter.embedding.engine.FlutterJNI: float refreshRateFPS
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: android.view.View view
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: android.view.WindowInsets lastWindowInsets
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack: java.util.List mutators
+androidx.fragment.app.BackStackRecordState: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: boolean trimOnMemoryPressure
+com.google.android.gms.common.internal.TelemetryData: android.os.Parcelable$Creator CREATOR
+io.flutter.plugin.platform.SingleViewPresentation: android.widget.FrameLayout container
+io.flutter.embedding.engine.FlutterJNI: float displayWidth
+io.flutter.plugin.platform.SingleViewPresentation: android.view.View$OnFocusChangeListener focusChangeListener
+androidx.lifecycle.Lifecycle$Event: androidx.lifecycle.Lifecycle$Event ON_START
+io.flutter.view.AccessibilityViewEmbedder: java.util.Map originToFlutterId
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: boolean ignoringFence
+io.flutter.plugins.GeneratedPluginRegistrant: java.lang.String TAG
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: long id
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: boolean createNewReader
+io.flutter.embedding.engine.FlutterJNI: io.flutter.plugin.localization.LocalizationPlugin localizationPlugin
+io.flutter.embedding.engine.FlutterJNI: boolean loadLibraryCalled
+io.flutter.plugin.platform.SingleViewPresentation: io.flutter.plugin.platform.SingleViewPresentation$PresentationState state
+androidx.versionedparcelable.ParcelImpl: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: io.flutter.embedding.engine.renderer.FlutterRenderer this$0
+androidx.lifecycle.Lifecycle$Event: androidx.lifecycle.Lifecycle$Event ON_CREATE
+io.flutter.embedding.engine.FlutterJNI: java.lang.String TAG
+com.google.android.gms.common.api.Scope: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer$PerImageReader lastReaderDequeuedFrom
+io.flutter.embedding.engine.FlutterJNI: java.util.Set engineLifecycleListeners
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: boolean attached
+androidx.lifecycle.Lifecycle$Event: androidx.lifecycle.Lifecycle$Event ON_ANY
+io.flutter.embedding.engine.FlutterJNI: java.lang.Long nativeShellHolderId
+com.google.android.gms.signin.internal.zaa: android.os.Parcelable$Creator CREATOR
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: boolean animating
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: boolean released
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: io.flutter.view.TextureRegistry$SurfaceProducer$Callback callback
+io.flutter.view.FlutterCallbackInformation: java.lang.String callbackLibraryPath
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback$AnimationCallback: io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback this$0
+com.google.android.gms.common.internal.RootTelemetryConfiguration: android.os.Parcelable$Creator CREATOR
+com.google.android.gms.signin.internal.zak: android.os.Parcelable$Creator CREATOR
+androidx.lifecycle.ProcessLifecycleOwner$attach$1: androidx.lifecycle.ProcessLifecycleOwner this$0
+io.flutter.embedding.engine.FlutterJNI: java.util.concurrent.locks.ReentrantReadWriteLock shellHolderLock
+io.flutter.embedding.engine.FlutterJNI: boolean initCalled
+io.flutter.view.FlutterCallbackInformation: java.lang.String callbackName
+com.google.android.gms.common.internal.GetServiceRequest: android.os.Parcelable$Creator CREATOR
+androidx.fragment.app.FragmentManagerState: android.os.Parcelable$Creator CREATOR
+io.flutter.view.FlutterCallbackInformation: java.lang.String callbackClassName
+io.flutter.view.AccessibilityViewEmbedder: java.lang.String TAG
+io.flutter.embedding.engine.FlutterJNI: float displayDensity
+androidx.concurrent.futures.AbstractResolvableFuture: androidx.concurrent.futures.AbstractResolvableFuture$Listener listeners
+com.google.android.gms.dynamite.DynamiteModule$DynamiteLoaderClassLoader: java.lang.ClassLoader sClassLoader
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: int requestedHeight
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: int MAX_IMAGES
+io.flutter.view.AccessibilityViewEmbedder: java.util.Map embeddedViewToDisplayBounds
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack: android.graphics.Matrix finalMatrix
+androidx.lifecycle.Lifecycle$Event: androidx.lifecycle.Lifecycle$Event ON_RESUME
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: java.lang.Object lock
+io.flutter.embedding.engine.plugins.lifecycle.HiddenLifecycleReference: androidx.lifecycle.Lifecycle lifecycle
+io.flutter.embedding.engine.FlutterJNI: boolean prefetchDefaultFontManagerCalled
+kotlinx.coroutines.flow.StateFlowImpl: java.lang.Object _state
+androidx.concurrent.futures.AbstractResolvableFuture: androidx.concurrent.futures.AbstractResolvableFuture$Waiter waiters
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: boolean needsSave
+io.flutter.plugin.platform.SingleViewPresentation: android.content.Context outerContext
+io.flutter.embedding.engine.FlutterJNI: java.util.Set flutterUiDisplayListeners
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer$PerImage lastDequeuedImage
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: int deferredInsetTypes
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback$InsetsListener insetsListener
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: long lastQueueTime
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: boolean released
+io.flutter.view.AccessibilityViewEmbedder: io.flutter.view.AccessibilityViewEmbedder$ReflectionAccessors reflectionAccessors
+io.flutter.view.AccessibilityViewEmbedder: int nextFlutterId
+io.flutter.embedding.engine.FlutterJNI: io.flutter.plugin.platform.PlatformViewsController platformViewsController
+androidx.lifecycle.Lifecycle$Event: androidx.lifecycle.Lifecycle$Event ON_DESTROY
+com.google.android.gms.common.internal.zat: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: java.lang.String TAG
+io.flutter.embedding.engine.FlutterJNI: float displayHeight
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: java.util.ArrayDeque imageReaderQueue
+com.google.android.gms.common.internal.zzk: android.os.Parcelable$Creator CREATOR
+com.google.android.gms.common.ConnectionResult: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: int requestedWidth
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: java.lang.Runnable onFrameConsumed
+com.google.android.gms.signin.internal.zai: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: boolean newFrameAvailable
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: boolean notifiedDestroy
+androidx.lifecycle.Lifecycle$Event: androidx.lifecycle.Lifecycle$Event ON_STOP
+com.google.android.gms.common.api.Status: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: boolean CLEANUP_ON_MEMORY_PRESSURE
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback$AnimationCallback animationCallback
+io.flutter.plugin.platform.SingleViewPresentation: io.flutter.plugin.platform.AccessibilityEventsDelegate accessibilityEventsDelegate
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: java.lang.String TAG
+io.flutter.embedding.engine.FlutterJNI: android.os.Looper mainLooper
+com.google.android.gms.common.internal.MethodInvocation: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.FlutterJNI: java.lang.String vmServiceUri
+io.flutter.embedding.engine.FlutterOverlaySurface: android.view.Surface surface
+io.flutter.embedding.engine.FlutterJNI: io.flutter.embedding.engine.deferredcomponents.DeferredComponentManager deferredComponentManager
+io.flutter.embedding.engine.FlutterJNI: io.flutter.embedding.engine.dart.PlatformMessageHandler platformMessageHandler
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: androidx.lifecycle.ReportFragment$LifecycleCallbacks$Companion Companion
+com.google.android.gms.signin.internal.zag: android.os.Parcelable$Creator CREATOR
+com.google.android.gms.common.internal.ConnectionTelemetryConfiguration: android.os.Parcelable$Creator CREATOR
+androidx.fragment.app.BackStackState: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: java.util.HashMap perImageReaders
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: long lastScheduleTime
+io.flutter.embedding.engine.FlutterJNI: io.flutter.embedding.engine.FlutterJNI$AsyncWaitForVsyncDelegate asyncWaitForVsyncDelegate
+io.flutter.plugin.platform.SingleViewPresentation: int viewId
+androidx.fragment.app.FragmentManager$LaunchedFragmentInfo: android.os.Parcelable$Creator CREATOR
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: android.graphics.SurfaceTexture surfaceTexture
+androidx.lifecycle.Lifecycle$Event: androidx.lifecycle.Lifecycle$Event$Companion Companion
+com.google.android.gms.auth.api.signin.GoogleSignInAccount: android.os.Parcelable$Creator CREATOR
+com.google.android.gms.common.SupportErrorDialogFragment: SupportErrorDialogFragment()
+androidx.core.app.CoreComponentFactory: CoreComponentFactory()
+io.flutter.view.TextureRegistry$SurfaceProducer: android.view.Surface getSurface()
+androidx.activity.Api34Impl: float touchY(android.window.BackEvent)
+androidx.profileinstaller.ProfileVerifier$Api33Impl: android.content.pm.PackageInfo getPackageInfo(android.content.pm.PackageManager,android.content.Context)
+io.flutter.embedding.engine.FlutterJNI: void updateCustomAccessibilityActions(java.nio.ByteBuffer,java.lang.String[])
+androidx.core.graphics.drawable.IconCompatParcelizer: IconCompatParcelizer()
+io.flutter.embedding.engine.FlutterJNI: void dispatchSemanticsAction(int,io.flutter.view.AccessibilityBridge$Action)
+io.flutter.embedding.engine.plugins.lifecycle.HiddenLifecycleReference: HiddenLifecycleReference(androidx.lifecycle.Lifecycle)
+io.flutter.embedding.engine.FlutterJNI: long performNativeAttach(io.flutter.embedding.engine.FlutterJNI)
+io.flutter.view.AccessibilityBridge$Action: io.flutter.view.AccessibilityBridge$Action valueOf(java.lang.String)
+androidx.core.view.WindowInsetsCompat$BuilderImpl: WindowInsetsCompat$BuilderImpl()
+io.flutter.embedding.engine.FlutterJNI: void nativePrefetchDefaultFontManager()
+androidx.core.view.WindowInsetsCompat$Impl20: void setRootWindowInsets(androidx.core.view.WindowInsetsCompat)
+androidx.core.view.WindowInsetsCompat$Impl29: androidx.core.graphics.Insets getSystemGestureInsets()
+io.flutter.embedding.engine.FlutterJNI: void prefetchDefaultFontManager()
+io.flutter.embedding.engine.FlutterJNI: java.lang.String getVMServiceUri()
+io.flutter.embedding.engine.FlutterJNI: boolean nativeFlutterTextUtilsIsRegionalIndicator(int)
+androidx.core.app.NotificationCompat$BubbleMetadata$Api29Impl: android.app.Notification$BubbleMetadata toPlatform(androidx.core.app.NotificationCompat$BubbleMetadata)
+io.flutter.view.AccessibilityViewEmbedder: void setFlutterNodeParent(android.view.accessibility.AccessibilityNodeInfo,android.view.View,android.view.accessibility.AccessibilityNodeInfo)
+io.flutter.embedding.engine.FlutterJNI: void nativeUpdateRefreshRate(float)
+androidx.core.view.WindowInsetsCompat$Impl: void setSystemUiVisibility(int)
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: void updateTexImage()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: void waitOnFence(android.media.Image)
+io.flutter.embedding.engine.FlutterJNI: void dispatchSemanticsAction(int,io.flutter.view.AccessibilityBridge$Action,java.lang.Object)
+io.flutter.embedding.engine.FlutterJNI: void scheduleFrame()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: int numTrims()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: long id()
+androidx.tracing.TraceApi29Impl: boolean isEnabled()
+androidx.activity.Api34Impl: float progress(android.window.BackEvent)
+androidx.lifecycle.Lifecycle$State: androidx.lifecycle.Lifecycle$State[] values()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: double deltaMillis(long)
+androidx.core.view.WindowInsetsCompat$Impl: void setOverriddenInsets(androidx.core.graphics.Insets[])
+io.flutter.embedding.engine.FlutterJNI: void updateDisplayMetrics(int,float,float,float)
+androidx.core.view.WindowInsetsCompat$Impl28: boolean equals(java.lang.Object)
+androidx.core.view.WindowInsetsCompat$BuilderImpl: void setSystemGestureInsets(androidx.core.graphics.Insets)
+androidx.core.view.WindowInsetsCompat$Impl: void setRootViewData(androidx.core.graphics.Insets)
+androidx.core.view.WindowInsetsCompat$Impl: androidx.core.view.WindowInsetsCompat consumeSystemWindowInsets()
+androidx.lifecycle.EmptyActivityLifecycleCallbacks: void onActivityCreated(android.app.Activity,android.os.Bundle)
+androidx.lifecycle.ProcessLifecycleOwner$attach$1: ProcessLifecycleOwner$attach$1(androidx.lifecycle.ProcessLifecycleOwner)
+androidx.core.view.WindowInsetsCompat$Impl29: androidx.core.graphics.Insets getTappableElementInsets()
+io.flutter.embedding.engine.FlutterJNI: void onDisplayPlatformView(int,int,int,int,int,int,int,io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack)
+android.support.v4.app.RemoteActionCompatParcelizer: RemoteActionCompatParcelizer()
+androidx.window.area.reflectionguard.WindowAreaComponentApi2Requirements: void addRearDisplayStatusListener(androidx.window.extensions.core.util.function.Consumer)
+androidx.window.area.reflectionguard.ExtensionWindowAreaStatusRequirements: android.util.DisplayMetrics getWindowAreaDisplayMetrics()
+androidx.lifecycle.ReportFragment: ReportFragment()
+androidx.profileinstaller.ProfileInstallReceiver: ProfileInstallReceiver()
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void registerIn(android.app.Activity)
+androidx.lifecycle.SavedStateHandlesVM: SavedStateHandlesVM()
+io.flutter.plugin.platform.SingleViewPresentation: SingleViewPresentation(android.content.Context,android.view.Display,io.flutter.plugin.platform.AccessibilityEventsDelegate,io.flutter.plugin.platform.SingleViewPresentation$PresentationState,android.view.View$OnFocusChangeListener,boolean)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityPreStopped(android.app.Activity)
+io.flutter.embedding.engine.FlutterJNI: void nativeSetSemanticsEnabled(long,boolean)
+com.google.android.gms.dynamite.DynamiteModule$DynamiteLoaderClassLoader: DynamiteModule$DynamiteLoaderClassLoader()
+androidx.core.view.WindowInsetsCompat$BuilderImpl29: androidx.core.view.WindowInsetsCompat build()
+io.flutter.embedding.engine.FlutterJNI: io.flutter.view.FlutterCallbackInformation nativeLookupCallbackInformation(long)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void waitOnFence(android.media.Image)
+io.flutter.embedding.engine.FlutterJNI: boolean isCodePointEmoji(int)
+androidx.core.view.WindowInsetsCompat$Impl: androidx.core.view.DisplayCutoutCompat getDisplayCutout()
+io.flutter.view.TextureRegistry$SurfaceTextureEntry$-CC: void $default$setOnTrimMemoryListener(io.flutter.view.TextureRegistry$SurfaceTextureEntry,io.flutter.view.TextureRegistry$OnTrimMemoryListener)
+androidx.core.view.WindowInsetsCompat$Impl20: void copyRootViewBounds(android.view.View)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: FlutterRenderer$ImageTextureRegistryEntry(io.flutter.embedding.engine.renderer.FlutterRenderer,long)
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: SurfaceTextureWrapper(android.graphics.SurfaceTexture)
+io.flutter.view.TextureRegistry$ImageTextureEntry: long id()
+androidx.core.view.WindowInsetsCompat$Impl29: void setStableInsets(androidx.core.graphics.Insets)
+io.flutter.view.AccessibilityViewEmbedder: android.view.View platformViewOfNode(int)
+io.flutter.embedding.engine.FlutterJNI: void setLocalizationPlugin(io.flutter.plugin.localization.LocalizationPlugin)
+androidx.core.view.WindowInsetsCompat$BuilderImpl20: void setStableInsets(androidx.core.graphics.Insets)
+androidx.core.view.WindowInsetsCompat$Impl: void copyRootViewBounds(android.view.View)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: void pushImage(android.media.Image)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityDestroyed(android.app.Activity)
+androidx.core.view.WindowInsetsCompat$Impl: int hashCode()
+io.flutter.embedding.engine.FlutterJNI: boolean isCodePointEmojiModifierBase(int)
+io.flutter.view.AccessibilityViewEmbedder: android.view.accessibility.AccessibilityNodeInfo createAccessibilityNodeInfo(int)
+io.flutter.embedding.engine.FlutterJNI: void nativeDispatchSemanticsAction(long,int,int,java.nio.ByteBuffer,int)
+androidx.core.app.RemoteActionCompatParcelizer: androidx.core.app.RemoteActionCompat read(androidx.versionedparcelable.VersionedParcel)
+io.flutter.embedding.engine.FlutterJNI: boolean nativeFlutterTextUtilsIsEmoji(int)
+androidx.lifecycle.ProcessLifecycleOwner$attach$1: void onActivityPaused(android.app.Activity)
+android.support.v4.app.RemoteActionCompatParcelizer: androidx.core.app.RemoteActionCompat read(androidx.versionedparcelable.VersionedParcel)
+io.flutter.view.AccessibilityViewEmbedder: android.view.accessibility.AccessibilityNodeInfo getRootNode(android.view.View,int,android.graphics.Rect)
+io.flutter.embedding.engine.FlutterJNI: void setRefreshRateFPS(float)
+androidx.core.view.WindowInsetsCompat$Impl: androidx.core.graphics.Insets getInsets(int)
+io.flutter.embedding.engine.FlutterJNI: boolean isCodePointEmojiModifier(int)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: io.flutter.view.TextureRegistry$SurfaceProducer$Callback access$200(io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: long id()
+androidx.loader.app.LoaderManagerImpl$LoaderViewModel: LoaderManagerImpl$LoaderViewModel()
+androidx.core.view.WindowInsetsCompat$BuilderImpl: androidx.core.view.WindowInsetsCompat build()
+androidx.core.view.WindowInsetsCompat$Impl21: androidx.core.view.WindowInsetsCompat consumeStableInsets()
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack: FlutterMutatorsStack()
+androidx.core.view.ViewCompat$Api21Impl: java.lang.String getTransitionName(android.view.View)
+io.flutter.embedding.engine.FlutterJNI: void invokePlatformMessageResponseCallback(int,java.nio.ByteBuffer,int)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: android.view.WindowInsets access$500(io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback)
+androidx.lifecycle.Lifecycle$Event: androidx.lifecycle.Lifecycle$Event[] values()
+androidx.window.area.reflectionguard.WindowAreaComponentApi3Requirements: void endRearDisplayPresentationSession()
+androidx.fragment.app.FragmentContainerView: void setDrawDisappearingViewsLast(boolean)
+androidx.lifecycle.EmptyActivityLifecycleCallbacks: void onActivityResumed(android.app.Activity)
+androidx.core.view.WindowInsetsCompat$Impl34: WindowInsetsCompat$Impl34(androidx.core.view.WindowInsetsCompat,android.view.WindowInsets)
+android.support.v4.graphics.drawable.IconCompatParcelizer: androidx.core.graphics.drawable.IconCompat read(androidx.versionedparcelable.VersionedParcel)
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack: java.util.List getMutators()
+io.flutter.embedding.engine.FlutterJNI: FlutterJNI()
+io.flutter.embedding.engine.FlutterJNI: void nativeUpdateJavaAssetManager(long,android.content.res.AssetManager,java.lang.String)
+io.flutter.embedding.engine.FlutterOverlaySurface: android.view.Surface getSurface()
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack: android.graphics.Matrix getFinalMatrix()
+io.flutter.embedding.engine.FlutterJNI: void init(android.content.Context,java.lang.String[],java.lang.String,java.lang.String,java.lang.String,long)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback$AnimationCallback: void onPrepare(android.view.WindowInsetsAnimation)
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack$FlutterMutatorType: io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack$FlutterMutatorType valueOf(java.lang.String)
+androidx.core.view.WindowInsetsCompat$TypeImpl34: int toPlatformType(int)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: void finalize()
+androidx.core.view.WindowInsetsCompat$Impl29: WindowInsetsCompat$Impl29(androidx.core.view.WindowInsetsCompat,androidx.core.view.WindowInsetsCompat$Impl29)
+androidx.window.extensions.core.util.function.Predicate: boolean test(java.lang.Object)
+io.flutter.embedding.engine.FlutterJNI: void nativeSetViewportMetrics(long,float,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int[],int[],int[])
+io.flutter.embedding.engine.FlutterJNI: void nativeLoadDartDeferredLibrary(long,int,java.lang.String[])
+dev.fluttercommunity.plus.device_info.DeviceInfoPlusPlugin: DeviceInfoPlusPlugin()
+com.baseflow.geolocator.GeolocatorLocationService: GeolocatorLocationService()
+androidx.activity.OnBackPressedDispatcher$Api33Impl: void unregisterOnBackInvokedCallback(java.lang.Object,java.lang.Object)
+androidx.core.view.WindowInsetsCompat$BuilderImpl20: androidx.core.view.WindowInsetsCompat build()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer$PerImageReader access$700(io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: android.media.ImageReader createImageReader29()
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: android.view.View access$400(io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback)
+io.flutter.embedding.engine.FlutterJNI: android.graphics.Bitmap nativeGetBitmap(long)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityCreated(android.app.Activity,android.os.Bundle)
+io.flutter.embedding.engine.FlutterJNI: void registerImageTexture(long,io.flutter.view.TextureRegistry$ImageConsumer)
+androidx.core.view.WindowInsetsCompat$Impl: androidx.core.graphics.Insets getMandatorySystemGestureInsets()
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack: void pushClipRRect(int,int,int,int,float[])
+io.flutter.plugin.platform.SingleViewPresentation: io.flutter.plugin.platform.PlatformView getView()
+io.flutter.embedding.engine.FlutterJNI: void nativeDestroy(long)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityPostCreated(android.app.Activity,android.os.Bundle)
+io.flutter.embedding.engine.FlutterJNI: void nativeSurfaceChanged(long,int,int)
+androidx.fragment.app.SpecialEffectsController$Operation$State: androidx.fragment.app.SpecialEffectsController$Operation$State[] values()
+androidx.core.view.WindowInsetsCompat$Impl: WindowInsetsCompat$Impl(androidx.core.view.WindowInsetsCompat)
+androidx.profileinstaller.FileSectionType: androidx.profileinstaller.FileSectionType[] values()
+io.flutter.embedding.engine.FlutterJNI: java.lang.String getObservatoryUri()
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: boolean access$102(io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback,boolean)
+androidx.core.view.WindowInsetsCompat$BuilderImpl29: void setSystemWindowInsets(androidx.core.graphics.Insets)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityResumed(android.app.Activity)
+androidx.lifecycle.ProcessLifecycleOwner$attach$1$onActivityPreCreated$1: void onActivityPostStarted(android.app.Activity)
+androidx.core.view.ViewCompat$Api23Impl: androidx.core.view.WindowInsetsCompat getRootWindowInsets(android.view.View)
+io.flutter.view.AccessibilityViewEmbedder: boolean onAccessibilityHoverEvent(int,android.view.MotionEvent)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: int numImageReaders()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: int getHeight()
+io.flutter.embedding.engine.FlutterJNI: void nativeMarkTextureFrameAvailable(long,long)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivitySaveInstanceState(android.app.Activity,android.os.Bundle)
+io.flutter.view.AccessibilityViewEmbedder: AccessibilityViewEmbedder(android.view.View,int)
+io.flutter.view.AccessibilityViewEmbedder: void copyAccessibilityFields(android.view.accessibility.AccessibilityNodeInfo,android.view.accessibility.AccessibilityNodeInfo)
+io.flutter.plugin.platform.SingleViewPresentation: io.flutter.plugin.platform.SingleViewPresentation$PresentationState detachState()
+androidx.core.view.ViewCompat$Api21Impl: androidx.core.view.WindowInsetsCompat getRootWindowInsets(android.view.View)
+io.flutter.view.AccessibilityViewEmbedder: android.view.accessibility.AccessibilityNodeInfo convertToFlutterNode(android.view.accessibility.AccessibilityNodeInfo,int,android.view.View)
+androidx.activity.Api34Impl: float touchX(android.window.BackEvent)
+androidx.core.view.WindowInsetsCompat$Impl28: androidx.core.view.WindowInsetsCompat consumeDisplayCutout()
+io.flutter.embedding.engine.FlutterJNI: void updateRefreshRate()
+android.support.v4.app.RemoteActionCompatParcelizer: void write(androidx.core.app.RemoteActionCompat,androidx.versionedparcelable.VersionedParcel)
+androidx.lifecycle.ProcessLifecycleOwner$attach$1$onActivityPreCreated$1: void onActivityPostResumed(android.app.Activity)
+androidx.core.view.WindowInsetsCompat$Impl20: androidx.core.graphics.Insets getInsetsForType(int,boolean)
+io.flutter.embedding.engine.FlutterJNI: void handlePlatformMessageResponse(int,java.nio.ByteBuffer)
+io.flutter.embedding.engine.FlutterOverlaySurface: FlutterOverlaySurface(int,android.view.Surface)
+androidx.core.view.WindowInsetsCompat$Impl21: boolean isConsumed()
+androidx.activity.OnBackPressedDispatcher$Api34Impl: android.window.OnBackInvokedCallback createOnBackAnimationCallback(kotlin.jvm.functions.Function1,kotlin.jvm.functions.Function1,kotlin.jvm.functions.Function0,kotlin.jvm.functions.Function0)
+io.flutter.view.TextureRegistry$SurfaceProducer: void release()
+io.flutter.embedding.engine.FlutterJNI: void loadLibrary(android.content.Context)
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: SurfaceTextureWrapper(android.graphics.SurfaceTexture,java.lang.Runnable)
+io.flutter.embedding.engine.FlutterJNI: void onSurfaceDestroyed()
+androidx.core.view.WindowInsetsCompat$Impl: void setStableInsets(androidx.core.graphics.Insets)
+androidx.window.area.reflectionguard.WindowAreaComponentApi2Requirements: void startRearDisplaySession(android.app.Activity,androidx.window.extensions.core.util.function.Consumer)
+com.google.android.gms.common.GooglePlayServicesMissingManifestValueException: GooglePlayServicesMissingManifestValueException()
+io.flutter.embedding.engine.FlutterJNI: void setPlatformViewsController(io.flutter.plugin.platform.PlatformViewsController)
+androidx.core.view.ViewCompat$Api20Impl: void requestApplyInsets(android.view.View)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback$AnimationCallback: void onEnd(android.view.WindowInsetsAnimation)
+androidx.lifecycle.EmptyActivityLifecycleCallbacks: void onActivityPaused(android.app.Activity)
+io.flutter.embedding.engine.FlutterJNI: boolean nativeFlutterTextUtilsIsVariationSelector(int)
+io.flutter.embedding.engine.FlutterJNI: boolean getIsSoftwareRenderingEnabled()
+io.flutter.embedding.engine.FlutterJNI: void nativeRunBundleAndSnapshotFromLibrary(long,java.lang.String,java.lang.String,java.lang.String,android.content.res.AssetManager,java.util.List)
+androidx.profileinstaller.ProfileInstallerInitializer: ProfileInstallerInitializer()
+androidx.core.view.WindowInsetsCompat$Impl20: void copyWindowDataInto(androidx.core.view.WindowInsetsCompat)
+io.flutter.embedding.engine.FlutterJNI: io.flutter.embedding.engine.FlutterJNI spawn(java.lang.String,java.lang.String,java.lang.String,java.util.List)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: boolean handlesCropAndRotation()
+io.flutter.view.TextureRegistry$SurfaceProducer: int getWidth()
+androidx.core.app.RemoteActionCompatParcelizer: RemoteActionCompatParcelizer()
+io.flutter.view.AccessibilityBridge$Action: io.flutter.view.AccessibilityBridge$Action[] values()
+androidx.window.area.reflectionguard.ExtensionWindowAreaStatusRequirements: int getWindowAreaStatus()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void release()
+io.flutter.embedding.engine.FlutterJNI: void setAsyncWaitForVsyncDelegate(io.flutter.embedding.engine.FlutterJNI$AsyncWaitForVsyncDelegate)
+io.flutter.embedding.engine.FlutterJNI: void onBeginFrame()
+androidx.fragment.app.FragmentContainerView: androidx.fragment.app.Fragment getFragment()
+io.flutter.embedding.engine.FlutterJNI: void dispatchPointerDataPacket(java.nio.ByteBuffer,int)
+io.flutter.plugin.platform.SingleViewPresentation: void onCreate(android.os.Bundle)
+androidx.core.view.WindowInsetsCompat$Impl21: androidx.core.graphics.Insets getStableInsets()
+androidx.fragment.app.FragmentContainerView: void setOnApplyWindowInsetsListener(android.view.View$OnApplyWindowInsetsListener)
+androidx.core.view.WindowInsetsCompat$Impl28: androidx.core.view.DisplayCutoutCompat getDisplayCutout()
+androidx.startup.InitializationProvider: InitializationProvider()
+android.support.v4.graphics.drawable.IconCompatParcelizer: IconCompatParcelizer()
+io.flutter.view.TextureRegistry$SurfaceProducer: void setCallback(io.flutter.view.TextureRegistry$SurfaceProducer$Callback)
+io.flutter.embedding.engine.FlutterJNI: void nativeSetAccessibilityFeatures(long,int)
+io.flutter.embedding.engine.FlutterJNI: void nativeSurfaceDestroyed(long)
+io.flutter.embedding.engine.FlutterJNI: void nativeRegisterImageTexture(long,long,java.lang.ref.WeakReference)
+androidx.core.view.WindowInsetsCompat$Impl21: WindowInsetsCompat$Impl21(androidx.core.view.WindowInsetsCompat,android.view.WindowInsets)
+io.flutter.embedding.engine.FlutterJNI: java.lang.String[] computePlatformResolvedLocale(java.lang.String[])
+io.flutter.plugins.urllauncher.UrlLauncherPlugin: UrlLauncherPlugin()
+io.flutter.view.TextureRegistry$SurfaceProducer: void scheduleFrame()
+androidx.activity.OnBackPressedDispatcher$Api33Impl: android.window.OnBackInvokedCallback createOnBackInvokedCallback(kotlin.jvm.functions.Function0)
+androidx.core.view.WindowInsetsCompat$Impl: androidx.core.view.WindowInsetsCompat consumeStableInsets()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: android.media.Image acquireLatestImage()
+com.google.android.gms.common.ErrorDialogFragment: ErrorDialogFragment()
+androidx.core.view.WindowInsetsCompat$Impl20: void loadReflectionField()
+io.flutter.embedding.engine.FlutterJNI: void dispatchSemanticsAction(int,int,java.nio.ByteBuffer,int)
+io.flutter.embedding.engine.FlutterJNI: void nativeImageHeaderCallback(long,int,int)
+androidx.core.view.WindowInsetsCompat$Impl: boolean equals(java.lang.Object)
+io.flutter.embedding.engine.FlutterJNI: void onSurfaceCreated(android.view.Surface)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityStopped(android.app.Activity)
+androidx.core.view.WindowInsetsCompat$Impl30: WindowInsetsCompat$Impl30(androidx.core.view.WindowInsetsCompat,androidx.core.view.WindowInsetsCompat$Impl30)
+androidx.core.view.WindowInsetsCompat$Impl29: androidx.core.graphics.Insets getMandatorySystemGestureInsets()
+androidx.window.area.reflectionguard.WindowAreaComponentApi3Requirements: void removeRearDisplayPresentationStatusListener(androidx.window.extensions.core.util.function.Consumer)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void scheduleFrame()
+androidx.core.view.WindowInsetsCompat$Impl: boolean isRound()
+androidx.core.view.WindowInsetsCompat$Impl20: androidx.core.graphics.Insets getSystemWindowInsets()
+androidx.core.view.ViewCompat$Api30Impl: android.view.WindowInsets dispatchApplyWindowInsets(android.view.View,android.view.WindowInsets)
+io.flutter.embedding.engine.FlutterOverlaySurface: int getId()
+io.flutter.embedding.engine.FlutterJNI: void onVsync(long,long,long)
+io.flutter.embedding.engine.FlutterJNI: void addIsDisplayingFlutterUiListener(io.flutter.embedding.engine.renderer.FlutterUiDisplayListener)
+androidx.core.view.ViewCompat$Api20Impl: android.view.WindowInsets dispatchApplyWindowInsets(android.view.View,android.view.WindowInsets)
+androidx.core.view.WindowInsetsCompat$BuilderImpl: void setStableInsets(androidx.core.graphics.Insets)
+androidx.lifecycle.ProcessLifecycleOwner$Api29Impl: void registerActivityLifecycleCallbacks(android.app.Activity,android.app.Application$ActivityLifecycleCallbacks)
+io.flutter.view.AccessibilityViewEmbedder: java.lang.Integer getRecordFlutterId(android.view.View,android.view.accessibility.AccessibilityRecord)
+io.flutter.embedding.engine.FlutterJNI: void onRenderingStopped()
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack: void pushTransform(float[])
+com.google.android.gms.common.api.internal.zzd: zzd()
+androidx.core.view.WindowInsetsCompat$TypeImpl30: int toPlatformType(int)
+androidx.core.view.WindowInsetsCompat$Impl: void copyWindowDataInto(androidx.core.view.WindowInsetsCompat)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: android.view.View$OnApplyWindowInsetsListener getInsetsListener()
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: void getTransformMatrix(float[])
+androidx.profileinstaller.ProfileInstallerInitializer$Handler28Impl: android.os.Handler createAsync(android.os.Looper)
+io.flutter.embedding.engine.FlutterJNI: boolean nativeGetIsSoftwareRenderingEnabled()
+androidx.lifecycle.LifecycleDispatcher$DispatcherActivityCallback: void onActivityCreated(android.app.Activity,android.os.Bundle)
+androidx.core.view.WindowInsetsCompat$Impl20: void setOverriddenInsets(androidx.core.graphics.Insets[])
+io.flutter.embedding.engine.FlutterJNI: void nativeNotifyLowMemoryWarning(long)
+io.flutter.view.TextureRegistry$SurfaceProducer: int getHeight()
+com.linusu.flutter_web_auth_2.FlutterWebAuth2Plugin: FlutterWebAuth2Plugin()
+androidx.core.view.WindowInsetsCompat$BuilderImpl34: WindowInsetsCompat$BuilderImpl34()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer$PerImageReader getOrCreatePerImageReader(android.media.ImageReader)
+androidx.window.area.reflectionguard.WindowAreaComponentApi3Requirements: androidx.window.extensions.area.ExtensionWindowAreaPresentation getRearDisplayPresentation()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void finalize()
+androidx.core.view.ViewCompat$Api28Impl: java.lang.CharSequence getAccessibilityPaneTitle(android.view.View)
+io.flutter.embedding.engine.FlutterJNI: void onPreEngineRestart()
+io.flutter.embedding.engine.FlutterJNI: void onSurfaceWindowChanged(android.view.Surface)
+io.flutter.embedding.engine.FlutterJNI: void asyncWaitForVsync(long)
+io.flutter.embedding.engine.FlutterJNI: void updateJavaAssetManager(android.content.res.AssetManager,java.lang.String)
+io.flutter.embedding.engine.FlutterJNI: void nativeSurfaceWindowChanged(long,android.view.Surface)
+androidx.fragment.app.SpecialEffectsController$Operation$LifecycleImpact: androidx.fragment.app.SpecialEffectsController$Operation$LifecycleImpact[] values()
+io.flutter.embedding.engine.FlutterJNI: android.graphics.Bitmap getBitmap()
+io.flutter.embedding.engine.FlutterJNI: void deferredComponentInstallFailure(int,java.lang.String,boolean)
+androidx.lifecycle.ProcessLifecycleInitializer: ProcessLifecycleInitializer()
+androidx.core.view.WindowInsetsCompat$Impl30: androidx.core.graphics.Insets getInsets(int)
+androidx.lifecycle.ProcessLifecycleOwner$attach$1: void onActivityStopped(android.app.Activity)
+io.flutter.embedding.engine.FlutterJNI: void nativeCleanupMessageData(long)
+androidx.core.view.WindowInsetsCompat$BuilderImpl: void setMandatorySystemGestureInsets(androidx.core.graphics.Insets)
+com.google.android.gms.common.api.internal.zzb: zzb()
+io.flutter.embedding.engine.FlutterJNI: void nativeDispatchPlatformMessage(long,java.lang.String,java.nio.ByteBuffer,int,int)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: android.view.View access$402(io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback,android.view.View)
+androidx.core.view.WindowInsetsCompat$Impl20: WindowInsetsCompat$Impl20(androidx.core.view.WindowInsetsCompat,android.view.WindowInsets)
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: boolean shouldUpdate()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: android.media.ImageReader createImageReader()
+androidx.core.app.RemoteActionCompatParcelizer: void write(androidx.core.app.RemoteActionCompat,androidx.versionedparcelable.VersionedParcel)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: void remove()
+androidx.fragment.app.strictmode.FragmentStrictMode$Flag: androidx.fragment.app.strictmode.FragmentStrictMode$Flag[] values()
+androidx.fragment.app.FragmentContainerView: void setLayoutTransition(android.animation.LayoutTransition)
+androidx.core.view.WindowInsetsCompat$Impl20: void setSystemUiVisibility(int)
+io.flutter.embedding.engine.FlutterJNI: void cleanupMessageData(long)
+io.flutter.embedding.engine.FlutterJNI: void markTextureFrameAvailable(long)
+io.flutter.embedding.engine.FlutterJNI: boolean nativeFlutterTextUtilsIsEmojiModifier(int)
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: void detachFromGLContext()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void disableFenceForTest()
+io.flutter.embedding.engine.FlutterJNI: void onFirstFrame()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void cleanup()
+androidx.core.view.WindowInsetsCompat$Impl: androidx.core.graphics.Insets getStableInsets()
+androidx.core.view.WindowInsetsCompat$Impl20: androidx.core.graphics.Insets getVisibleInsets(android.view.View)
+com.baseflow.geolocator.GeolocatorPlugin: GeolocatorPlugin()
+io.flutter.view.AccessibilityViewEmbedder: boolean performAction(int,int,android.os.Bundle)
+androidx.core.app.NotificationCompat$BubbleMetadata$Api30Impl: android.app.Notification$BubbleMetadata toPlatform(androidx.core.app.NotificationCompat$BubbleMetadata)
+androidx.core.view.ViewCompat$Api21Impl: void setTransitionName(android.view.View,java.lang.String)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: void maybeWaitOnFence(android.media.Image)
+androidx.core.view.WindowInsetsCompat$BuilderImpl29: void setStableInsets(androidx.core.graphics.Insets)
+io.flutter.embedding.engine.FlutterJNI: void setSemanticsEnabled(boolean)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: void install()
+androidx.lifecycle.EmptyActivityLifecycleCallbacks: void onActivityDestroyed(android.app.Activity)
+androidx.lifecycle.Lifecycle$State: androidx.lifecycle.Lifecycle$State valueOf(java.lang.String)
+androidx.lifecycle.EmptyActivityLifecycleCallbacks: void onActivityStarted(android.app.Activity)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: android.media.Image acquireLatestImage()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: android.view.Surface getSurface()
+androidx.window.area.reflectionguard.WindowAreaComponentApi3Requirements: android.util.DisplayMetrics getRearDisplayMetrics()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageTextureRegistryEntry: void release()
+io.flutter.embedding.engine.FlutterJNI: void setDeferredComponentManager(io.flutter.embedding.engine.deferredcomponents.DeferredComponentManager)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer$PerImageReader getActiveReader()
+androidx.lifecycle.ProcessLifecycleOwner$attach$1$onActivityPreCreated$1: ProcessLifecycleOwner$attach$1$onActivityPreCreated$1(androidx.lifecycle.ProcessLifecycleOwner)
+io.flutter.embedding.engine.FlutterJNI: void setAccessibilityDelegate(io.flutter.embedding.engine.FlutterJNI$AccessibilityDelegate)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void lambda$dequeueImage$0()
+androidx.core.view.ViewCompat$Api20Impl: android.view.WindowInsets onApplyWindowInsets(android.view.View,android.view.WindowInsets)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer$PerImage dequeueImage()
+io.flutter.embedding.engine.FlutterJNI: void detachFromNativeAndReleaseResources()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: boolean access$800(io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer)
+io.flutter.view.TextureRegistry$SurfaceTextureEntry: void setOnTrimMemoryListener(io.flutter.view.TextureRegistry$OnTrimMemoryListener)
+androidx.core.view.WindowInsetsCompat$BuilderImpl29: void setMandatorySystemGestureInsets(androidx.core.graphics.Insets)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityPreDestroyed(android.app.Activity)
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack: java.util.List getFinalClippingPaths()
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: android.view.WindowInsetsAnimation$Callback getAnimationCallback()
+androidx.lifecycle.EmptyActivityLifecycleCallbacks: void onActivityStopped(android.app.Activity)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityPaused(android.app.Activity)
+androidx.core.view.WindowInsetsCompat$Impl20: boolean isRound()
+io.flutter.view.TextureRegistry$GLTextureConsumer: android.graphics.SurfaceTexture getSurfaceTexture()
+io.flutter.embedding.engine.FlutterJNI: void setAccessibilityFeaturesInNative(int)
+androidx.fragment.app.SpecialEffectsController$Operation$State: androidx.fragment.app.SpecialEffectsController$Operation$State valueOf(java.lang.String)
+io.flutter.embedding.engine.FlutterJNI: void unregisterTexture(long)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void maybeWaitOnFence(android.media.Image)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void pruneImageReaderQueue()
+io.flutter.embedding.engine.FlutterJNI: void addEngineLifecycleListener(io.flutter.embedding.engine.FlutterEngine$EngineLifecycleListener)
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: void release()
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: boolean access$300(io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback)
+io.flutter.embedding.engine.FlutterJNI: void setViewportMetrics(float,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int[],int[],int[])
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: boolean access$302(io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer,boolean)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: boolean access$100(io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityPrePaused(android.app.Activity)
+androidx.core.view.WindowInsetsCompat$BuilderImpl29: void setTappableElementInsets(androidx.core.graphics.Insets)
+io.flutter.embedding.engine.FlutterJNI: void nativeUpdateDisplayMetrics(long)
+androidx.fragment.app.DefaultSpecialEffectsController$Api26Impl: void setCurrentPlayTime(android.animation.AnimatorSet,long)
+io.flutter.view.TextureRegistry$SurfaceProducer: boolean handlesCropAndRotation()
+androidx.window.extensions.core.util.function.Consumer: void accept(java.lang.Object)
+androidx.core.view.WindowInsetsCompat$Impl29: WindowInsetsCompat$Impl29(androidx.core.view.WindowInsetsCompat,android.view.WindowInsets)
+androidx.core.view.WindowInsetsCompat$Impl28: int hashCode()
+io.flutter.embedding.engine.FlutterJNI: void ensureAttachedToNative()
+io.flutter.embedding.engine.FlutterJNI: void invokePlatformMessageEmptyResponseCallback(int)
+androidx.window.area.reflectionguard.WindowAreaComponentApi2Requirements: void removeRearDisplayStatusListener(androidx.window.extensions.core.util.function.Consumer)
+io.flutter.embedding.engine.FlutterJNI: float getScaledFontSize(float,int)
+io.flutter.view.TextureRegistry$SurfaceTextureEntry: long id()
+androidx.activity.OnBackPressedDispatcher$Api33Impl: void registerOnBackInvokedCallback(java.lang.Object,int,java.lang.Object)
+io.flutter.view.AccessibilityViewEmbedder: void addChildrenToFlutterNode(android.view.accessibility.AccessibilityNodeInfo,android.view.View,android.view.accessibility.AccessibilityNodeInfo)
+io.flutter.embedding.engine.FlutterJNI: void runBundleAndSnapshotFromLibrary(java.lang.String,java.lang.String,java.lang.String,android.content.res.AssetManager,java.util.List)
+androidx.core.app.RemoteActionCompat: RemoteActionCompat()
+androidx.window.area.reflectionguard.ExtensionWindowAreaPresentationRequirements: void setPresentationView(android.view.View)
+io.flutter.embedding.engine.FlutterJNI: void nativeUnregisterTexture(long,long)
+io.flutter.plugins.GeneratedPluginRegistrant: void registerWith(io.flutter.embedding.engine.FlutterEngine)
+io.flutter.embedding.engine.FlutterJNI: void removeEngineLifecycleListener(io.flutter.embedding.engine.FlutterEngine$EngineLifecycleListener)
+androidx.core.view.WindowInsetsCompat$BuilderImpl30: WindowInsetsCompat$BuilderImpl30()
+androidx.core.view.WindowInsetsCompat$Impl34: WindowInsetsCompat$Impl34(androidx.core.view.WindowInsetsCompat,androidx.core.view.WindowInsetsCompat$Impl34)
+io.flutter.plugins.pathprovider.PathProviderPlugin: PathProviderPlugin()
+androidx.core.graphics.drawable.IconCompat: IconCompat()
+androidx.core.view.WindowInsetsCompat$Impl20: androidx.core.graphics.Insets getInsets(int,boolean)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: boolean access$300(io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void onImage(android.media.ImageReader,android.media.Image)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: FlutterRenderer$ImageReaderSurfaceProducer(io.flutter.embedding.engine.renderer.FlutterRenderer,long)
+androidx.core.view.WindowInsetsCompat$Impl20: WindowInsetsCompat$Impl20(androidx.core.view.WindowInsetsCompat,androidx.core.view.WindowInsetsCompat$Impl20)
+androidx.core.view.WindowInsetsCompat$Impl28: WindowInsetsCompat$Impl28(androidx.core.view.WindowInsetsCompat,androidx.core.view.WindowInsetsCompat$Impl28)
+io.flutter.plugins.GeneratedPluginRegistrant: GeneratedPluginRegistrant()
+io.flutter.embedding.engine.plugins.lifecycle.HiddenLifecycleReference: androidx.lifecycle.Lifecycle getLifecycle()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: int getWidth()
+io.flutter.embedding.engine.FlutterJNI: void onSurfaceChanged(int,int)
+androidx.core.graphics.drawable.IconCompatParcelizer: androidx.core.graphics.drawable.IconCompat read(androidx.versionedparcelable.VersionedParcel)
+io.flutter.embedding.engine.FlutterJNI: void nativeInit(android.content.Context,java.lang.String[],java.lang.String,java.lang.String,java.lang.String,long)
+androidx.fragment.app.DialogFragment: DialogFragment()
+androidx.lifecycle.EmptyActivityLifecycleCallbacks: void onActivitySaveInstanceState(android.app.Activity,android.os.Bundle)
+io.flutter.embedding.engine.FlutterJNI: void destroyOverlaySurfaces()
+androidx.fragment.app.strictmode.FragmentStrictMode$Flag: androidx.fragment.app.strictmode.FragmentStrictMode$Flag valueOf(java.lang.String)
+io.flutter.view.TextureRegistry$SurfaceTextureEntry: void release()
+androidx.core.view.WindowInsetsCompat$Impl20: boolean equals(java.lang.Object)
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: android.graphics.SurfaceTexture surfaceTexture()
+androidx.activity.Api34Impl: android.window.BackEvent createOnBackEvent(float,float,float,int)
+io.flutter.view.TextureRegistry$ImageTextureEntry: void pushImage(android.media.Image)
+androidx.window.area.reflectionguard.WindowAreaComponentApi2Requirements: void endRearDisplaySession()
+androidx.core.view.WindowInsetsCompat$Impl20: androidx.core.graphics.Insets getRootStableInsets()
+io.flutter.embedding.engine.FlutterJNI: void nativeSurfaceCreated(long,android.view.Surface)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: boolean access$302(io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback,boolean)
+io.flutter.embedding.engine.FlutterJNI: void onEndFrame()
+io.flutter.embedding.engine.FlutterJNI: void nativeRegisterTexture(long,long,java.lang.ref.WeakReference)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: android.media.ImageReader createImageReader33()
+androidx.window.area.reflectionguard.WindowAreaComponentApi3Requirements: void startRearDisplayPresentationSession(android.app.Activity,androidx.window.extensions.core.util.function.Consumer)
+io.flutter.embedding.engine.FlutterJNI: void ensureNotAttachedToNative()
+androidx.fragment.app.SpecialEffectsController$Operation$LifecycleImpact: androidx.fragment.app.SpecialEffectsController$Operation$LifecycleImpact valueOf(java.lang.String)
+io.flutter.view.AccessibilityViewEmbedder: void cacheVirtualIdMappings(android.view.View,int,int)
+androidx.core.view.WindowInsetsCompat$BuilderImpl: WindowInsetsCompat$BuilderImpl(androidx.core.view.WindowInsetsCompat)
+androidx.core.view.WindowInsetsCompat$Impl: androidx.core.view.WindowInsetsCompat consumeDisplayCutout()
+androidx.core.view.WindowInsetsCompat$Impl: androidx.core.graphics.Insets getSystemGestureInsets()
+io.flutter.view.TextureRegistry$ImageConsumer: android.media.Image acquireLatestImage()
+androidx.fragment.app.DefaultSpecialEffectsController$Api24Impl: long totalDuration(android.animation.AnimatorSet)
+androidx.lifecycle.ProcessLifecycleOwner$attach$1: void onActivityCreated(android.app.Activity,android.os.Bundle)
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: void attachToGLContext(int)
+io.flutter.embedding.engine.FlutterJNI: void requestDartDeferredLibrary(int)
+io.flutter.embedding.engine.FlutterJNI: void handlePlatformMessage(java.lang.String,java.nio.ByteBuffer,int,long)
+io.flutter.embedding.engine.FlutterJNI: void dispatchEmptyPlatformMessage(java.lang.String,int)
+androidx.core.view.WindowInsetsCompat$BuilderImpl20: WindowInsetsCompat$BuilderImpl20()
+io.flutter.embedding.engine.FlutterJNI: void nativeDispatchEmptyPlatformMessage(long,java.lang.String,int)
+androidx.core.view.WindowInsetsCompat$Impl30: void copyRootViewBounds(android.view.View)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback$AnimationCallback: android.view.WindowInsets onProgress(android.view.WindowInsets,java.util.List)
+io.flutter.embedding.engine.FlutterJNI: void onDisplayOverlaySurface(int,int,int,int,int)
+io.flutter.embedding.engine.FlutterJNI: void nativeInvokePlatformMessageResponseCallback(long,int,java.nio.ByteBuffer,int)
+androidx.core.view.WindowInsetsCompat$BuilderImpl29: WindowInsetsCompat$BuilderImpl29()
+androidx.core.view.WindowInsetsCompat$Impl21: androidx.core.view.WindowInsetsCompat consumeSystemWindowInsets()
+io.flutter.view.TextureRegistry$SurfaceProducer: void setSize(int,int)
+io.flutter.view.TextureRegistry$ImageTextureEntry: void release()
+io.flutter.embedding.engine.FlutterJNI: void removeIsDisplayingFlutterUiListener(io.flutter.embedding.engine.renderer.FlutterUiDisplayListener)
+androidx.core.view.WindowInsetsCompat$Impl28: WindowInsetsCompat$Impl28(androidx.core.view.WindowInsetsCompat,android.view.WindowInsets)
+androidx.core.view.WindowInsetsCompat$Impl21: void setStableInsets(androidx.core.graphics.Insets)
+io.flutter.view.TextureRegistry$SurfaceTextureEntry: void setOnFrameConsumedListener(io.flutter.view.TextureRegistry$OnFrameConsumedListener)
+io.flutter.view.FlutterCallbackInformation: io.flutter.view.FlutterCallbackInformation lookupCallbackInformation(long)
+io.flutter.view.AccessibilityViewEmbedder: void setFlutterNodesTranslateBounds(android.view.accessibility.AccessibilityNodeInfo,android.graphics.Rect,android.view.accessibility.AccessibilityNodeInfo)
+io.flutter.embedding.engine.FlutterJNI: void notifyLowMemoryWarning()
+io.flutter.embedding.engine.FlutterJNI: void nativeInvokePlatformMessageEmptyResponseCallback(long,int)
+androidx.core.view.WindowInsetsCompat$Impl20: void setRootViewData(androidx.core.graphics.Insets)
+io.flutter.embedding.engine.FlutterJNI: io.flutter.embedding.engine.FlutterJNI nativeSpawn(long,java.lang.String,java.lang.String,java.lang.String,java.util.List)
+androidx.core.view.WindowInsetsCompat$BuilderImpl20: void setSystemWindowInsets(androidx.core.graphics.Insets)
+io.flutter.view.TextureRegistry$SurfaceTextureEntry$-CC: void $default$setOnFrameConsumedListener(io.flutter.view.TextureRegistry$SurfaceTextureEntry,io.flutter.view.TextureRegistry$OnFrameConsumedListener)
+io.flutter.embedding.engine.FlutterJNI: void ensureRunningOnMainThread()
+androidx.core.view.WindowInsetsCompat$Impl20: boolean systemBarVisibilityEquals(int,int)
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack$FlutterMutatorType: io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack$FlutterMutatorType[] values()
+androidx.core.view.WindowInsetsCompat$Impl34: androidx.core.graphics.Insets getInsets(int)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityPostResumed(android.app.Activity)
+io.flutter.embedding.engine.FlutterJNI: boolean isAttached()
+androidx.core.graphics.drawable.IconCompatParcelizer: void write(androidx.core.graphics.drawable.IconCompat,androidx.versionedparcelable.VersionedParcel)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: int access$200(io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback)
+io.flutter.view.FlutterCallbackInformation: FlutterCallbackInformation(java.lang.String,java.lang.String,java.lang.String)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: ReportFragment$LifecycleCallbacks()
+androidx.window.extensions.core.util.function.Function: java.lang.Object apply(java.lang.Object)
+io.flutter.embedding.engine.FlutterJNI: void attachToNative()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void onTrimMemory(int)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback$AnimationCallback: ImeSyncDeferringInsetsCallback$AnimationCallback(io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback)
+androidx.lifecycle.LifecycleDispatcher$DispatcherActivityCallback: LifecycleDispatcher$DispatcherActivityCallback()
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityPostStarted(android.app.Activity)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void setSize(int,int)
+androidx.core.view.WindowInsetsCompat$Impl: void setRootWindowInsets(androidx.core.view.WindowInsetsCompat)
+androidx.core.view.WindowInsetsCompat$Impl20: androidx.core.graphics.Insets getInsets(int)
+androidx.fragment.app.DefaultSpecialEffectsController$Api26Impl: void reverse(android.animation.AnimatorSet)
+androidx.core.view.WindowInsetsCompat$Impl: androidx.core.graphics.Insets getSystemWindowInsets()
+androidx.core.view.WindowInsetsCompat$BuilderImpl: void applyInsetTypes()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: int numImages()
+androidx.versionedparcelable.CustomVersionedParcelable: CustomVersionedParcelable()
+androidx.core.view.WindowInsetsCompat$BuilderImpl: void setTappableElementInsets(androidx.core.graphics.Insets)
+io.flutter.embedding.engine.FlutterJNI: boolean isCodePointRegionalIndicator(int)
+io.flutter.view.TextureRegistry$SurfaceTextureEntry: android.graphics.SurfaceTexture surfaceTexture()
+android.support.v4.graphics.drawable.IconCompatParcelizer: void write(androidx.core.graphics.drawable.IconCompat,androidx.versionedparcelable.VersionedParcel)
+dev.fluttercommunity.plus.packageinfo.PackageInfoPlugin: PackageInfoPlugin()
+io.flutter.embedding.engine.FlutterJNI: void dispatchPlatformMessage(java.lang.String,java.nio.ByteBuffer,int,int)
+io.flutter.embedding.engine.FlutterJNI: void setPlatformMessageHandler(io.flutter.embedding.engine.dart.PlatformMessageHandler)
+io.flutter.embedding.engine.FlutterJNI: void setAccessibilityFeatures(int)
+androidx.window.area.reflectionguard.ExtensionWindowAreaPresentationRequirements: android.content.Context getPresentationContext()
+io.flutter.embedding.engine.FlutterJNI: io.flutter.embedding.engine.FlutterOverlaySurface createOverlaySurface()
+androidx.core.view.WindowInsetsCompat$Impl30: WindowInsetsCompat$Impl30(androidx.core.view.WindowInsetsCompat,android.view.WindowInsets)
+io.flutter.embedding.engine.FlutterJNI: boolean nativeFlutterTextUtilsIsEmojiModifierBase(int)
+androidx.core.view.WindowInsetsCompat$BuilderImpl20: android.view.WindowInsets createWindowInsetsInstance()
+io.flutter.embedding.engine.FlutterJNI: void loadDartDeferredLibrary(int,java.lang.String[])
+io.flutter.embedding.engine.FlutterJNI: void updateSemantics(java.nio.ByteBuffer,java.lang.String[],java.nio.ByteBuffer[])
+io.flutter.plugin.platform.SingleViewPresentation: SingleViewPresentation(android.content.Context,android.view.Display,io.flutter.plugin.platform.PlatformView,io.flutter.plugin.platform.AccessibilityEventsDelegate,int,android.view.View$OnFocusChangeListener)
+androidx.lifecycle.ReportFragment$LifecycleCallbacks: void onActivityStarted(android.app.Activity)
+com.google.android.gms.common.api.GoogleApiActivity: GoogleApiActivity()
+io.flutter.embedding.engine.mutatorsstack.FlutterMutatorsStack: void pushClipRect(int,int,int,int)
+io.flutter.embedding.engine.FlutterJNI: android.graphics.Bitmap decodeImage(java.nio.ByteBuffer,long)
+androidx.window.area.reflectionguard.WindowAreaComponentApi3Requirements: void addRearDisplayPresentationStatusListener(androidx.window.extensions.core.util.function.Consumer)
+io.flutter.view.TextureRegistry$SurfaceProducer: long id()
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: ImeSyncDeferringInsetsCallback(android.view.View)
+io.flutter.embedding.engine.FlutterJNI: void lambda$decodeImage$0(long,android.graphics.ImageDecoder,android.graphics.ImageDecoder$ImageInfo,android.graphics.ImageDecoder$Source)
+androidx.profileinstaller.FileSectionType: androidx.profileinstaller.FileSectionType valueOf(java.lang.String)
+androidx.core.view.WindowInsetsCompat$Impl21: WindowInsetsCompat$Impl21(androidx.core.view.WindowInsetsCompat,androidx.core.view.WindowInsetsCompat$Impl21)
+io.flutter.embedding.engine.FlutterJNI: void nativeDispatchPointerDataPacket(long,java.nio.ByteBuffer,int)
+io.flutter.embedding.engine.FlutterJNI: void nativeOnVsync(long,long,long)
+io.flutter.view.AccessibilityViewEmbedder: boolean requestSendAccessibilityEvent(android.view.View,android.view.View,android.view.accessibility.AccessibilityEvent)
+io.flutter.embedding.engine.FlutterJNI: void nativeDeferredComponentInstallFailure(int,java.lang.String,boolean)
+androidx.core.view.WindowInsetsCompat$Impl: boolean isConsumed()
+androidx.core.view.WindowInsetsCompat$BuilderImpl29: void setSystemGestureInsets(androidx.core.graphics.Insets)
+androidx.browser.browseractions.BrowserActionsFallbackMenuView: BrowserActionsFallbackMenuView(android.content.Context,android.util.AttributeSet)
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void setCallback(io.flutter.view.TextureRegistry$SurfaceProducer$Callback)
+io.flutter.embedding.engine.FlutterJNI: void registerTexture(long,io.flutter.embedding.engine.renderer.SurfaceTextureWrapper)
+io.flutter.embedding.engine.FlutterJNI: long nativeAttach(io.flutter.embedding.engine.FlutterJNI)
+io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback: android.view.WindowInsets access$502(io.flutter.plugin.editing.ImeSyncDeferringInsetsCallback,android.view.WindowInsets)
+io.flutter.embedding.engine.FlutterJNI: boolean isCodePointVariantSelector(int)
+io.flutter.embedding.engine.FlutterJNI: void setSemanticsEnabledInNative(boolean)
+io.flutter.embedding.engine.renderer.SurfaceTextureWrapper: void markDirty()
+androidx.profileinstaller.ProfileInstallerInitializer$Choreographer16Impl: void postFrameCallback(java.lang.Runnable)
+androidx.core.view.WindowInsetsCompat$Impl: androidx.core.graphics.Insets getTappableElementInsets()
+io.flutter.embedding.engine.renderer.FlutterRenderer$ImageReaderSurfaceProducer: void releaseInternal()
+androidx.core.view.WindowInsetsCompat$BuilderImpl: void setSystemWindowInsets(androidx.core.graphics.Insets)
+androidx.activity.Api34Impl: int swipeEdge(android.window.BackEvent)
+io.flutter.embedding.engine.FlutterJNI: void nativeScheduleFrame(long)
+io.flutter.plugins.urllauncher.WebViewActivity: WebViewActivity()
+androidx.lifecycle.Lifecycle$Event: androidx.lifecycle.Lifecycle$Event valueOf(java.lang.String)
+com.google.android.gms.common.api.internal.LifecycleCallback: com.google.android.gms.common.api.internal.LifecycleFragment getChimeraLifecycleFragmentImpl(com.google.android.gms.common.api.internal.LifecycleActivity)
+androidx.lifecycle.ProcessLifecycleOwner$attach$1: void onActivityPreCreated(android.app.Activity,android.os.Bundle)

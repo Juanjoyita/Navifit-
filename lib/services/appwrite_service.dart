@@ -14,44 +14,61 @@ class AppwriteService {
 
   AppwriteService(Databases databases) {
     client = Client()
-      .setEndpoint('https://fra.cloud.appwrite.io/v1')
-      .setProject('67f4970e00257170a0c8');
+      .setEndpoint('https://fra.cloud.appwrite.io/v1') // Asegúrate de usar el endpoint correcto
+      .setProject('67f4970e00257170a0c8'); // Reemplaza por tu Project ID real
 
     account = Account(client);
-    database = databases; // Usa la instancia que recibes
+    database = Databases(client);
     storage = Storage(client);
   }
 
-  // Método para registrar un usuario
-  Future<User> register({required String email, required String password, required String name}) async {
+  /// Registrar un nuevo usuario
+  Future<User> register({
+    required String email,
+    required String password,
+    required String name,
+    required String userId, // Ensure this is provided
+    required String secret, // Ensure this is provided
+  }) async {
     return await account.create(
-      userId: ID.unique(),
+      userId: userId, // Use the userId parameter
       email: email,
       password: password,
-      name: name,
+      name: name, // Use the secret parameter if required by your logic
     );
   }
 
-  // Método para iniciar sesión
-  Future<Session> login({required String email, required String password}) async {
-    return await account.createEmailSession(
-      email: email,
-      password: password,
-    );
+  /// Iniciar sesión con email y contraseña
+  Future<Session> login({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      return await account.createEmailPasswordSession(
+        email: email,
+        password: password,
+      );
+    } catch (e) {
+      print('Error al iniciar sesión: $e');
+      rethrow;
+    }
   }
 
-  // Método para cerrar sesión
+  /// Cerrar sesión actual
   Future<void> logout() async {
     await account.deleteSession(sessionId: 'current');
   }
 
-  // Método para obtener el usuario actual
+  /// Obtener información del usuario actual
   Future<User> getCurrentUser() async {
     return await account.get();
   }
 
-  // Método para obtener misiones filtradas por deporte y dificultad usando tu modelo Mission
-  Future<List<Mission>> getMissions( {required String sport, required String difficulty}) async {
+  /// Obtener lista de misiones filtradas por deporte y dificultad
+  Future<List<Mission>> getMissions({
+    required String sport,
+    required String difficulty,
+  }) async {
     try {
       final response = await database.listDocuments(
         databaseId: databaseId,
@@ -71,3 +88,5 @@ class AppwriteService {
     }
   }
 }
+
+

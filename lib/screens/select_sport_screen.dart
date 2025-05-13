@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:navifit_1/controllers/mission_controller.dart';
+import '../controllers/mission_controller.dart';
 import '../controllers/sport_controller.dart';
 import '../controllers/location_controller.dart';
 import '../widgets/sport_card.dart';

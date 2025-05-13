@@ -17,7 +17,13 @@ class AuthController extends GetxController {
   Future<void> register(String email, String password, String name) async {
     try {
       isLoading.value = true;
-      await _appwriteService.register(email: email, password: password, name: name);
+      await _appwriteService.register(
+        email: email,
+        password: password,
+        name: name,
+        userId: ID.unique(), // Provide a unique userId
+        secret: 'your_secret_here' // Provide the secret
+      );
       Get.snackbar('Registro exitoso', 'Ahora puedes iniciar sesión');
       Get.back(); // Después de registrar, vuelve a la pantalla de login
     } catch (e) {
