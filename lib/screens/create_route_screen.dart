@@ -1,13 +1,16 @@
+// lib/screens/create_route_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:get/get.dart';
 import '../controllers/route_controller.dart';
 import '../controllers/location_controller.dart';
+import '../controllers/sport_controller.dart';
 
 class CreateRouteScreen extends StatelessWidget {
   final RouteController routeController = Get.find();
   final LocationController locationController = Get.find();
+  final SportController sportController = Get.find();
   
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -26,6 +29,8 @@ class CreateRouteScreen extends StatelessWidget {
             icon: const Icon(Icons.refresh),
             onPressed: () {
               routeController.resetRouteCreation();
+              sportController.selectedSport.value = ''; // Reiniciar la selección de deporte
+              sportController.selectedDifficulty.value = ''; // Reiniciar la selección de dificultad
               nameController.clear();
               descriptionController.clear();
             },
@@ -392,6 +397,8 @@ class CreateRouteScreen extends StatelessWidget {
                 child: OutlinedButton.icon(
                   onPressed: () {
                     routeController.resetRouteCreation();
+                    sportController.selectedSport.value = ''; // Reiniciar
+                    sportController.selectedDifficulty.value = ''; // Reiniciar
                     nameController.clear();
                     descriptionController.clear();
                   },
@@ -444,6 +451,12 @@ class CreateRouteScreen extends StatelessWidget {
   }
 
   void _showSaveDialog() {
+    // Resetear las selecciones del diálogo antes de mostrarlo
+    sportController.selectedSport.value = '';
+    sportController.selectedDifficulty.value = '';
+    nameController.clear();
+    descriptionController.clear();
+
     Get.dialog(
       AlertDialog(
         title: const Text('Guardar Ruta'),
@@ -451,45 +464,154 @@ class CreateRouteScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              // Campo para el nombre
               TextField(
                 controller: nameController,
                 decoration: const InputDecoration(
-                  labelText: 'Nombre de la ruta *',
-                  hintText: 'Ej: Mi ruta al trabajo',
+                  labelText: 'Nombre de la ruta *', // Marcado como obligatorio
+                  hintText: 'Ej: Mi ruta favorita',
                   border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.route),
                 ),
-                autofocus: true,
+                textCapitalization: TextCapitalization.words,
               ),
+              
               const SizedBox(height: 16),
+              
+              // Campo para la descripción
               TextField(
                 controller: descriptionController,
                 decoration: const InputDecoration(
                   labelText: 'Descripción (opcional)',
-                  hintText: 'Agrega una descripción...',
+                  hintText: 'Describe tu ruta...',
                   border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.description),
                 ),
                 maxLines: 3,
+                textCapitalization: TextCapitalization.sentences,
               ),
+              
               const SizedBox(height: 16),
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.blue[50],
-                  borderRadius: BorderRadius.circular(8),
+              
+              // Selector de deporte
+              Obx(() => DropdownButtonFormField<String>(
+                value: sportController.selectedSport.value.isEmpty 
+                    ? null 
+                    : sportController.selectedSport.value,
+                decoration: const InputDecoration(
+                  labelText: 'Tipo de deporte *', // Marcado como obligatorio
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.sports),
                 ),
-                child: Row(
-                  children: [
-                    Icon(Icons.info_outline, color: Colors.blue[700]),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        'Distancia estimada: ${routeController.formatDistance(routeController.estimatedDistance)}',
-                        style: TextStyle(color: Colors.blue[700]),
-                      ),
+                items: sportController.sports.map((sport) {
+                  return DropdownMenuItem<String>(
+                    value: sport,
+                    child: Text(sport),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  if (value != null) {
+                    sportController.selectedSport.value = value;
+                  }
+                },
+                validator: (value) { // Añadir validación
+                  if (value == null || value.isEmpty) {
+                    return 'Selecciona un deporte';
+                  }
+                  return null;
+                },
+              )),
+              
+              const SizedBox(height: 16),
+              
+              // Selector de dificultad
+              Obx(() => DropdownButtonFormField<String>(
+                value: sportController.selectedDifficulty.value.isEmpty 
+                    ? null 
+                    : sportController.selectedDifficulty.value,
+                decoration: const InputDecoration(
+                  labelText: 'Dificultad (opcional)', // Marcado como opcional
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.fitness_center),
+                ),
+                items: sportController.difficulties.map((difficulty) {
+                  return DropdownMenuItem<String>(
+                    value: difficulty,
+                    child: Row(
+                      children: [
+                        Icon(
+                          sportController.getDifficultyIcon(difficulty), // Usa el método de SportController
+                          color: sportController.getDifficultyColor(difficulty), // Usa el método de SportController
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(difficulty),
+                      ],
                     ),
-                  ],
-                ),
-              ),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  if (value != null) {
+                    sportController.selectedDifficulty.value = value;
+                  }
+                },
+              )),
+              
+              const SizedBox(height: 16),
+              
+              // Información de la ruta (distancia y duración)
+              Obx(() {
+                final estimatedDistance = routeController.estimatedDistance;
+                final selectedSport = sportController.selectedSport.value;
+                
+                // Asegurarse de que selectedSport no esté vacío antes de calcular la duración
+                final estimatedDuration = selectedSport.isNotEmpty
+                    ? routeController.calculateEstimatedDurationInSeconds(estimatedDistance, selectedSport)
+                    : null; // Si no hay deporte seleccionado, no hay duración estimada.
+
+                return Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.blue[50],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.blue[200]!),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Resumen de la ruta:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.blue[700],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Icon(Icons.straighten, color: Colors.blue[600], size: 16),
+                          const SizedBox(width: 4),
+                          Text(
+                            'Distancia: ${routeController.formatDistance(estimatedDistance)}',
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Icon(Icons.timer, color: Colors.blue[600], size: 16),
+                          const SizedBox(width: 4),
+                          Text(
+                            'Duración estimada: ${routeController.formatDuration(estimatedDuration)}',
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              }),
             ],
           ),
         ),
@@ -499,22 +621,37 @@ class CreateRouteScreen extends StatelessWidget {
               Get.back();
               nameController.clear();
               descriptionController.clear();
+              sportController.selectedSport.value = ''; // Reiniciar
+              sportController.selectedDifficulty.value = ''; // Reiniciar
             },
             child: const Text('Cancelar'),
           ),
           ElevatedButton(
-            onPressed: () {
-              routeController.saveRoute(
-                name: nameController.text,
-                description: descriptionController.text.isEmpty 
-                    ? null 
-                    : descriptionController.text,
+            onPressed: () async {
+              // Validar campos obligatorios
+              if (nameController.text.trim().isEmpty) {
+                Get.snackbar('Error', 'El nombre de la ruta es obligatorio.', snackPosition: SnackPosition.BOTTOM);
+                return;
+              }
+              if (sportController.selectedSport.value.isEmpty) {
+                Get.snackbar('Error', 'Por favor, selecciona un deporte para la ruta.', snackPosition: SnackPosition.BOTTOM);
+                return;
+              }
+
+              await routeController.saveRoute(
+                name: nameController.text.trim(),
+                description: descriptionController.text.trim().isEmpty
+                    ? null
+                    : descriptionController.text.trim(),
+                sport: sportController.selectedSport.value, // Enviar el deporte seleccionado
+                difficulty: sportController.selectedDifficulty.value.isEmpty
+                    ? null
+                    : sportController.selectedDifficulty.value, // Enviar la dificultad seleccionada
               );
-              Get.back();
-              nameController.clear();
-              descriptionController.clear();
               
-              // Preguntar si quiere crear otra ruta o volver
+              Get.back(); // Cerrar el diálogo de guardar
+              // Los campos del diálogo se resetearán en la llamada a _showPostSaveOptions o en el reset del RouteController
+
               _showPostSaveOptions();
             },
             style: ElevatedButton.styleFrom(
@@ -536,14 +673,19 @@ class CreateRouteScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Get.back(); // Cerrar diálogo
-              Get.back(); // Volver a la pantalla anterior
+              Get.back(); // Cerrar diálogo de opciones post-guardado
+              // Aquí podrías navegar a otra pantalla si lo deseas, ej. Get.offAllNamed('/home');
             },
-            child: const Text('Volver al mapa'),
+            child: const Text('Volver'),
           ),
           ElevatedButton(
             onPressed: () {
-              Get.back(); // Cerrar diálogo
+              Get.back(); // Cerrar diálogo de opciones post-guardado
+              // routeController.resetRouteCreation(); // Esto ya se llama dentro de saveRoute
+              sportController.selectedSport.value = ''; // Resetear
+              sportController.selectedDifficulty.value = ''; // Resetear
+              nameController.clear();
+              descriptionController.clear();
               // Quedarse en la pantalla para crear otra ruta
             },
             style: ElevatedButton.styleFrom(
