@@ -9,10 +9,15 @@ import '../controllers/location_controller.dart';
 class MissionDetailScreen extends StatelessWidget {
   const MissionDetailScreen({super.key});
 
-  // Paleta de colores premium
-  final Color darkGray = const Color(0xFF2C2C2C);
-  final Color premiumRed = const Color(0xFFE31937);
-  final Color gold = const Color(0xFFFFD700);
+  // Definición de tu nueva paleta de colores para esta pantalla
+  static const Color primaryDark = Color(0xFF202221); // Casi Negro / Gris Muy Oscuro (Fondo)
+  static const Color secondaryDark = Color(0xFF303531); // Gris Verdoso Muy Oscuro (Fondo para elementos, AppBar)
+  static const Color accentDarkGreen = Color(0xFF4D574E); // Verde Grisáceo Oscuro
+  static const Color accentGoldLight = Color(0xFFB68B4B); // Marrón Claro / Dorado Arena (Texto principal, acentos)
+  static const Color accentGoldMedium = Color(0xFF956E2F); // Marrón Medio / Dorado Oscuro (Botones, elementos interactivos)
+  static const Color accentGoldDark = Color(0xFF654922); // Marrón Oscuro / Bronce Oscuro (Acentos fuertes, borde de botones)
+  static const Color successColor = Color(0xFF4CAF50); // Verde para éxito/inicio
+  static const Color errorColor = Color(0xFFE53935); // Rojo para errores
 
   @override
   Widget build(BuildContext context) {
@@ -20,23 +25,24 @@ class MissionDetailScreen extends StatelessWidget {
     final locationController = Get.find<LocationController>();
 
     return Scaffold(
-      backgroundColor: darkGray,
+      backgroundColor: primaryDark, // Fondo general de la pantalla
       appBar: AppBar(
         title: Text(
           mission.title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
+          style: TextStyle(
+            color: accentGoldLight, // Título de la appbar en dorado claro
+            fontSize: 22, // Tamaño de fuente ajustado
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: darkGray,
+        backgroundColor: secondaryDark, // AppBar en un gris verdoso más claro
         elevation: 0,
-        iconTheme: IconThemeData(color: gold),
+        iconTheme: IconThemeData(color: accentGoldLight), // Íconos en dorado claro
         actions: [
           IconButton(
-            icon: Icon(Icons.info_outline, color: gold),
+            icon: Icon(Icons.info_outline, color: accentGoldLight), // Icono de información en dorado claro
             onPressed: () => _showMissionInfo(context, mission),
+            tooltip: 'Información de la misión',
           ),
         ],
       ),
@@ -45,13 +51,14 @@ class MissionDetailScreen extends StatelessWidget {
           // Información de la misión
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(18), // Padding un poco aumentado
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [darkGray, const Color(0xFF1A1A1A)],
+                colors: [secondaryDark, primaryDark], // Gradiente sutil
               ),
+              border: Border(bottom: BorderSide(color: accentGoldMedium.withOpacity(0.3), width: 1)), // Borde inferior
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,63 +66,65 @@ class MissionDetailScreen extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8), // Padding ajustado
                       decoration: BoxDecoration(
-                        color: premiumRed,
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: gold, width: 1),
+                        color: accentGoldMedium, // Fondo en dorado oscuro
+                        borderRadius: BorderRadius.circular(20), // Bordes más redondeados
+                        border: Border.all(color: accentGoldLight, width: 1.5), // Borde dorado claro
                       ),
                       child: Text(
                         mission.sport.toUpperCase(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
+                        style: TextStyle(
+                          color: primaryDark, // Texto en color de fondo para contraste
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: 10),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8), // Padding ajustado
                       decoration: BoxDecoration(
                         color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: gold, width: 1),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: accentGoldLight, width: 1.5), // Borde dorado claro
                       ),
                       child: Text(
                         mission.difficulty.toUpperCase(),
                         style: TextStyle(
-                          color: gold,
-                          fontSize: 12,
+                          color: accentGoldLight, // Texto en dorado claro
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16), // Espacio un poco mayor
                 Text(
                   mission.description,
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.8),
-                    fontSize: 14,
+                    color: accentGoldLight.withOpacity(0.8), // Descripción en dorado claro con opacidad
+                    fontSize: 15,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
                 Row(
                   children: [
-                    Icon(Icons.timer, color: gold, size: 16),
-                    const SizedBox(width: 4),
+                    Icon(Icons.timer, color: accentGoldMedium, size: 18), // Ícono en dorado oscuro
+                    const SizedBox(width: 6),
                     Text(
                       'Duración objetivo: ${mission.durationTarget} min',
-                      style: TextStyle(color: gold, fontSize: 12),
+                      style: TextStyle(color: accentGoldLight, fontSize: 13), // Texto en dorado claro
                     ),
-                    const SizedBox(width: 16),
-                    Icon(Icons.route, color: gold, size: 16),
-                    const SizedBox(width: 4),
+                    const SizedBox(width: 20),
+                    Icon(Icons.route, color: accentGoldMedium, size: 18), // Ícono en dorado oscuro
+                    const SizedBox(width: 6),
                     Text(
                       '${mission.points.length} puntos',
-                      style: TextStyle(color: gold, fontSize: 12),
+                      style: TextStyle(color: accentGoldLight, fontSize: 13), // Texto en dorado claro
                     ),
                   ],
                 ),
@@ -130,16 +139,16 @@ class MissionDetailScreen extends StatelessWidget {
 
               if (mission.points.isEmpty) {
                 return Container(
-                  color: const Color(0xFF1A1A1A),
+                  color: primaryDark, // Fondo en primaryDark
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.location_off, color: gold, size: 48),
-                        const SizedBox(height: 16),
+                        Icon(Icons.location_off, color: accentGoldLight, size: 60), // Icono más grande y dorado
+                        const SizedBox(height: 20),
                         Text(
                           'No hay puntos de ruta disponibles',
-                          style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                          style: TextStyle(color: accentGoldLight.withOpacity(0.8), fontSize: 16),
                         ),
                       ],
                     ),
@@ -157,7 +166,7 @@ class MissionDetailScreen extends StatelessWidget {
 
               return Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: gold.withOpacity(0.3), width: 1),
+                  border: Border.all(color: accentGoldMedium.withOpacity(0.3), width: 1.5), // Borde dorado oscuro
                 ),
                 child: FlutterMap(
                   options: MapOptions(
@@ -177,10 +186,10 @@ class MissionDetailScreen extends StatelessWidget {
                       polylines: [
                         Polyline(
                           points: routePoints,
-                          strokeWidth: 4.0,
-                          color: premiumRed,
+                          strokeWidth: 5.0, // Ancho de línea un poco mayor
+                          color: accentGoldMedium, // Color de la línea de la ruta en dorado oscuro
                           borderStrokeWidth: 2.0,
-                          borderColor: Colors.white,
+                          borderColor: accentGoldLight, // Borde de la línea en dorado claro
                         ),
                       ],
                     ),
@@ -195,21 +204,21 @@ class MissionDetailScreen extends StatelessWidget {
                           height: 50,
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.green,
+                              color: successColor, // Color de inicio en verde
                               shape: BoxShape.circle,
                               border: Border.all(color: Colors.white, width: 3),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.3),
-                                  blurRadius: 6,
-                                  offset: const Offset(0, 2),
+                                  color: Colors.black.withOpacity(0.4), // Sombra más oscura
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
                                 ),
                               ],
                             ),
                             child: const Icon(
                               Icons.play_arrow,
                               color: Colors.white,
-                              size: 24,
+                              size: 26, // Tamaño de icono un poco mayor
                             ),
                           ),
                         ),
@@ -221,22 +230,21 @@ class MissionDetailScreen extends StatelessWidget {
                           height: 50,
                           child: Container(
                             decoration: BoxDecoration(
-                              color: premiumRed,
+                              color: errorColor, // Color de fin en rojo
                               shape: BoxShape.circle,
                               border: Border.all(color: Colors.white, width: 3),
                               boxShadow: [
-                                // Corrected typo here
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.3),
-                                  blurRadius: 6,
-                                  offset: const Offset(0, 2),
+                                  color: Colors.black.withOpacity(0.4),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
                                 ),
                               ],
                             ),
                             child: const Icon(
                               Icons.flag,
                               color: Colors.white,
-                              size: 24,
+                              size: 26, // Tamaño de icono un poco mayor
                             ),
                           ),
                         ),
@@ -245,40 +253,53 @@ class MissionDetailScreen extends StatelessWidget {
                         if (position != null)
                           Marker(
                             point: LatLng(position.latitude, position.longitude),
-                            width: 40,
-                            height: 40,
+                            width: 45, // Tamaño un poco mayor
+                            height: 45,
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: Colors.blueAccent, // Mantener azul para la ubicación actual
                                 shape: BoxShape.circle,
-                                border: Border.all(color: Colors.white, width: 2),
+                                border: Border.all(color: Colors.white, width: 2.5),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
                               ),
                               child: const Icon(
                                 Icons.person_pin,
                                 color: Colors.white,
-                                size: 20,
+                                size: 22, // Tamaño de icono un poco mayor
                               ),
                             ),
                           ),
 
                         // Puntos intermedios
-                        // Solo si hay más de 2 puntos para evitar IndexOutOfBounds
                         ...routePoints.length > 2
                             ? routePoints.skip(1).take(routePoints.length - 2).map(
                                 (point) => Marker(
                                   point: point,
-                                  width: 20,
-                                  height: 20,
+                                  width: 25, // Tamaño un poco mayor
+                                  height: 25,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: gold,
+                                      color: accentGoldDark, // Puntos intermedios en marrón oscuro
                                       shape: BoxShape.circle,
-                                      border: Border.all(color: Colors.white, width: 1),
+                                      border: Border.all(color: Colors.white, width: 1.5),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          blurRadius: 3,
+                                          offset: const Offset(0, 1),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
                               )
-                            : [], // If not enough points, don't render intermediates
+                            : [],
                       ],
                     ),
                   ],
@@ -289,78 +310,85 @@ class MissionDetailScreen extends StatelessWidget {
 
           // Botones de acción
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(20), // Padding aumentado
             decoration: BoxDecoration(
-              color: darkGray,
+              color: secondaryDark, // Fondo en gris verdoso más claro
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+                topLeft: Radius.circular(25), // Bordes superiores más redondeados
+                topRight: Radius.circular(25),
               ),
-              border: Border.all(color: gold.withOpacity(0.3), width: 1),
+              border: Border.all(color: accentGoldMedium.withOpacity(0.3), width: 1), // Borde sutil
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.4),
+                  blurRadius: 10,
+                  offset: const Offset(0, -5), // Sombra hacia arriba
+                ),
+              ],
             ),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: premiumRed,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: BorderSide(color: gold, width: 1),
-                          ),
-                        ),
-                        onPressed: () {
-                          _startMission(mission);
-                        },
-                        icon: const Icon(Icons.play_arrow),
-                        label: const Text(
-                          'INICIAR MISIÓN',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: accentGoldMedium, // Botón en dorado oscuro
+                      foregroundColor: primaryDark, // Texto en color de fondo
+                      padding: const EdgeInsets.symmetric(vertical: 16), // Padding aumentado
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15), // Bordes más redondeados
+                        side: BorderSide(color: accentGoldLight, width: 2), // Borde dorado claro
                       ),
+                      elevation: 5, // Sombra propia
                     ),
-                  ],
+                    onPressed: () {
+                      _startMission(mission);
+                    },
+                    icon: Icon(Icons.play_arrow, size: 24, color: primaryDark), // Icono más grande
+                    label: const Text(
+                      'INICIAR MISIÓN',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, letterSpacing: 1),
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 15), // Espacio un poco mayor
                 Row(
                   children: [
                     Expanded(
                       child: OutlinedButton.icon(
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: gold,
-                          side: BorderSide(color: gold, width: 1),
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          foregroundColor: accentGoldLight, // Texto en dorado claro
+                          side: BorderSide(color: accentGoldMedium, width: 1.5), // Borde dorado oscuro
+                          padding: const EdgeInsets.symmetric(vertical: 14), // Padding ajustado
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(12), // Bordes redondeados
                           ),
+                          elevation: 0,
                         ),
                         onPressed: () {
                           _shareMission(mission);
                         },
-                        icon: const Icon(Icons.share),
-                        label: const Text('COMPARTIR'),
+                        icon: Icon(Icons.share, size: 22),
+                        label: const Text('COMPARTIR', style: TextStyle(fontSize: 15)),
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: 10), // Espacio entre botones pequeños
                     Expanded(
                       child: OutlinedButton.icon(
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: gold,
-                          side: BorderSide(color: gold, width: 1),
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          foregroundColor: accentGoldLight,
+                          side: BorderSide(color: accentGoldMedium, width: 1.5),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(12),
                           ),
+                          elevation: 0,
                         ),
                         onPressed: () {
                           _saveMission(mission);
                         },
-                        icon: const Icon(Icons.bookmark_border),
-                        label: const Text('GUARDAR'),
+                        icon: Icon(Icons.bookmark_border, size: 22),
+                        label: const Text('GUARDAR', style: TextStyle(fontSize: 15)),
                       ),
                     ),
                   ],
@@ -373,14 +401,19 @@ class MissionDetailScreen extends StatelessWidget {
     );
   }
 
+  // Diálogo de información de la misión
   void _showMissionInfo(BuildContext context, Mission mission) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: darkGray,
+        backgroundColor: secondaryDark, // Fondo del diálogo en gris verdoso más claro
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+          side: BorderSide(color: accentGoldMedium, width: 1.5), // Borde dorado oscuro
+        ),
         title: Text(
           'Información de la Misión',
-          style: TextStyle(color: gold),
+          style: TextStyle(color: accentGoldLight, fontWeight: FontWeight.bold, fontSize: 20),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -390,43 +423,44 @@ class MissionDetailScreen extends StatelessWidget {
             _buildInfoRow('Dificultad:', mission.difficulty),
             _buildInfoRow('Duración objetivo:', '${mission.durationTarget} minutos'),
             _buildInfoRow('Puntos de ruta:', '${mission.points.length}'),
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
             Text(
               'Descripción:',
-              style: TextStyle(color: gold, fontWeight: FontWeight.bold),
+              style: TextStyle(color: accentGoldLight, fontWeight: FontWeight.bold, fontSize: 16),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 6),
             Text(
               mission.description,
-              style: const TextStyle(color: Colors.white70),
+              style: TextStyle(color: accentGoldLight.withOpacity(0.8), fontSize: 15),
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Cerrar', style: TextStyle(color: gold)),
+            child: Text('Cerrar', style: TextStyle(color: accentGoldMedium, fontSize: 16)), // Botón en dorado oscuro
           ),
         ],
       ),
     );
   }
 
+  // Widget de fila de información para el diálogo
   Widget _buildInfoRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
+      padding: const EdgeInsets.symmetric(vertical: 4), // Padding ajustado
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
-            style: TextStyle(color: gold, fontWeight: FontWeight.bold),
+            style: TextStyle(color: accentGoldLight, fontWeight: FontWeight.bold, fontSize: 16), // Label en dorado claro
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 10),
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(color: Colors.white70),
+              style: TextStyle(color: accentGoldLight.withOpacity(0.8), fontSize: 16), // Valor en dorado claro con opacidad
             ),
           ),
         ],
@@ -434,15 +468,16 @@ class MissionDetailScreen extends StatelessWidget {
     );
   }
 
+  // Snackbars para acciones
   void _startMission(Mission mission) {
     Get.snackbar(
       'Misión Iniciada',
       '¡Comenzando ${mission.title}!',
-      backgroundColor: const Color(0xFFE31937).withOpacity(0.9),
+      backgroundColor: successColor.withOpacity(0.9), // Color verde para éxito
       colorText: Colors.white,
       icon: const Icon(Icons.play_arrow, color: Colors.white),
+      snackPosition: SnackPosition.TOP,
     );
-
     // Aquí puedes navegar a una pantalla de seguimiento en tiempo real
     // Get.toNamed('/missionTracking', arguments: mission);
   }
@@ -451,9 +486,10 @@ class MissionDetailScreen extends StatelessWidget {
     Get.snackbar(
       'Compartir',
       'Funcionalidad de compartir misión próximamente',
-      backgroundColor: const Color(0xFFFFD700).withOpacity(0.9),
-      colorText: const Color(0xFF2C2C2C),
-      icon: const Icon(Icons.share, color: Color(0xFF2C2C2C)),
+      backgroundColor: accentGoldMedium.withOpacity(0.9), // Dorado oscuro para compartir
+      colorText: primaryDark,
+      icon: Icon(Icons.share, color: primaryDark),
+      snackPosition: SnackPosition.TOP,
     );
   }
 
@@ -461,9 +497,10 @@ class MissionDetailScreen extends StatelessWidget {
     Get.snackbar(
       'Guardado',
       'Misión guardada en favoritos',
-      backgroundColor: const Color(0xFFFFD700).withOpacity(0.9),
-      colorText: const Color(0xFF2C2C2C),
-      icon: const Icon(Icons.bookmark, color: Color(0xFF2C2C2C)),
+      backgroundColor: accentGoldMedium.withOpacity(0.9), // Dorado oscuro para guardar
+      colorText: primaryDark,
+      icon: Icon(Icons.bookmark, color: primaryDark),
+      snackPosition: SnackPosition.TOP,
     );
   }
 }

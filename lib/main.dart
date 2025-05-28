@@ -26,26 +26,23 @@ import 'services/appwrite_service.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Configura el cliente de Appwrite
   final Client client = Client()
       .setEndpoint('https://cloud.appwrite.io/v1')
       .setProject('67f4970e00257170a0c8')
       .setSelfSigned(status: true);
 
-  // Inyección de dependencias de AppwriteService (PRIMERO Y ÚNICO)
-  Get.put(AppwriteService(client: client)); // Instancia única de AppwriteService
-
-  // Obtén la instancia de AppwriteService que acabas de inyectar
+  // Inyectar el servicio compartido
+  Get.put(AppwriteService(client: client));
   final AppwriteService appwriteService = Get.find<AppwriteService>();
 
-  // Inyecta los controladores, pasándoles la instancia compartida de AppwriteService
-  Get.put(AuthController()); // AuthController ahora usará Get.find() para AppwriteService
-  Get.put(MissionController(appwriteService: appwriteService));
-  Get.put(RouteController()); // RouteController ahora usará Get.find() para AppwriteService
-
-  // Otros controladores independientes
+  // ⚠️ Importante: primero los controladores que se usan dentro de otros
   Get.put(SportController());
   Get.put(LocationController());
+
+  // Luego los que dependen de AppwriteService
+  Get.put(AuthController());
+  Get.put(MissionController(appwriteService: appwriteService));
+  Get.put(RouteController()); // Este puede depender de SportController
 
   runApp(MyApp());
 }

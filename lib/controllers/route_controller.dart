@@ -5,11 +5,13 @@ import 'package:geodesy/geodesy.dart'; // Necesario para la clase Distance
 import '../models/route_model.dart';
 import '../services/appwrite_service.dart';
 import 'auth_controller.dart';
+import 'sport_controller.dart'; // <--- ¡AÑADE ESTA IMPORTACIÓN!
 import 'package:appwrite/models.dart' as appwrite_models;
 
 class RouteController extends GetxController {
   final AppwriteService _appwriteService = Get.find<AppwriteService>();
   final AuthController _authController = Get.find<AuthController>();
+  final SportController sportController = Get.find<SportController>(); // <--- ¡AÑADE ESTA LÍNEA!
 
   var routes = <RouteModel>[].obs;
   var isSelectingStartPoint = true.obs;
@@ -63,6 +65,8 @@ class RouteController extends GetxController {
 
     double speedMPS; // Metros por segundo
 
+    // Considera usar un mapa para velocidades en SportController si se vuelven muchas
+    // Por ahora, tu switch está bien aquí.
     switch (sport.toLowerCase()) {
       case 'running':
         speedMPS = 3.5; // Ej: 12.6 km/h
@@ -72,6 +76,12 @@ class RouteController extends GetxController {
         break;
       case 'senderismo':
         speedMPS = 1.0; // Ej: 3.6 km/h
+        break;
+      case 'caminata': // Asegúrate de incluir 'caminata' si lo usas
+        speedMPS = 1.4; // ~5 km/h
+        break;
+      case 'natación': // Asegúrate de incluir 'natación' si lo usas
+        speedMPS = 0.8; // ~2.88 km/h
         break;
       default:
         speedMPS = 1.39; // Velocidad de caminata por defecto si el deporte no está mapeado
@@ -94,6 +104,27 @@ class RouteController extends GetxController {
       return '${hours}h ${minutes}min';
     }
   }
+
+  String formatDistance(double? distanceInMeters) { // Este método ya estaba bien
+    if (distanceInMeters == null) return 'N/A';
+    return distanceInMeters < 1000
+        ? '${distanceInMeters.toStringAsFixed(0)} m'
+        : '${(distanceInMeters / 1000).toStringAsFixed(2)} km';
+  }
+
+  // >>> NO NECESITAS getSportIcon aquí, SportController lo manejará. <<<
+  // String getSportIcon(String sport) {
+  //   switch (sport.toLowerCase()) {
+  //     case 'running':
+  //       return '🏃';
+  //     case 'ciclismo':
+  //       return '🚴';
+  //     case 'senderismo':
+  //       return '🥾';
+  //     default:
+  //       return '❓';
+  //   }
+  // }
 
   Future<void> loadUserRoutes() async {
     if (_authController.user.value == null) {
@@ -147,9 +178,8 @@ class RouteController extends GetxController {
       return;
     }
 
-    // Asegurarse de que `distance` y `duration` no sean nulos para Appwrite
-    final double actualDistance = estimatedDistance ?? 0.0; // Provee un valor por defecto si es null
-    final int actualDuration = calculateEstimatedDurationInSeconds(actualDistance, sport) ?? 0; // Provee un valor por defecto si es null
+    final double actualDistance = estimatedDistance ?? 0.0;
+    final int actualDuration = calculateEstimatedDurationInSeconds(actualDistance, sport) ?? 0;
 
     try {
       isSaving.value = true;
@@ -162,9 +192,9 @@ class RouteController extends GetxController {
         startLongitude: startPoint.value!.longitude,
         endLatitude: endPoint.value!.latitude,
         endLongitude: endPoint.value!.longitude,
-        distance: actualDistance, // Usar el valor no nulo
-        duration: actualDuration, // Usar el valor no nulo
-        createdAt: DateTime.now(),
+        distance: actualDistance,
+        duration: actualDuration,
+        createdAt: DateTime.now(), // Se inicializa aquí para el modelo local
         description: description?.trim(),
         sport: sport,
         difficulty: difficulty?.isEmpty == true ? null : difficulty,
@@ -299,7 +329,6 @@ class RouteController extends GetxController {
       };
     }
 
-    // Aquí, distance y duration son siempre no nulos según el modelo
     final totalDistance = routes.map((r) => r.distance).reduce((a, b) => a + b);
     final averageDistance = totalDistance / routes.length;
     final longestRoute = routes.reduce((a, b) => a.distance > b.distance ? a : b);
@@ -322,25 +351,19 @@ class RouteController extends GetxController {
     };
   }
 
-  String formatDistance(double? distanceInMeters) {
-    if (distanceInMeters == null) return 'N/A'; // Aunque ahora siempre debería ser no nulo
-    return distanceInMeters < 1000
-        ? '${distanceInMeters.toStringAsFixed(0)} m'
-        : '${(distanceInMeters / 1000).toStringAsFixed(2)} km';
-  }
-
-  String getSportIcon(String sport) {
-    switch (sport.toLowerCase()) {
-      case 'running':
-        return '🏃';
-      case 'ciclismo':
-        return '🚴';
-      case 'senderismo':
-        return '🥾';
-      default:
-        return '❓';
-    }
-  }
+  // Elimina este método, ya no lo necesitas aquí.
+  // String getSportIcon(String sport) {
+  //   switch (sport.toLowerCase()) {
+  //     case 'running':
+  //       return '🏃';
+  //     case 'ciclismo':
+  //       return '🚴';
+  //     case 'senderismo':
+  //       return '🥾';
+  //     default:
+  //       return '❓';
+  //   }
+  // }
 
   Future<void> refreshRoutes() async {
     await loadUserRoutes();

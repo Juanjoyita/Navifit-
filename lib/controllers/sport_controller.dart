@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart'; // Importa para IconData y Color
 
 class SportController extends GetxController {
-  // Lista de deportes disponibles (solo los que especificaste)
+  // Lista de deportes disponibles (SOLO los que ya tenías)
   var sports = ['Running', 'Ciclismo', 'Senderismo'].obs;
 
-  // Lista de dificultades disponibles (solo los que especificaste)
+  // Lista de dificultades disponibles (SOLO los que ya tenías)
   var difficulties = ['Fácil', 'Moderado', 'Difícil', 'Extremo'].obs;
 
   // Variables observables para el deporte y dificultad seleccionados
@@ -20,6 +20,21 @@ class SportController extends GetxController {
 
   void selectDifficulty(String difficulty) {
     selectedDifficulty.value = difficulty;
+  }
+
+  // >>>>>> MÉTODO AÑADIDO <<<<<<
+  // Método para obtener el icono de un deporte (solo para tus deportes existentes)
+  IconData getSportIconData(String sport) {
+    switch (sport.toLowerCase()) {
+      case 'running':
+        return Icons.directions_run;
+      case 'ciclismo':
+        return Icons.pedal_bike;
+      case 'senderismo':
+        return Icons.hiking;
+      default:
+        return Icons.sports; // Icono por defecto si el deporte no coincide
+    }
   }
 
   // Método para obtener el icono de la dificultad (mantenido para la UI)

@@ -57,10 +57,10 @@ class RouteModel {
       startLongitude: (json['startLongitude'] as num).toDouble(),
       endLatitude: (json['endLatitude'] as num).toDouble(),
       endLongitude: (json['endLongitude'] as num).toDouble(),
-      // ¡IMPORTANTE! Leer como no nulo. Si Appwrite puede devolver nulo para un campo requerido,
-      // esto causaría un error. Pero dado que lo marcaste como requerido, Appwrite no debería.
-      distance: (json['distance'] as num).toDouble(),
-      duration: (json['duration'] as num).toInt(),
+      // ¡IMPORTANTE! Leer como no nulo.
+      // Asegúrate de que los nombres de los campos en Appwrite sean 'distance' y 'duration'
+      distance: (json['distance'] as num).toDouble(), // <--- CORRECCIÓN DE NOMBRE DEL CAMPO JSON
+      duration: (json['duration'] as num).toInt(),   // <--- CORRECCIÓN DE NOMBRE DEL CAMPO JSON
       description: json['description'] as String?,
       sport: json['sport'] as String,
       difficulty: json['difficulty'] as String?,
@@ -126,8 +126,7 @@ class RouteModel {
   // >>>>>> GETTERS PARA CONVERTIR Latitudes/Longitudes a LatLng <<<<<<
   // Esto permite que el resto de tu código que usa LatLng siga funcionando sin cambios mayores
   LatLng get startPoint => LatLng(startLatitude, startLongitude);
-  // CORRECCIÓN: 'endEndDate' a 'endLatitude'
-  LatLng get endPoint => LatLng(endLatitude, endLongitude);
+  LatLng get endPoint => LatLng(endLatitude, endLongitude); // <--- CORRECCIÓN: De endEndDate a endLatitude
 
   // Método adicional para debug/logging
   @override
