@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:appwrite/appwrite.dart'; // Asegúrate de tenerlo en pubspec.yaml
+import 'package:appwrite/appwrite.dart';
 
 // Controladores
 import 'controllers/auth_controller.dart';
@@ -15,39 +15,34 @@ import 'screens/register_screen.dart';
 import 'screens/select_sport_screen.dart';
 import 'screens/create_route_screen.dart';
 import 'screens/profile_screen.dart';
-import 'screens/map_screen.dart' as map_screen; // Pantalla 4
-import 'screens/mission_route_screen.dart';     // Pantalla 5
-import 'package:versus_match/screens/mission_details.dart'; // Asegúrate de que esta importación sea correcta
+import 'screens/map_screen.dart' as map_screen;
+import 'screens/mission_route_screen.dart';// Nueva pantalla para ver rutas guardadas
+import 'package:versus_match/screens/mission_details.dart';
 
 // Servicios
 import 'services/appwrite_service.dart';
 
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Configura el cliente de Appwrite UNA SOLA VEZ y correctamente
+  // Configura el cliente de Appwrite
   final Client client = Client()
-      .setEndpoint('https://cloud.appwrite.io/v1') // ¡VERIFICA TU ENDPOINT!
-      .setProject('67f4970e00257170a0c8')                 // <-- ¡VERIFICA TU PROJECT ID!
-      .setSelfSigned(status: true); // Solo si usas localhost o entorno sin SSL.
-                                    // Para producción, esto suele ser false o se omite.
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject('67f4970e00257170a0c8')
+      .setSelfSigned(status: true);
 
-  // Inyección de dependencias de AppwriteService (que requiere el Client)
+  // Inyección de dependencias de AppwriteService
   final AppwriteService appwriteService = AppwriteService(client: client);
-  Get.put(appwriteService); // Ahora el servicio está disponible en GetX
+  Get.put(appwriteService);
 
-  // Inyección de dependencias de AuthController (que ahora requiere el Client)
+  // Controladores que dependen de AppwriteService
   Get.put(AuthController(appwriteClient: client));
-
-  // Inyección de dependencias de MissionController (que requiere AppwriteService)
   Get.put(MissionController(appwriteService: appwriteService));
+  Get.put(RouteController()); // Ahora usará el AppwriteService inyectado
 
-  // Otros controladores que no dependen directamente del Client de Appwrite o AppwriteService
+  // Otros controladores independientes
   Get.put(SportController());
-  Get.put(RouteController());
   Get.put(LocationController());
-
 
   runApp(MyApp());
 }
