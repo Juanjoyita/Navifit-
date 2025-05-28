@@ -68,16 +68,11 @@ class AppwriteService {
   }
 
   /// Obtener información del usuario actual
-  /// IMPORTANTE: Si el usuario no está logueado, esta función lanzará una AppwriteException.
-  /// Tu AuthController debe manejar esto para establecer el usuario como null.
   Future<User> getCurrentUser() async {
     try {
       return await account.get();
     } catch (e) {
-      // No imprimas el error aquí si esperas que el usuario no esté logueado
-      // La intención es que el AuthController capture esto para saber si hay usuario.
-      // print('AppwriteService - Error al obtener usuario actual: $e');
-      rethrow; // Relanza el error para que AuthController lo capture
+      rethrow;
     }
   }
 
@@ -105,8 +100,6 @@ class AppwriteService {
 
       return response.documents
           .map((doc) {
-            // Asegúrate de que tu Mission.fromJson maneje '$id' si lo usas
-            // print('AppwriteService - Procesando documento de misión: ${doc.data}');
             return Mission.fromJson(doc.data);
           })
           .toList();
@@ -121,51 +114,48 @@ class AppwriteService {
   /// Crear una nueva ruta de usuario
   Future<RouteModel> createUserRoute(RouteModel route) async {
     try {
-      final User user = await getCurrentUser(); // Obtener el usuario actual
+      final User user = await getCurrentUser();
       
-      // Prepara los datos para Appwrite incluyendo el userId y asegurando que sea String
       final Map<String, dynamic> routeData = route.toJson();
-      routeData['userId'] = user.$id; // Asocia la ruta con el ID del usuario actual
+      // Asegurar que el userId de la ruta sea el del usuario actual
+      routeData['userId'] = user.$id; 
 
       final Document response = await database.createDocument(
         databaseId: databaseId,
         collectionId: userRoutesCollectionId,
-        documentId: ID.unique(), // Deja que Appwrite genere un ID único
+        documentId: ID.unique(),
         data: routeData,
-        // *** IMPORTANTE: Define permisos aquí. Por defecto, solo el creador puede leer/escribir. ***
         permissions: [
           Permission.read(Role.user(user.$id)),
           Permission.write(Role.user(user.$id)),
-          // Puedes añadir Permission.read(Role.any()) si quieres que sean rutas públicas
         ],
       );
 
       print('AppwriteService - Ruta creada exitosamente: ${response.$id}');
       
-      // Retorna el RouteModel creado con el ID de Appwrite
       return RouteModel.fromJson({
         ...response.data,
-        '\$id': response.$id, // Usa el ID generado por Appwrite para el modelo
+        '\$id': response.$id,
         '\$createdAt': response.$createdAt,
         '\$updatedAt': response.$updatedAt,
       });
     } catch (e) {
       print('AppwriteService - Error al crear ruta: $e');
-      rethrow; // Relanza el error para que el controlador lo maneje
+      rethrow;
     }
   }
 
   /// Obtener todas las rutas del usuario actual
   Future<List<RouteModel>> getUserRoutes() async {
     try {
-      final User user = await getCurrentUser(); // Obtener el usuario actual
+      final User user = await getCurrentUser();
       
       final DocumentList response = await database.listDocuments(
         databaseId: databaseId,
         collectionId: userRoutesCollectionId,
         queries: [
-          Query.equal('userId', user.$id), // Filtra por el ID del usuario actual
-          Query.orderDesc('\$createdAt'), // Ordena por fecha de creación, más recientes primero
+          Query.equal('userId', user.$id),
+          Query.orderDesc('\$createdAt'),
         ],
       );
 
@@ -174,14 +164,14 @@ class AppwriteService {
       return response.documents
           .map((doc) => RouteModel.fromJson({
             ...doc.data,
-            '\$id': doc.$id, // Asegura que el ID de Appwrite se mapee a 'id' en RouteModel
+            '\$id': doc.$id,
             '\$createdAt': doc.$createdAt,
             '\$updatedAt': doc.$updatedAt,
           }))
           .toList();
     } catch (e) {
       print('AppwriteService - Error al obtener rutas del usuario: $e');
-      rethrow; // Relanza el error
+      rethrow;
     }
   }
 
@@ -194,7 +184,6 @@ class AppwriteService {
         documentId: routeId,
       );
 
-      // Mapea el ID de Appwrite al campo 'id' de tu modelo
       return RouteModel.fromJson({
         ...response.data,
         '\$id': response.$id,
@@ -203,25 +192,18 @@ class AppwriteService {
       });
     } catch (e) {
       print('AppwriteService - Error al obtener ruta por ID: $e');
-      // Si es un error 404 (documento no encontrado), podrías retornar null
       if (e is AppwriteException && e.code == 404) {
         return null;
       }
-      rethrow; // Relanza otros errores
+      rethrow;
     }
   }
 
   /// Actualizar una ruta existente
   Future<RouteModel> updateUserRoute(String routeId, RouteModel updatedRoute) async {
     try {
-      // No necesitas volver a obtener el usuario aquí si `updatedRoute` ya contiene el `userId`
-      // y si confías en que el `RouteController` solo enviará rutas del usuario actual.
-      // Si la seguridad fuera extrema, podrías verificar el userId antes de actualizar.
-      
       final Map<String, dynamic> routeData = updatedRoute.toJson();
-      // Eliminar el campo 'id' si tu toJson lo incluye y Appwrite no lo espera para la actualización
       routeData.remove('id'); 
-      // Appwrite tampoco espera '\$createdAt' ni '\$updatedAt' en el data para update
       routeData.remove('createdAt');
       routeData.remove('updatedAt');
 
@@ -229,15 +211,14 @@ class AppwriteService {
         databaseId: databaseId,
         collectionId: userRoutesCollectionId,
         documentId: routeId,
-        data: routeData, // Pasa solo los campos que quieres actualizar
-        // Puedes actualizar los permisos si es necesario
+        data: routeData,
       );
 
       print('AppwriteService - Ruta actualizada exitosamente: $routeId');
       
       return RouteModel.fromJson({
         ...response.data,
-        '\$id': response.$id, // Mapea el ID de Appwrite al campo 'id'
+        '\$id': response.$id,
         '\$createdAt': response.$createdAt,
         '\$updatedAt': response.$updatedAt,
       });
@@ -273,14 +254,13 @@ class AppwriteService {
         collectionId: userRoutesCollectionId,
         queries: [
           Query.equal('userId', user.$id),
-          Query.limit(1), // Solo necesitamos el conteo, no los documentos completos
+          Query.limit(1),
         ],
       );
 
       return response.total;
     } catch (e) {
       print('AppwriteService - Error al contar rutas: $e');
-      // Podrías retornar 0 o relanzar el error dependiendo de cómo quieras manejarlo
       return 0;
     }
   }
@@ -294,8 +274,8 @@ class AppwriteService {
         databaseId: databaseId,
         collectionId: userRoutesCollectionId,
         queries: [
-          Query.equal('userId', user.$id), // Solo rutas del usuario actual
-          Query.search('name', searchTerm), // Busca en el campo 'name'
+          Query.equal('userId', user.$id),
+          Query.search('name', searchTerm),
           Query.orderDesc('\$createdAt'),
         ],
       );

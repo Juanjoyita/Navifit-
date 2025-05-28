@@ -1,3 +1,4 @@
+// lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:appwrite/appwrite.dart';
@@ -16,7 +17,7 @@ import 'screens/select_sport_screen.dart';
 import 'screens/create_route_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/map_screen.dart' as map_screen;
-import 'screens/mission_route_screen.dart';// Nueva pantalla para ver rutas guardadas
+import 'screens/mission_route_screen.dart';
 import 'package:versus_match/screens/mission_details.dart';
 
 // Servicios
@@ -31,14 +32,16 @@ void main() {
       .setProject('67f4970e00257170a0c8')
       .setSelfSigned(status: true);
 
-  // Inyección de dependencias de AppwriteService
-  final AppwriteService appwriteService = AppwriteService(client: client);
-  Get.put(appwriteService);
+  // Inyección de dependencias de AppwriteService (PRIMERO Y ÚNICO)
+  Get.put(AppwriteService(client: client)); // Instancia única de AppwriteService
 
-  // Controladores que dependen de AppwriteService
-  Get.put(AuthController(appwriteClient: client));
+  // Obtén la instancia de AppwriteService que acabas de inyectar
+  final AppwriteService appwriteService = Get.find<AppwriteService>();
+
+  // Inyecta los controladores, pasándoles la instancia compartida de AppwriteService
+  Get.put(AuthController()); // AuthController ahora usará Get.find() para AppwriteService
   Get.put(MissionController(appwriteService: appwriteService));
-  Get.put(RouteController()); // Ahora usará el AppwriteService inyectado
+  Get.put(RouteController()); // RouteController ahora usará Get.find() para AppwriteService
 
   // Otros controladores independientes
   Get.put(SportController());

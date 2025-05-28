@@ -4,29 +4,26 @@ import 'package:latlong2/latlong.dart';
 import 'package:geodesy/geodesy.dart'; // Necesario para la clase Distance
 import '../models/route_model.dart';
 import '../services/appwrite_service.dart';
-import 'auth_controller.dart'; // Importar AuthController
-import 'package:appwrite/models.dart' as appwrite_models; // Importar el modelo User de Appwrite
+import 'auth_controller.dart';
+import 'package:appwrite/models.dart' as appwrite_models;
 
 class RouteController extends GetxController {
-  final AppwriteService _appwriteService = Get.find();
-  final AuthController _authController = Get.find(); // Obtener AuthController
+  final AppwriteService _appwriteService = Get.find<AppwriteService>();
+  final AuthController _authController = Get.find<AuthController>();
 
-  // Observables para la gestión de rutas y UI
   var routes = <RouteModel>[].obs;
   var isSelectingStartPoint = true.obs;
   var startPoint = Rxn<LatLng>();
   var endPoint = Rxn<LatLng>();
-  var isCreatingRoute = false.obs; // Para controlar el flujo de creación de ruta
-  var selectedRoute = Rxn<RouteModel>(); // Para ver/editar una ruta existente
-  var isLoading = false.obs; // Para operaciones de carga de datos
-  var isSaving = false.obs; // Para operaciones de guardado de datos
+  var isCreatingRoute = false.obs;
+  var selectedRoute = Rxn<RouteModel>();
+  var isLoading = false.obs;
+  var isSaving = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    // Reaccionar a cambios en el usuario logueado
-    // AHORA USAMOS _authController.user.value
-    ever(_authController.user, (appwrite_models.User? user) { // <-- CAMBIO AQUÍ: _authController.user
+    ever(_authController.user, (appwrite_models.User? user) {
       if (user != null) {
         print('RouteController: Usuario logueado (${user.$id}), cargando rutas...');
         loadUserRoutes();
@@ -36,8 +33,6 @@ class RouteController extends GetxController {
       }
     });
   }
-
-  // ============== MÉTODOS DE GESTIÓN DE ESTADO DE LA RUTA EN EL MAPA ==============
 
   void resetRouteCreation() {
     isSelectingStartPoint.value = true;
@@ -52,30 +47,22 @@ class RouteController extends GetxController {
       isSelectingStartPoint.value = false;
     } else {
       endPoint.value = point;
-      // Una vez que se seleccionan ambos puntos, puedes decidir iniciar el proceso de guardado o no.
-      // isCreatingRoute.value = true; // Esto lo puedes activar si quieres que la UI cambie a un estado de "creando"
     }
   }
 
-  // Getter para saber si ambos puntos han sido seleccionados
   bool get bothPointsSelected => startPoint.value != null && endPoint.value != null;
 
-  // Getter para la distancia estimada en metros
   double? get estimatedDistance {
     if (!bothPointsSelected) return null;
     const Distance distance = Distance();
     return distance.as(LengthUnit.Meter, startPoint.value!, endPoint.value!);
   }
 
-  // ============== MÉTODOS DE CÁLCULO DE DURACIÓN ==============
-
-  // Método para estimar la duración en segundos basado en el deporte y la distancia
   int? calculateEstimatedDurationInSeconds(double? distanceInMeters, String sport) {
     if (distanceInMeters == null || distanceInMeters <= 0 || sport.isEmpty) return null;
 
     double speedMPS; // Metros por segundo
 
-    // Velocidades estimadas (ajusta estos valores según tus necesidades reales)
     switch (sport.toLowerCase()) {
       case 'running':
         speedMPS = 3.5; // Ej: 12.6 km/h
@@ -86,14 +73,12 @@ class RouteController extends GetxController {
       case 'senderismo':
         speedMPS = 1.0; // Ej: 3.6 km/h
         break;
-      // Añade otros deportes aquí si los usas en el futuro.
       default:
         speedMPS = 1.39; // Velocidad de caminata por defecto si el deporte no está mapeado
     }
-    return (distanceInMeters / speedMPS).round(); // Redondea a segundos enteros
+    return (distanceInMeters / speedMPS).round();
   }
 
-  // Método para formatear la duración de segundos a un formato legible (ej. 1h 30min)
   String formatDuration(int? durationInSeconds) {
     if (durationInSeconds == null) return 'N/A';
 
@@ -110,12 +95,8 @@ class RouteController extends GetxController {
     }
   }
 
-  // ============== MÉTODOS DE INTERACCIÓN CON APPWRITE ==============
-
-  // Carga las rutas del usuario actual desde Appwrite
   Future<void> loadUserRoutes() async {
-    // AHORA USAMOS _authController.user.value
-    if (_authController.user.value == null) { // <-- CAMBIO AQUÍ: _authController.user
+    if (_authController.user.value == null) {
       print('RouteController: No hay usuario logueado. No se pueden cargar rutas.');
       routes.clear();
       return;
@@ -123,7 +104,7 @@ class RouteController extends GetxController {
     try {
       isLoading.value = true;
       final userRoutes = await _appwriteService.getUserRoutes();
-      routes.value = userRoutes; // Actualiza la lista observable de rutas
+      routes.value = userRoutes;
       print('RouteController: ${userRoutes.length} rutas cargadas');
     } catch (e) {
       print('RouteController: Error al cargar rutas: $e');
@@ -137,15 +118,13 @@ class RouteController extends GetxController {
     }
   }
 
-  // Guarda una nueva ruta en Appwrite
   Future<void> saveRoute({
     required String name,
     String? description,
-    required String sport, // Asegúrate de que este valor proviene del UI
+    required String sport,
     String? difficulty,
   }) async {
-    // AHORA USAMOS _authController.user.value
-    if (_authController.user.value == null) { // <-- CAMBIO AQUÍ: _authController.user
+    if (_authController.user.value == null) {
       Get.snackbar('Error', 'Debes iniciar sesión para guardar una ruta.');
       return;
     }
@@ -162,36 +141,38 @@ class RouteController extends GetxController {
       return;
     }
 
-    // AHORA USAMOS _authController.user.value
-    final String? currentUserId = _authController.user.value?.$id; // <-- CAMBIO AQUÍ: _authController.user
+    final String? currentUserId = _authController.user.value?.$id;
     if (currentUserId == null) {
       Get.snackbar('Error', 'No se pudo obtener el ID de usuario. Vuelve a iniciar sesión.');
       return;
     }
 
-    // Calcular la duración antes de crear el modelo
-    final int? estimatedDuration = calculateEstimatedDurationInSeconds(estimatedDistance, sport);
+    // Asegurarse de que `distance` y `duration` no sean nulos para Appwrite
+    final double actualDistance = estimatedDistance ?? 0.0; // Provee un valor por defecto si es null
+    final int actualDuration = calculateEstimatedDurationInSeconds(actualDistance, sport) ?? 0; // Provee un valor por defecto si es null
 
     try {
-      isSaving.value = true; // Indica que se está guardando
+      isSaving.value = true;
 
       final newRoute = RouteModel(
-        id: null, // Appwrite asignará el ID automáticamente
+        id: null,
         userId: currentUserId,
         name: name.trim(),
-        startPoint: startPoint.value!,
-        endPoint: endPoint.value!,
-        distance: estimatedDistance,
+        startLatitude: startPoint.value!.latitude,
+        startLongitude: startPoint.value!.longitude,
+        endLatitude: endPoint.value!.latitude,
+        endLongitude: endPoint.value!.longitude,
+        distance: actualDistance, // Usar el valor no nulo
+        duration: actualDuration, // Usar el valor no nulo
         createdAt: DateTime.now(),
         description: description?.trim(),
         sport: sport,
         difficulty: difficulty?.isEmpty == true ? null : difficulty,
-        duration: estimatedDuration,
       );
 
       final savedRoute = await _appwriteService.createUserRoute(newRoute);
 
-      routes.insert(0, savedRoute); // Añade la nueva ruta a la lista observable
+      routes.insert(0, savedRoute);
 
       Get.snackbar(
         'Éxito',
@@ -199,7 +180,7 @@ class RouteController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
 
-      resetRouteCreation(); // Limpia los puntos del mapa para una nueva creación
+      resetRouteCreation();
     } catch (e) {
       print('RouteController: Error al guardar ruta: $e');
       Get.snackbar(
@@ -208,17 +189,16 @@ class RouteController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
-      isSaving.value = false; // Finaliza la operación de guardado
+      isSaving.value = false;
     }
   }
 
-  // Elimina una ruta por su ID
   Future<void> deleteRoute(String routeId) async {
     try {
-      isLoading.value = true; // Indica que se está cargando/modificando
+      isLoading.value = true;
 
       await _appwriteService.deleteUserRoute(routeId);
-      routes.removeWhere((route) => route.id == routeId); // Elimina de la lista observable
+      routes.removeWhere((route) => route.id == routeId);
 
       Get.snackbar(
         'Éxito',
@@ -237,25 +217,22 @@ class RouteController extends GetxController {
     }
   }
 
-  // Actualiza una ruta existente en Appwrite
   Future<void> updateRoute(RouteModel updatedRoute) async {
     try {
       isLoading.value = true;
 
-      // Asegúrate de que el ID de la ruta no sea nulo para la actualización
       if (updatedRoute.id == null) {
         throw Exception("No se puede actualizar la ruta: El ID de la ruta es nulo.");
       }
 
-      // La llamada a updateUserRoute espera un String no nulo para el ID
       final updated = await _appwriteService.updateUserRoute(
-        updatedRoute.id!, // Usamos '!' para asegurar que no es nulo aquí, ya que lo hemos comprobado.
+        updatedRoute.id!,
         updatedRoute,
       );
 
       final index = routes.indexWhere((route) => route.id == updatedRoute.id);
       if (index != -1) {
-        routes[index] = updated; // Actualiza la ruta en la lista observable
+        routes[index] = updated;
       }
 
       Get.snackbar(
@@ -275,17 +252,16 @@ class RouteController extends GetxController {
     }
   }
 
-  // Busca rutas por un término de búsqueda
   Future<void> searchRoutes(String searchTerm) async {
     if (searchTerm.trim().isEmpty) {
-      await loadUserRoutes(); // Si la búsqueda está vacía, carga todas las rutas de nuevo
+      await loadUserRoutes();
       return;
     }
 
     try {
       isLoading.value = true;
       final searchResults = await _appwriteService.searchUserRoutes(searchTerm);
-      routes.value = searchResults; // Actualiza la lista con los resultados de la búsqueda
+      routes.value = searchResults;
     } catch (e) {
       print('RouteController: Error al buscar rutas: $e');
       Get.snackbar(
@@ -298,7 +274,6 @@ class RouteController extends GetxController {
     }
   }
 
-  // Obtiene una ruta por su ID (primero busca en la lista local, luego en Appwrite)
   Future<RouteModel?> getRouteById(String id) async {
     try {
       final localRoute = routes.firstWhereOrNull((route) => route.id == id);
@@ -312,7 +287,6 @@ class RouteController extends GetxController {
     }
   }
 
-  // Genera estadísticas de las rutas cargadas
   Map<String, dynamic> getRouteStatistics() {
     if (routes.isEmpty) {
       return {
@@ -325,33 +299,18 @@ class RouteController extends GetxController {
       };
     }
 
-    final routesWithDistance = routes.where((r) => r.distance != null && r.distance! > 0).toList();
+    // Aquí, distance y duration son siempre no nulos según el modelo
+    final totalDistance = routes.map((r) => r.distance).reduce((a, b) => a + b);
+    final averageDistance = totalDistance / routes.length;
+    final longestRoute = routes.reduce((a, b) => a.distance > b.distance ? a : b);
+    final shortestRoute = routes.reduce((a, b) => a.distance < b.distance ? a : b);
 
-    // Estadísticas por deporte
     final sportBreakdown = <String, int>{};
     for (final route in routes) {
       if (route.sport.isNotEmpty) {
         sportBreakdown[route.sport] = (sportBreakdown[route.sport] ?? 0) + 1;
       }
     }
-
-    if (routesWithDistance.isEmpty) {
-      return {
-        'totalRoutes': routes.length,
-        'totalDistance': 0.0,
-        'averageDistance': 0.0,
-        'longestRoute': null,
-        'shortestRoute': null,
-        'sportBreakdown': sportBreakdown,
-      };
-    }
-
-    final totalDistance = routesWithDistance
-        .map((r) => r.distance!)
-        .reduce((a, b) => a + b);
-    final averageDistance = totalDistance / routesWithDistance.length;
-    final longestRoute = routesWithDistance.reduce((a, b) => a.distance! > b.distance! ? a : b);
-    final shortestRoute = routesWithDistance.reduce((a, b) => a.distance! < b.distance! ? a : b);
 
     return {
       'totalRoutes': routes.length,
@@ -363,10 +322,8 @@ class RouteController extends GetxController {
     };
   }
 
-  // ============== MÉTODOS DE UTILIDAD PARA LA UI ==============
-
   String formatDistance(double? distanceInMeters) {
-    if (distanceInMeters == null) return 'N/A';
+    if (distanceInMeters == null) return 'N/A'; // Aunque ahora siempre debería ser no nulo
     return distanceInMeters < 1000
         ? '${distanceInMeters.toStringAsFixed(0)} m'
         : '${(distanceInMeters / 1000).toStringAsFixed(2)} km';
@@ -380,7 +337,6 @@ class RouteController extends GetxController {
         return '🚴';
       case 'senderismo':
         return '🥾';
-      // Añade otros iconos para deportes si los agregas a la lista en SportController
       default:
         return '❓';
     }

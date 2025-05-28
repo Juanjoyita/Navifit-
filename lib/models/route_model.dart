@@ -5,13 +5,21 @@ class RouteModel {
   final String? id; // El ID de Appwrite (puede ser nulo al crear)
   final String userId; // El ID del usuario creador
   final String name;
-  final LatLng startPoint;
-  final LatLng endPoint;
-  final double? distance; // En metros
+  // Atributos separados para latitud y longitud, usados para Appwrite
+  final double startLatitude;
+  final double startLongitude;
+  final double endLatitude;
+  final double endLongitude;
+  // Fin de atributos de coordenadas
+
+  // CAMBIOS CRÍTICOS: `distance` y `duration` son ahora requeridos (no nullable)
+  final double distance; // En metros (requerido por Appwrite)
+  final int duration;   // En segundos (requerido por Appwrite)
+  // FIN CAMBIOS CRÍTICOS
+
   final String? description;
   final String sport;
   final String? difficulty;
-  final int? duration; // En segundos
   final DateTime createdAt; // Se inicializa en la app, pero Appwrite tiene su propio $createdAt
   final DateTime? updatedAt; // Appwrite tiene su propio $updatedAt
 
@@ -19,58 +27,44 @@ class RouteModel {
     this.id,
     required this.userId,
     required this.name,
-    required this.startPoint,
-    required this.endPoint,
-    this.distance,
+    required this.startLatitude,
+    required this.startLongitude,
+    required this.endLatitude,
+    required this.endLongitude,
+    // ¡IMPORTANTE! Ahora requeridos en el constructor
+    required this.distance,
+    required this.duration,
+    // Fin de nuevos parámetros
     this.description,
     required this.sport,
     this.difficulty,
-    this.duration,
-    required this.createdAt,
+    required this.createdAt, // Sigue siendo requerido para el modelo local
     this.updatedAt,
   });
 
   // Constructor factory para crear RouteModel desde un mapa (ej. desde Appwrite)
   factory RouteModel.fromJson(Map<String, dynamic> json) {
+    // Para manejar los IDs y timestamps de Appwrite (con $)
     final String? docId = json['\$id'] as String?;
     final String? created = json['\$createdAt'] as String?;
     final String? updated = json['\$updatedAt'] as String?;
-
-    // CAMBIO IMPORTANTE AQUÍ: Si Appwrite envía un ARRAY para startPoint/endPoint,
-    // necesitamos extraer el primer elemento (el objeto LatLng).
-    // Si no es un array, se asume que es el objeto directamente.
-    Map<String, dynamic>? startPointData;
-    if (json['startPoint'] is List && (json['startPoint'] as List).isNotEmpty) {
-      startPointData = (json['startPoint'] as List).first as Map<String, dynamic>;
-    } else if (json['startPoint'] is Map<String, dynamic>) {
-      startPointData = json['startPoint'] as Map<String, dynamic>;
-    }
-
-    Map<String, dynamic>? endPointData;
-    if (json['endPoint'] is List && (json['endPoint'] as List).isNotEmpty) {
-      endPointData = (json['endPoint'] as List).first as Map<String, dynamic>;
-    } else if (json['endPoint'] is Map<String, dynamic>) {
-      endPointData = json['endPoint'] as Map<String, dynamic>;
-    }
 
     return RouteModel(
       id: docId,
       userId: json['userId'] as String,
       name: json['name'] as String,
-      startPoint: LatLng(
-        (startPointData?['latitude'] as num).toDouble(),
-        (startPointData?['longitude'] as num).toDouble(),
-      ),
-      endPoint: LatLng(
-        (endPointData?['latitude'] as num).toDouble(),
-        (endPointData?['longitude'] as num).toDouble(),
-      ),
-      distance: (json['distance'] as num?)?.toDouble(),
+      startLatitude: (json['startLatitude'] as num).toDouble(),
+      startLongitude: (json['startLongitude'] as num).toDouble(),
+      endLatitude: (json['endLatitude'] as num).toDouble(),
+      endLongitude: (json['endLongitude'] as num).toDouble(),
+      // ¡IMPORTANTE! Leer como no nulo. Si Appwrite puede devolver nulo para un campo requerido,
+      // esto causaría un error. Pero dado que lo marcaste como requerido, Appwrite no debería.
+      distance: (json['distance'] as num).toDouble(),
+      duration: (json['duration'] as num).toInt(),
       description: json['description'] as String?,
       sport: json['sport'] as String,
       difficulty: json['difficulty'] as String?,
-      duration: json['duration'] as int?,
-      createdAt: created != null ? DateTime.parse(created) : (json['createdAt'] != null ? DateTime.parse(json['createdAt']) : DateTime.now()),
+      createdAt: created != null ? DateTime.parse(created) : DateTime.now(), // Appwrite devuelve $createdAt como String
       updatedAt: updated != null ? DateTime.parse(updated) : null,
     );
   }
@@ -80,25 +74,17 @@ class RouteModel {
     return {
       'userId': userId,
       'name': name,
-      // CAMBIO AQUÍ: Ahora 'startPoint' es un array que contiene un objeto LatLng
-      'startPoint': [
-        {
-          'latitude': startPoint.latitude,
-          'longitude': startPoint.longitude,
-        }
-      ],
-      // CAMBIO AQUÍ: Ahora 'endPoint' es un array que contiene un objeto LatLng
-      'endPoint': [
-        {
-          'latitude': endPoint.latitude,
-          'longitude': endPoint.longitude,
-        }
-      ],
-      'distance': distance,
+      'startLatitude': startLatitude,
+      'startLongitude': startLongitude,
+      'endLatitude': endLatitude,
+      'endLongitude': endLongitude,
+      'distance': distance, // Ahora es requerido y no será nulo
+      'duration': duration, // Ahora es requerido y no será nulo
       'description': description,
       'sport': sport,
       'difficulty': difficulty,
-      'duration': duration,
+      // NO INCLUIR 'createdAt' ni 'updatedAt' aquí. Appwrite los maneja automáticamente.
+      // Tampoco el 'id' porque Appwrite lo genera
     };
   }
 
@@ -107,8 +93,10 @@ class RouteModel {
     String? id,
     String? userId,
     String? name,
-    LatLng? startPoint,
-    LatLng? endPoint,
+    double? startLatitude,
+    double? startLongitude,
+    double? endLatitude,
+    double? endLongitude,
     double? distance,
     String? description,
     String? sport,
@@ -121,15 +109,29 @@ class RouteModel {
       id: id ?? this.id,
       userId: userId ?? this.userId,
       name: name ?? this.name,
-      startPoint: startPoint ?? this.startPoint,
-      endPoint: endPoint ?? this.endPoint,
-      distance: distance ?? this.distance,
+      startLatitude: startLatitude ?? this.startLatitude,
+      startLongitude: startLongitude ?? this.startLongitude,
+      endLatitude: endLatitude ?? this.endLatitude,
+      endLongitude: endLongitude ?? this.endLongitude,
+      distance: distance ?? this.distance, // Asegurarse de pasar el valor no nulo
       description: description ?? this.description,
       sport: sport ?? this.sport,
       difficulty: difficulty ?? this.difficulty,
-      duration: duration ?? this.duration,
+      duration: duration ?? this.duration, // Asegurarse de pasar el valor no nulo
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
+  }
+
+  // >>>>>> GETTERS PARA CONVERTIR Latitudes/Longitudes a LatLng <<<<<<
+  // Esto permite que el resto de tu código que usa LatLng siga funcionando sin cambios mayores
+  LatLng get startPoint => LatLng(startLatitude, startLongitude);
+  // CORRECCIÓN: 'endEndDate' a 'endLatitude'
+  LatLng get endPoint => LatLng(endLatitude, endLongitude);
+
+  // Método adicional para debug/logging
+  @override
+  String toString() {
+    return 'RouteModel(id: $id, name: $name, sport: $sport, startPoint: (${startLatitude}, ${startLongitude}), endPoint: (${endLatitude}, ${endLongitude}), distance: ${distance.toStringAsFixed(2)}m, duration: $duration seg)';
   }
 }
