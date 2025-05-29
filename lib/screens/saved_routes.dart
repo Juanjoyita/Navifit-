@@ -1,10 +1,9 @@
-// lib/screens/saved_routes_screen.dart
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; // Para LatLng
+import 'package:get/get.dart';
 import '../controllers/route_controller.dart';
-import '../controllers/auth_controller.dart'; // Para AuthController y formato de fecha
-import '../controllers/sport_controller.dart'; // Para SportController y obtener iconos/colores
-import '../models/route_model.dart'; // Para la clase RouteModel// Asegúrate de que tus IDs de colección estén aquí
+import '../controllers/auth_controller.dart';
+import '../controllers/sport_controller.dart';
+import '../models/route_model.dart';
 
 class SavedRoutesScreen extends StatefulWidget {
   const SavedRoutesScreen({super.key});
@@ -71,7 +70,8 @@ class _SavedRoutesScreenState extends State<SavedRoutesScreen> {
         ],
       ),
       body: Obx(() {
-        if (routeController.isLoading.value && routeController.routes.isEmpty) {
+        // CAMBIO AQUÍ: routeController.routes a routeController.userRoutes
+        if (routeController.isLoading.value && routeController.userRoutes.isEmpty) {
           // Mostrar indicador de carga solo si la lista está vacía y cargando
           return Center(
             child: CircularProgressIndicator(
@@ -80,7 +80,8 @@ class _SavedRoutesScreenState extends State<SavedRoutesScreen> {
           );
         }
 
-        if (routeController.routes.isEmpty) {
+        // CAMBIO AQUÍ: routeController.routes a routeController.userRoutes
+        if (routeController.userRoutes.isEmpty) {
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -135,9 +136,11 @@ class _SavedRoutesScreenState extends State<SavedRoutesScreen> {
 
         return ListView.builder(
           padding: const EdgeInsets.all(15.0),
-          itemCount: routeController.routes.length,
+          // CAMBIO AQUÍ: routeController.routes a routeController.userRoutes
+          itemCount: routeController.userRoutes.length,
           itemBuilder: (context, index) {
-            final route = routeController.routes[index];
+            // CAMBIO AQUÍ: routeController.routes a routeController.userRoutes
+            final route = routeController.userRoutes[index];
             return _buildRouteCard(route);
           },
         );

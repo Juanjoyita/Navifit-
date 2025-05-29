@@ -1,37 +1,40 @@
 // lib/controllers/route_controller.dart
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:geodesy/geodesy.dart'; // Necesario para la clase Distance
+import 'package:geodesy/geodesy.dart';
 import '../models/route_model.dart';
 import '../services/appwrite_service.dart';
 import 'auth_controller.dart';
-import 'sport_controller.dart'; // <--- ¡AÑADE ESTA IMPORTACIÓN!
+import 'sport_controller.dart'; // ¡Importación correcta!
 import 'package:appwrite/models.dart' as appwrite_models;
+import 'package:flutter/material.dart';
 
 class RouteController extends GetxController {
   final AppwriteService _appwriteService = Get.find<AppwriteService>();
   final AuthController _authController = Get.find<AuthController>();
-  final SportController sportController = Get.find<SportController>(); // <--- ¡AÑADE ESTA LÍNEA!
+  final SportController sportController = Get.find<SportController>(); // Instancia correcta
 
-  var routes = <RouteModel>[].obs;
+  // Renombrado para mayor claridad
+  var userRoutes = <RouteModel>[].obs;
   var isSelectingStartPoint = true.obs;
   var startPoint = Rxn<LatLng>();
   var endPoint = Rxn<LatLng>();
   var isCreatingRoute = false.obs;
-  var selectedRoute = Rxn<RouteModel>();
-  var isLoading = false.obs;
-  var isSaving = false.obs;
+  var selectedRoute = Rxn<RouteModel>(); // Para manejar la ruta seleccionada en detalle
+  var isLoading = false.obs; // Estado general de carga (ej. al cargar rutas)
+  var isSaving = false.obs; // Estado específico para operaciones de guardado/actualización
 
   @override
   void onInit() {
     super.onInit();
+    // Reacciona a los cambios en el usuario logueado
     ever(_authController.user, (appwrite_models.User? user) {
       if (user != null) {
         print('RouteController: Usuario logueado (${user.$id}), cargando rutas...');
         loadUserRoutes();
       } else {
         print('RouteController: Usuario deslogueado, limpiando rutas.');
-        routes.clear();
+        userRoutes.clear(); // Limpiar la lista de rutas si el usuario se desloguea
       }
     });
   }
@@ -47,8 +50,10 @@ class RouteController extends GetxController {
     if (isSelectingStartPoint.value) {
       startPoint.value = point;
       isSelectingStartPoint.value = false;
+      Get.snackbar('Punto de Inicio', 'Punto de inicio seleccionado. Ahora selecciona el punto final.');
     } else {
       endPoint.value = point;
+      Get.snackbar('Punto Final', 'Punto final seleccionado. ¡Ruta lista para guardar!');
     }
   }
 
@@ -57,6 +62,7 @@ class RouteController extends GetxController {
   double? get estimatedDistance {
     if (!bothPointsSelected) return null;
     const Distance distance = Distance();
+    // La clase LatLng de latlong2 ya es compatible
     return distance.as(LengthUnit.Meter, startPoint.value!, endPoint.value!);
   }
 
@@ -65,8 +71,8 @@ class RouteController extends GetxController {
 
     double speedMPS; // Metros por segundo
 
-    // Considera usar un mapa para velocidades en SportController si se vuelven muchas
-    // Por ahora, tu switch está bien aquí.
+    // Es bueno tener estas velocidades centralizadas, por ejemplo, en SportController
+    // Pero por ahora, el switch aquí es funcional.
     switch (sport.toLowerCase()) {
       case 'running':
         speedMPS = 3.5; // Ej: 12.6 km/h
@@ -77,10 +83,10 @@ class RouteController extends GetxController {
       case 'senderismo':
         speedMPS = 1.0; // Ej: 3.6 km/h
         break;
-      case 'caminata': // Asegúrate de incluir 'caminata' si lo usas
+      case 'caminata':
         speedMPS = 1.4; // ~5 km/h
         break;
-      case 'natación': // Asegúrate de incluir 'natación' si lo usas
+      case 'natacion': // Asegúrate que el string de deporte coincida (ej: 'natacion' vs 'natación')
         speedMPS = 0.8; // ~2.88 km/h
         break;
       default:
@@ -105,38 +111,26 @@ class RouteController extends GetxController {
     }
   }
 
-  String formatDistance(double? distanceInMeters) { // Este método ya estaba bien
+  String formatDistance(double? distanceInMeters) {
     if (distanceInMeters == null) return 'N/A';
+    // Muestra en metros si es menos de 1km, de lo contrario en km
     return distanceInMeters < 1000
         ? '${distanceInMeters.toStringAsFixed(0)} m'
         : '${(distanceInMeters / 1000).toStringAsFixed(2)} km';
   }
 
-  // >>> NO NECESITAS getSportIcon aquí, SportController lo manejará. <<<
-  // String getSportIcon(String sport) {
-  //   switch (sport.toLowerCase()) {
-  //     case 'running':
-  //       return '🏃';
-  //     case 'ciclismo':
-  //       return '🚴';
-  //     case 'senderismo':
-  //       return '🥾';
-  //     default:
-  //       return '❓';
-  //   }
-  // }
-
+  // Carga las rutas del usuario actualmente logueado
   Future<void> loadUserRoutes() async {
     if (_authController.user.value == null) {
       print('RouteController: No hay usuario logueado. No se pueden cargar rutas.');
-      routes.clear();
+      userRoutes.clear();
       return;
     }
     try {
       isLoading.value = true;
-      final userRoutes = await _appwriteService.getUserRoutes();
-      routes.value = userRoutes;
-      print('RouteController: ${userRoutes.length} rutas cargadas');
+      final fetchedRoutes = await _appwriteService.getUserRoutes();
+      userRoutes.value = fetchedRoutes; // Actualiza la lista reactiva
+      print('RouteController: ${fetchedRoutes.length} rutas cargadas.');
     } catch (e) {
       print('RouteController: Error al cargar rutas: $e');
       Get.snackbar(
@@ -149,6 +143,7 @@ class RouteController extends GetxController {
     }
   }
 
+  // Guarda una nueva ruta en Appwrite
   Future<void> saveRoute({
     required String name,
     String? description,
@@ -182,10 +177,10 @@ class RouteController extends GetxController {
     final int actualDuration = calculateEstimatedDurationInSeconds(actualDistance, sport) ?? 0;
 
     try {
-      isSaving.value = true;
+      isSaving.value = true; // Inicia el estado de guardado
 
       final newRoute = RouteModel(
-        id: null,
+        id: null, // El ID lo asignará Appwrite
         userId: currentUserId,
         name: name.trim(),
         startLatitude: startPoint.value!.latitude,
@@ -194,46 +189,57 @@ class RouteController extends GetxController {
         endLongitude: endPoint.value!.longitude,
         distance: actualDistance,
         duration: actualDuration,
-        createdAt: DateTime.now(), // Se inicializa aquí para el modelo local
+        createdAt: DateTime.now(), // La fecha de creación se genera aquí
         description: description?.trim(),
         sport: sport,
+        // Si la dificultad es vacía, guárdala como null
         difficulty: difficulty?.isEmpty == true ? null : difficulty,
+        isCompleted: false, // Por defecto, una ruta nueva no está completada
+        completedAt: null,
       );
 
       final savedRoute = await _appwriteService.createUserRoute(newRoute);
 
-      routes.insert(0, savedRoute);
+      userRoutes.insert(0, savedRoute); // Añade la nueva ruta al principio de la lista
 
       Get.snackbar(
         'Éxito',
         'Ruta "$name" guardada correctamente',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.8),
+        colorText: Colors.white,
       );
 
-      resetRouteCreation();
+      resetRouteCreation(); // Limpia los puntos de selección
+      Get.back(); // Regresa a la pantalla anterior (ej. mapa o lista)
     } catch (e) {
       print('RouteController: Error al guardar ruta: $e');
       Get.snackbar(
         'Error',
         'No se pudo guardar la ruta: ${e.toString()}',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
       );
     } finally {
-      isSaving.value = false;
+      isSaving.value = false; // Finaliza el estado de guardado
     }
   }
 
+  // Elimina una ruta de Appwrite
   Future<void> deleteRoute(String routeId) async {
     try {
-      isLoading.value = true;
+      isLoading.value = true; // Podrías usar isDeleting para granularidad
 
       await _appwriteService.deleteUserRoute(routeId);
-      routes.removeWhere((route) => route.id == routeId);
+      userRoutes.removeWhere((route) => route.id == routeId); // Elimina de la lista local
 
       Get.snackbar(
         'Éxito',
         'Ruta eliminada correctamente',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.8),
+        colorText: Colors.white,
       );
     } catch (e) {
       print('RouteController: Error al eliminar ruta: $e');
@@ -241,15 +247,18 @@ class RouteController extends GetxController {
         'Error',
         'No se pudo eliminar la ruta: ${e.toString()}',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
       );
     } finally {
       isLoading.value = false;
     }
   }
 
+  // Actualiza una ruta existente en Appwrite
   Future<void> updateRoute(RouteModel updatedRoute) async {
     try {
-      isLoading.value = true;
+      isSaving.value = true; // Usamos isSaving para actualización también
 
       if (updatedRoute.id == null) {
         throw Exception("No se puede actualizar la ruta: El ID de la ruta es nulo.");
@@ -260,15 +269,18 @@ class RouteController extends GetxController {
         updatedRoute,
       );
 
-      final index = routes.indexWhere((route) => route.id == updatedRoute.id);
+      // Actualiza la ruta en la lista reactiva
+      final index = userRoutes.indexWhere((route) => route.id == updatedRoute.id);
       if (index != -1) {
-        routes[index] = updated;
+        userRoutes[index] = updated;
       }
 
       Get.snackbar(
         'Éxito',
         'Ruta actualizada correctamente',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.8),
+        colorText: Colors.white,
       );
     } catch (e) {
       print('RouteController: Error al actualizar ruta: $e');
@@ -276,22 +288,73 @@ class RouteController extends GetxController {
         'Error',
         'No se pudo actualizar la ruta: ${e.toString()}',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
       );
     } finally {
-      isLoading.value = false;
+      isSaving.value = false;
     }
   }
 
+  // Marca una ruta como completada
+  Future<void> markRouteAsCompleted(String routeId) async {
+    try {
+      isSaving.value = true; // Usar isSaving para esta operación
+
+      final routeToUpdate = userRoutes.firstWhereOrNull((route) => route.id == routeId);
+
+      if (routeToUpdate == null) {
+        Get.snackbar('Error', 'Ruta no encontrada para marcar como completada.');
+        return;
+      }
+
+      if (routeToUpdate.isCompleted) {
+        Get.snackbar('Información', 'Esta ruta ya ha sido marcada como completada.');
+        return;
+      }
+
+      // Crear una nueva instancia con los cambios
+      final updatedRoute = routeToUpdate.copyWith(
+        isCompleted: true,
+        completedAt: DateTime.now(),
+      );
+
+      await updateRoute(updatedRoute); // Usa el método updateRoute ya existente
+
+      // La actualización de userRoutes ya se maneja dentro de updateRoute
+      Get.snackbar(
+        '¡Ruta Completada!',
+        'Has finalizado la ruta "${updatedRoute.name}" con éxito.',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.blueAccent.withOpacity(0.9),
+        colorText: Colors.white,
+        icon: Icon(Icons.celebration, color: Colors.white),
+      );
+    } catch (e) {
+      print('RouteController: Error al marcar ruta como completada: $e');
+      Get.snackbar(
+        'Error',
+        'No se pudo marcar la ruta como completada: ${e.toString()}',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
+      );
+    } finally {
+      isSaving.value = false;
+    }
+  }
+
+  // Busca rutas por término de búsqueda (ej. nombre o descripción)
   Future<void> searchRoutes(String searchTerm) async {
     if (searchTerm.trim().isEmpty) {
-      await loadUserRoutes();
+      await loadUserRoutes(); // Si la búsqueda está vacía, cargar todas las rutas
       return;
     }
 
     try {
       isLoading.value = true;
       final searchResults = await _appwriteService.searchUserRoutes(searchTerm);
-      routes.value = searchResults;
+      userRoutes.value = searchResults;
     } catch (e) {
       print('RouteController: Error al buscar rutas: $e');
       Get.snackbar(
@@ -304,12 +367,15 @@ class RouteController extends GetxController {
     }
   }
 
+  // Obtiene una ruta específica por su ID
   Future<RouteModel?> getRouteById(String id) async {
     try {
-      final localRoute = routes.firstWhereOrNull((route) => route.id == id);
+      // Primero busca en la lista local para evitar una llamada a la API si ya está
+      final localRoute = userRoutes.firstWhereOrNull((route) => route.id == id);
       if (localRoute != null) {
         return localRoute;
       }
+      // Si no está en la lista local, busca en Appwrite
       return await _appwriteService.getUserRouteById(id);
     } catch (e) {
       print('RouteController: Error al obtener ruta por ID: $e');
@@ -317,8 +383,9 @@ class RouteController extends GetxController {
     }
   }
 
+  // Calcula estadísticas de las rutas del usuario
   Map<String, dynamic> getRouteStatistics() {
-    if (routes.isEmpty) {
+    if (userRoutes.isEmpty) {
       return {
         'totalRoutes': 0,
         'totalDistance': 0.0,
@@ -326,45 +393,36 @@ class RouteController extends GetxController {
         'longestRoute': null,
         'shortestRoute': null,
         'sportBreakdown': <String, int>{},
+        'completedRoutes': 0,
       };
     }
 
-    final totalDistance = routes.map((r) => r.distance).reduce((a, b) => a + b);
-    final averageDistance = totalDistance / routes.length;
-    final longestRoute = routes.reduce((a, b) => a.distance > b.distance ? a : b);
-    final shortestRoute = routes.reduce((a, b) => a.distance < b.distance ? a : b);
+    final totalDistance = userRoutes.map((r) => r.distance).reduce((a, b) => a + b);
+    final averageDistance = totalDistance / userRoutes.length;
+    final longestRoute = userRoutes.reduce((a, b) => a.distance > b.distance ? a : b);
+    final shortestRoute = userRoutes.reduce((a, b) => a.distance < b.distance ? a : b);
+    final completedRoutesCount = userRoutes.where((route) => route.isCompleted).length;
+
 
     final sportBreakdown = <String, int>{};
-    for (final route in routes) {
+    for (final route in userRoutes) {
       if (route.sport.isNotEmpty) {
         sportBreakdown[route.sport] = (sportBreakdown[route.sport] ?? 0) + 1;
       }
     }
 
     return {
-      'totalRoutes': routes.length,
+      'totalRoutes': userRoutes.length,
       'totalDistance': totalDistance,
       'averageDistance': averageDistance,
       'longestRoute': longestRoute,
       'shortestRoute': shortestRoute,
       'sportBreakdown': sportBreakdown,
+      'completedRoutes': completedRoutesCount,
     };
   }
 
-  // Elimina este método, ya no lo necesitas aquí.
-  // String getSportIcon(String sport) {
-  //   switch (sport.toLowerCase()) {
-  //     case 'running':
-  //       return '🏃';
-  //     case 'ciclismo':
-  //       return '🚴';
-  //     case 'senderismo':
-  //       return '🥾';
-  //     default:
-  //       return '❓';
-  //   }
-  // }
-
+  // Método para refrescar la lista de rutas
   Future<void> refreshRoutes() async {
     await loadUserRoutes();
   }
