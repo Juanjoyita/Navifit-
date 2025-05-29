@@ -76,6 +76,20 @@ class AppwriteService {
     }
   }
 
+  /// Actualizar el nombre del usuario actual
+  Future<void> updateUserName(String newName) async {
+    try {
+      await account.updateName(name: newName);
+      print('AppwriteService - Nombre actualizado exitosamente: $newName');
+    } on AppwriteException catch (e) {
+      print('AppwriteService - Error de Appwrite al actualizar nombre: $e');
+      rethrow; // Re-lanzar la excepción para que AuthController la maneje
+    } catch (e) {
+      print('AppwriteService - Error inesperado al actualizar nombre: $e');
+      throw AppwriteException('Error al actualizar el nombre: ${e.toString()}');
+    }
+  }
+
   /// Obtener lista de misiones filtradas por deporte y dificultad
   Future<List<Mission>> getMissions({
     String? sport,

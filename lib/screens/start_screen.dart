@@ -97,7 +97,7 @@ class StartScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         // Usar Get.toNamed para navegar a la ruta de login
-                        Get.toNamed('/'); // O '/login' si tienes una ruta específica para login
+                        Get.toNamed('/login'); // O '/login' si tienes una ruta específica para login
                       },
                       child: const Text(
                         'Iniciar Sesión',

@@ -22,9 +22,8 @@ class RouteModel {
   final DateTime createdAt;
   final DateTime? updatedAt;
 
-  // Nuevos campos para la finalización de ruta
-  final bool isCompleted; // Indica si la ruta ha sido marcada como finalizada
-  final DateTime? completedAt; // Fecha y hora de finalización
+  // ELIMINADAS: isCompleted y completedAt según tu solicitud
+
 
   RouteModel({
     this.id,
@@ -41,8 +40,7 @@ class RouteModel {
     this.difficulty,
     required this.createdAt,
     this.updatedAt,
-    this.isCompleted = false, // Valor por defecto
-    this.completedAt,
+    // ELIMINADOS: isCompleted y completedAt del constructor
   });
 
   // Constructor factory para crear RouteModel desde un mapa (ej. desde Appwrite)
@@ -66,8 +64,7 @@ class RouteModel {
       difficulty: json['difficulty'] as String?,
       createdAt: created != null ? DateTime.parse(created) : DateTime.now(),
       updatedAt: updated != null ? DateTime.parse(updated) : null,
-      isCompleted: json['isCompleted'] as bool? ?? false, // Mapea el nuevo campo
-      completedAt: json['completedAt'] != null ? DateTime.parse(json['completedAt'] as String) : null, // Mapea el nuevo campo
+      // ELIMINADOS: isCompleted y completedAt del fromJson
     );
   }
 
@@ -85,8 +82,7 @@ class RouteModel {
       'description': description,
       'sport': sport,
       'difficulty': difficulty,
-      'isCompleted': isCompleted, // Incluye el nuevo campo
-      'completedAt': completedAt?.toIso8601String(), // Incluye el nuevo campo (puede ser nulo)
+      // ELIMINADOS: isCompleted y completedAt del toJson
       // NO INCLUIR 'createdAt' ni 'updatedAt' aquí. Appwrite los maneja automáticamente.
       // Tampoco el 'id' porque Appwrite lo genera
     };
@@ -108,8 +104,7 @@ class RouteModel {
     String? difficulty,
     DateTime? createdAt,
     DateTime? updatedAt,
-    bool? isCompleted, // Nuevo campo en copyWith
-    DateTime? completedAt, // Nuevo campo en copyWith
+    // ELIMINADOS: isCompleted y completedAt del copyWith
   }) {
     return RouteModel(
       id: id ?? this.id,
@@ -126,8 +121,6 @@ class RouteModel {
       difficulty: difficulty ?? this.difficulty,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      isCompleted: isCompleted ?? this.isCompleted,
-      completedAt: completedAt ?? this.completedAt,
     );
   }
 
@@ -138,6 +131,7 @@ class RouteModel {
   // Método adicional para debug/logging
   @override
   String toString() {
-    return 'RouteModel(id: $id, name: $name, sport: $sport, startPoint: (${startLatitude}, ${startLongitude}), endPoint: (${endLatitude}, ${endLongitude}), distance: ${distance.toStringAsFixed(2)}m, duration: $duration seg, isCompleted: $isCompleted)';
+    return 'RouteModel(id: $id, name: $name, sport: $sport, startPoint: (${startLatitude}, ${startLongitude}), endPoint: (${endLatitude}, ${endLongitude}), distance: ${distance.toStringAsFixed(2)})';
+    // ELIMINADOS: isCompleted y completedAt del toString
   }
 }

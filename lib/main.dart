@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:appwrite/appwrite.dart'; // Mantienes esta importación para configurar el cliente aquí
+import 'package:versus_match/screens/saved_routes.dart';
 
 // Controladores
 import 'controllers/auth_controller.dart';
@@ -11,6 +12,7 @@ import 'controllers/location_controller.dart';
 import 'controllers/mission_controller.dart';
 
 // Pantallas
+import 'screens/start_screen.dart'; // <--- NUEVA IMPORTACIÓN
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
 import 'screens/select_sport_screen.dart';
@@ -20,6 +22,7 @@ import 'screens/map_screen.dart' as map_screen;
 import 'screens/mission_route_screen.dart';
 import 'package:versus_match/screens/mission_details.dart';
 import 'screens/route_detail_screen.dart';
+ // Asegúrate de importar SavedRoutesScreen si la usas en las rutas
 
 
 // Servicios
@@ -61,9 +64,10 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Deportes App',
-      initialRoute: '/',
+      initialRoute: '/start', // <--- CAMBIO AQUÍ: La ruta inicial ahora es '/start'
       getPages: [
-        GetPage(name: '/', page: () => LoginScreen()),
+        GetPage(name: '/start', page: () => const StartScreen()), // <--- NUEVA RUTA PARA StartScreen
+        GetPage(name: '/login', page: () => LoginScreen()), // <--- CAMBIO AQUÍ: LoginScreen ahora está en '/login'
         GetPage(name: '/register', page: () => RegisterScreen()),
         GetPage(name: '/selectSport', page: () => SelectSportScreen()),
         GetPage(name: '/createRoute', page: () => CreateRouteScreen()),
@@ -72,6 +76,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/missionRoute', page: () => const MissionRouteScreen()),
         GetPage(name: '/missionDetail', page: () => const MissionDetailScreen()),
         GetPage(name: '/routeDetail', page: () => const RouteDetailScreen()),
+        GetPage(name: '/savedRoutes', page: () => const SavedRoutesScreen()), // Añadida ruta para SavedRoutesScreen
       ],
       // No se ha añadido ningún tema global aquí, según tu código actual.
     );

@@ -1,29 +1,144 @@
 // lib/screens/route_detail_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:latlong2/latlong.dart' as latlong2; // IMPORTACION CORRECTA DE LATLONG2 CON PREFIJO// <--- ¡LA UNICA Y CORRECTA IMPORTACION DE GOOGLE MAPS!
-import '../models/route_model.dart';
+import '../models/route_model.dart'; // Asegúrate de que tu RouteModel tiene un 'duration' de tipo int
 import '../controllers/route_controller.dart';
 import '../controllers/sport_controller.dart';
 import '../controllers/auth_controller.dart';
-// ¡¡ASEGÚRATE DE QUE NO HAYA NINGUNA OTRA IMPORTACIÓN DE MAPAS O DE LATLONG2 AQUÍ!!
+import 'dart:async'; // ¡IMPORTANTE: Añadir para usar Timer!
 
-class RouteDetailScreen extends StatelessWidget {
+class RouteDetailScreen extends StatefulWidget {
   const RouteDetailScreen({super.key});
 
-  // Definición de tu paleta de colores (la mantengo aquí para consistencia)
-  static const Color primaryDark = Color(0xFF202221); // Casi Negro / Gris Muy Oscuro (Fondo)
-  static const Color secondaryDark = Color(0xFF303531); // Gris Verdoso Muy Oscuro (Fondo para elementos, AppBar)
-  static const Color accentGoldLight = Color(0xFFB68B4B); // Marrón Claro / Dorado Arena (Texto principal, acentos)
-  static const Color accentGoldMedium = Color(0xFF956E2F); // Marrón Medio / Dorado Oscuro (Botones, elementos interactivos)
-  static const Color primaryText = Color(0xFFFFFFFF); // Blanco para texto principal
-  static const Color secondaryText = Color(0xFFBBBBBB); // Gris claro para texto secundario
+  @override
+  State<RouteDetailScreen> createState() => _RouteDetailScreenState();
+}
+
+class _RouteDetailScreenState extends State<RouteDetailScreen> {
+  // Definición de tu paleta de colores
+  static const Color primaryDark = Color(0xFF202221);
+  static const Color secondaryDark = Color(0xFF303531);
+  static const Color accentGoldLight = Color(0xFFB68B4B);
+  static const Color accentGoldMedium = Color(0xFF956E2F);
+  static const Color primaryText = Color(0xFFFFFFFF);
+  static const Color secondaryText = Color(0xFFBBBBBB);
+
+  // --- Lógica del Temporizador de Cuenta Regresiva ---
+  Timer? _timer;
+  late int _initialDuration; // Guarda la duración original de la ruta
+  late int _remainingSeconds; // Tiempo restante actual en el temporizador
+  bool _isRunning = false;
+  
+  // Instancias de los controladores
+  // Se inicializan aquí o en initState para que estén disponibles antes de build
+  final RouteController routeController = Get.find<RouteController>();
+  final SportController sportController = Get.find<SportController>();
+  final AuthController authController = Get.find<AuthController>();
+
+  @override
+  void initState() {
+    super.initState();
+    // Recupera la ruta pasada como argumento
+    final RouteModel? route = Get.arguments as RouteModel?;
+
+    // Asigna la duración inicial. Si es null o menor a 0, usa 0.
+    _initialDuration = route?.duration ?? 0;
+    if (_initialDuration < 0) {
+      _initialDuration = 0; // Asegura que no sea negativo
+    }
+    _remainingSeconds = _initialDuration;
+
+    // Puedes añadir un print para depuración en la consola
+    print('RouteDetailScreen: Initial Duration set to $_initialDuration seconds.');
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // ¡Importante: Detener el timer cuando el widget se destruye!
+    super.dispose();
+  }
+
+  void _startCountdown() {
+    // No iniciar si ya está corriendo o si no queda tiempo
+    if (_isRunning || _remainingSeconds <= 0) {
+      if (_remainingSeconds <= 0 && !_isRunning) {
+        // Muestra un mensaje si intentan iniciar con 0 tiempo restante
+        Get.snackbar(
+          'Tiempo Agotado',
+          'No queda tiempo para iniciar la cuenta regresiva. Reinicia primero.',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.withOpacity(0.8),
+          colorText: primaryText,
+        );
+      }
+      return; 
+    }
+
+    _isRunning = true;
+    Get.snackbar(
+      'Temporizador Iniciado',
+      'Cuenta regresiva en marcha...',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.blueAccent.withOpacity(0.8),
+      colorText: primaryText,
+    );
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_remainingSeconds > 0) {
+          _remainingSeconds--;
+        } else {
+          _stopCountdown(); // Detener cuando llega a cero
+          Get.snackbar(
+            '¡Tiempo Agotado!',
+            'El tiempo estimado para la ruta ha terminado.',
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.redAccent.withOpacity(0.9),
+            colorText: primaryText,
+            icon: const Icon(Icons.timer_off, color: primaryText),
+            duration: const Duration(seconds: 5), // Haz que el snackbar dure más
+          );
+          // Opcional: Vibra o emite un sonido
+          // import 'package:flutter/services.dart';
+          // SystemSound.play(SystemSoundType.alert);
+        }
+      });
+    });
+  }
+
+  void _stopCountdown() {
+    if (!_isRunning && _timer == null) return; // Evitar detener si no está corriendo y no hay timer
+
+    _timer?.cancel();
+    _timer = null; // Limpiar el timer
+    _isRunning = false;
+    Get.snackbar(
+      'Temporizador Detenido',
+      'La cuenta regresiva ha sido pausada.',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.orange.withOpacity(0.8),
+      colorText: primaryText,
+    );
+  }
+
+  void _resetCountdown() {
+    _stopCountdown(); // Primero detén si está corriendo
+    setState(() {
+      _remainingSeconds = _initialDuration; // Reiniciar al valor original
+    });
+    Get.snackbar(
+      'Temporizador Reiniciado',
+      'La cuenta regresiva ha vuelto al inicio.',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.grey.withOpacity(0.8),
+      colorText: primaryText,
+    );
+  }
+  // --- Fin Lógica del Temporizador de Cuenta Regresiva ---
 
 
   @override
   Widget build(BuildContext context) {
-    // Recupera la ruta pasada como argumento
     final RouteModel? route = Get.arguments as RouteModel?;
 
     if (route == null) {
@@ -42,16 +157,6 @@ class RouteDetailScreen extends StatelessWidget {
         ),
       );
     }
-
-    // Instancias de los controladores
-    final RouteController routeController = Get.find<RouteController>();
-    final SportController sportController = Get.find<SportController>();
-    final AuthController authController = Get.find<AuthController>();
-
-    // Obtener LatLngs del RouteModel (que son latlong2.LatLng debido a la importación con 'as latlong2')
-    // Y CONVERTIRLAS AL LatLng QUE GoogleMaps necesita
-    final LatLng googleMapsStartLatLng = LatLng(route.startPoint.latitude, route.startPoint.longitude);
-    final LatLng googleMapsEndLatLng = LatLng(route.endPoint.latitude, route.endPoint.longitude);
 
     return Scaffold(
       backgroundColor: primaryDark,
@@ -98,7 +203,7 @@ class RouteDetailScreen extends StatelessWidget {
             Divider(color: accentGoldMedium.withOpacity(0.3), height: 1),
             const SizedBox(height: 20),
 
-            // Detalles de la ruta (similar a _buildRouteDetailRow de ProfileScreen)
+            // Detalles de la ruta
             _buildDetailRow(
               icon: Icons.straighten,
               label: 'Distancia:',
@@ -135,21 +240,10 @@ class RouteDetailScreen extends StatelessWidget {
               iconColor: accentGoldMedium,
               textColor: primaryText,
             ),
-            // Mostrar si está completada y cuándo
-            if (route.isCompleted) ...[
-              _buildDetailRow(
-                icon: Icons.task_alt,
-                label: 'Finalizada:',
-                value: route.completedAt != null
-                    ? authController.formatDateTime(route.completedAt!.toIso8601String())
-                    : 'Fecha no disponible',
-                iconColor: Colors.green[400]!,
-                textColor: Colors.green[300]!,
-              ),
-            ],
+
             const SizedBox(height: 20),
 
-            // Puntos de inicio y fin (coordenadas)
+            // Puntos de inicio y fin (coordenadas) - Mantenemos esto si quieres mostrar las coordenadas sin el mapa
             Text(
               'Coordenadas:',
               style: TextStyle(
@@ -169,112 +263,81 @@ class RouteDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 25),
 
-            // Mapa para visualizar la ruta
-            Container(
-              height: 300,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: accentGoldMedium, width: 2),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                    target: googleMapsStartLatLng,
-                    zoom: 13,
-                  ),
-                  polylines: {
-                    Polyline(
-                      polylineId: PolylineId(route.id ?? 'route_id'),
-                      points: [googleMapsStartLatLng, googleMapsEndLatLng],
-                      color: accentGoldMedium,
-                      width: 5,
-                    ),
-                  },
-                  markers: {
-                    Marker(
-                      markerId: const MarkerId('start_point'),
-                      position: googleMapsStartLatLng,
-                      infoWindow: const InfoWindow(title: 'Inicio'),
-                      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-                    ),
-                    Marker(
-                      markerId: const MarkerId('end_point'),
-                      position: googleMapsEndLatLng,
-                      infoWindow: const InfoWindow(title: 'Fin'),
-                      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-                    ),
-                  },
-                  zoomControlsEnabled: false,
-                  myLocationButtonEnabled: false,
-                  myLocationEnabled: false,
-                  onMapCreated: (GoogleMapController controller) {
-                    // Puedes guardar el controlador del mapa si necesitas controlarlo después
-                    // _mapController = controller;
-                  },
-                ),
+            // --- Sección del Temporizador de Cuenta Regresiva ---
+            Text(
+              'Tiempo Restante Estimado:',
+              style: TextStyle(
+                color: accentGoldLight,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 30),
-
-            // Botón "Marcar como Finalizada" (solo si la ruta no está completada)
-            if (!route.isCompleted)
-              SizedBox(
-                width: double.infinity,
-                child: Obx(() => ElevatedButton(
-                      onPressed: routeController.isLoading.value || routeController.isSaving.value
-                          ? null
-                          : () {
-                              Get.defaultDialog(
-                                title: 'Finalizar Ruta',
-                                middleText: '¿Estás seguro de que quieres marcar esta ruta como finalizada?',
-                                backgroundColor: secondaryDark,
-                                titleStyle: TextStyle(color: accentGoldLight, fontWeight: FontWeight.bold),
-                                middleTextStyle: TextStyle(color: secondaryText),
-                                confirm: ElevatedButton(
-                                  onPressed: () async {
-                                    Get.back(); // Cierra el diálogo
-                                    await routeController.markRouteAsCompleted(route.id!);
-                                    // Una vez marcada como completada, podrías considerar actualizar la vista
-                                    // o navegar de regreso a la pantalla de perfil para ver el cambio reflejado.
-                                    // Por ejemplo: Get.offAndToNamed('/profile');
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.green[700],
-                                    foregroundColor: primaryText,
-                                  ),
-                                  child: const Text('Sí, Finalizar'),
-                                ),
-                                cancel: OutlinedButton(
-                                  onPressed: () {
-                                    Get.back(); // Cierra el diálogo
-                                  },
-                                  style: OutlinedButton.styleFrom(
-                                    foregroundColor: accentGoldMedium,
-                                    side: BorderSide(color: accentGoldMedium, width: 1),
-                                  ),
-                                  child: const Text('Cancelar'),
-                                ),
-                              );
-                            },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green[600],
-                        foregroundColor: primaryDark,
-                        padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 18),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          side: BorderSide(color: Colors.green.shade800, width: 2),
+            const SizedBox(height: 10),
+            Center(
+              child: Column(
+                children: [
+                  Text(
+                    // Usa _remainingSeconds, no route.duration
+                    routeController.formatDuration(_remainingSeconds),
+                    style: TextStyle(
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                      color: _remainingSeconds <= 60 && _remainingSeconds > 0
+                          ? Colors.orangeAccent // Naranja si queda menos de un minuto
+                          : _remainingSeconds == 0
+                              ? Colors.redAccent // Rojo si se agotó el tiempo
+                              : accentGoldLight, // Normal si queda mucho
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: _isRunning || _remainingSeconds <= 0
+                            ? null // Deshabilitar si ya está corriendo o el tiempo llegó a cero
+                            : _startCountdown,
+                        icon: const Icon(Icons.play_arrow, color: primaryDark),
+                        label: Text(
+                          _isRunning ? 'Contando...' : 'Iniciar Temporizador',
+                          style: TextStyle(fontSize: 16, color: primaryDark),
                         ),
-                        elevation: 10,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green[600],
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        ),
                       ),
-                      child: routeController.isLoading.value || routeController.isSaving.value
-                          ? CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(primaryDark))
-                          : const Text(
-                              'Marcar como Finalizada',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                    )),
+                      ElevatedButton.icon(
+                        onPressed: _isRunning ? _stopCountdown : null, // Habilitar solo si está corriendo
+                        icon: const Icon(Icons.pause, color: primaryDark), // Icono de pausa
+                        label: const Text(
+                          'Pausar',
+                          style: TextStyle(fontSize: 16, color: primaryDark),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange[600],
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  // Botón de Reiniciar siempre visible cuando no está corriendo, o si el tiempo llegó a cero
+                  if (!_isRunning) // Mostrar solo si no está corriendo
+                    OutlinedButton.icon(
+                      onPressed: _resetCountdown,
+                      icon: const Icon(Icons.refresh, color: accentGoldMedium),
+                      label: Text('Reiniciar', style: TextStyle(color: accentGoldMedium)),
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: accentGoldMedium),
+                      ),
+                    ),
+                ],
               ),
+            ),
+            // --- Fin Sección del Temporizador de Cuenta Regresiva ---
           ],
         ),
       ),

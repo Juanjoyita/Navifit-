@@ -32,12 +32,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final RouteController routeController = Get.find<RouteController>();
   final SportController sportController = Get.find<SportController>();
 
+  late Function disposeListener; // Para almacenar el Unsubscribing
 
   @override
   void initState() {
     super.initState();
-    // ... (Tu initState existente) ...
+    // Escucha cambios en el usuario del AuthController
+    // Y cuando el usuario esté disponible y no sea null, carga las rutas
+    disposeListener = ever(authController.user, (_) {
+      if (authController.user.value != null) {
+        routeController.loadUserRoutes(); // Cambiado a loadUserRoutes
+      } else {
+        // Limpiar rutas si el usuario se desloguea
+        routeController.userRoutes.clear();
+      }
+    });
+
+    // Cargar rutas inmediatamente si ya hay un usuario logeado al entrar a la pantalla
+    if (authController.user.value != null) {
+      routeController.loadUserRoutes(); // Cambiado a loadUserRoutes
+    }
   }
+
+  @override
+  void dispose() {
+    disposeListener(); // Limpiar el listener para evitar fugas de memoria
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +131,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // ... (Avatar, nombre, email, ID de usuario existentes) ...
               CircleAvatar(
                 radius: 70,
                 backgroundColor: accentGoldLight,
@@ -170,10 +191,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 40),
 
-              // Botón "Editar Perfil" - ¡AQUÍ ES DONDE CAMBIAS EL onPressed!
+              // Botón "Editar Perfil"
               ElevatedButton.icon(
                 onPressed: () {
-                  Get.toNamed('/editProfile'); // <--- ¡CAMBIO CLAVE AQUÍ!
+                  Get.toNamed('/editProfile');
                 },
                 icon: Icon(Icons.edit, color: primaryDark),
                 label: Text(
@@ -192,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 40),
 
-              // ... (Sección de Rutas Guardadas existente) ...
+              // Sección de Rutas Guardadas
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -244,7 +265,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(height: 20),
                           ElevatedButton.icon(
                             onPressed: () {
-                              Get.toNamed('/create-route');
+                              Get.toNamed('/createRoute'); // Asegúrate de que esta ruta sea correcta
                             },
                             icon: Icon(Icons.add_location_alt, color: primaryDark, size: 20),
                             label: Text(
@@ -277,8 +298,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }),
     );
   }
-
-  // ... (Tus métodos _buildUserInfoRow, _buildRouteCard, _buildRouteDetailRow, _confirmDeleteRoute existentes) ...
 
   Widget _buildUserInfoRow({
     required IconData icon,
@@ -353,12 +372,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  if (route.isCompleted)
-                    Icon(
-                      Icons.check_circle,
-                      color: Colors.green[400],
-                      size: 28,
-                    ),
+                  // ELIMINADO: Icono de check de ruta completada
+                  // if (route.isCompleted)
+                  //   Icon(
+                  //     Icons.check_circle,
+                  //     color: Colors.green[400],
+                  //     size: 28,
+                  //   ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -411,14 +431,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 iconColor: accentGoldMedium,
                 textColor: accentGoldLight,
               ),
-              if (route.isCompleted && route.completedAt != null)
-                _buildRouteDetailRow(
-                  icon: Icons.task_alt,
-                  label: 'Finalizada:',
-                  value: authController.formatDateTime(route.completedAt!.toIso8601String()),
-                  iconColor: Colors.green[400]!,
-                  textColor: Colors.green[300]!,
-                ),
+              // ELIMINADO: Fila de "Finalizada"
+              // if (route.isCompleted && route.completedAt != null)
+              //   _buildRouteDetailRow(
+              //     icon: Icons.task_alt,
+              //     label: 'Finalizada:',
+              //     value: authController.formatDateTime(route.completedAt!.toIso8601String()),
+              //     iconColor: Colors.green[400]!,
+              //     textColor: Colors.green[300]!,
+              //   ),
               const SizedBox(height: 15),
               Align(
                 alignment: Alignment.centerRight,
@@ -456,7 +477,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               fontSize: 15,
             ),
           ),
-          const SizedBox(height: 8),
+          // Eliminado el SizedBox aquí ya que parece un error tipográfico en el diseño original
+          // const SizedBox(height: 8),
           Expanded(
             child: Text(
               value,

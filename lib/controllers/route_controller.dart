@@ -194,8 +194,6 @@ class RouteController extends GetxController {
         sport: sport,
         // Si la dificultad es vacía, guárdala como null
         difficulty: difficulty?.isEmpty == true ? null : difficulty,
-        isCompleted: false, // Por defecto, una ruta nueva no está completada
-        completedAt: null,
       );
 
       final savedRoute = await _appwriteService.createUserRoute(newRoute);
@@ -296,53 +294,9 @@ class RouteController extends GetxController {
     }
   }
 
-  // Marca una ruta como completada
-  Future<void> markRouteAsCompleted(String routeId) async {
-    try {
-      isSaving.value = true; // Usar isSaving para esta operación
+  // ELIMINADO: markRouteAsCompleted ya que isCompleted no existe en RouteModel
+  // Future<void> markRouteAsCompleted(String routeId) async { ... }
 
-      final routeToUpdate = userRoutes.firstWhereOrNull((route) => route.id == routeId);
-
-      if (routeToUpdate == null) {
-        Get.snackbar('Error', 'Ruta no encontrada para marcar como completada.');
-        return;
-      }
-
-      if (routeToUpdate.isCompleted) {
-        Get.snackbar('Información', 'Esta ruta ya ha sido marcada como completada.');
-        return;
-      }
-
-      // Crear una nueva instancia con los cambios
-      final updatedRoute = routeToUpdate.copyWith(
-        isCompleted: true,
-        completedAt: DateTime.now(),
-      );
-
-      await updateRoute(updatedRoute); // Usa el método updateRoute ya existente
-
-      // La actualización de userRoutes ya se maneja dentro de updateRoute
-      Get.snackbar(
-        '¡Ruta Completada!',
-        'Has finalizado la ruta "${updatedRoute.name}" con éxito.',
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.blueAccent.withOpacity(0.9),
-        colorText: Colors.white,
-        icon: Icon(Icons.celebration, color: Colors.white),
-      );
-    } catch (e) {
-      print('RouteController: Error al marcar ruta como completada: $e');
-      Get.snackbar(
-        'Error',
-        'No se pudo marcar la ruta como completada: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.8),
-        colorText: Colors.white,
-      );
-    } finally {
-      isSaving.value = false;
-    }
-  }
 
   // Busca rutas por término de búsqueda (ej. nombre o descripción)
   Future<void> searchRoutes(String searchTerm) async {
@@ -393,7 +347,7 @@ class RouteController extends GetxController {
         'longestRoute': null,
         'shortestRoute': null,
         'sportBreakdown': <String, int>{},
-        'completedRoutes': 0,
+        // ELIMINADO: 'completedRoutes' ya que isCompleted no existe
       };
     }
 
@@ -401,7 +355,8 @@ class RouteController extends GetxController {
     final averageDistance = totalDistance / userRoutes.length;
     final longestRoute = userRoutes.reduce((a, b) => a.distance > b.distance ? a : b);
     final shortestRoute = userRoutes.reduce((a, b) => a.distance < b.distance ? a : b);
-    final completedRoutesCount = userRoutes.where((route) => route.isCompleted).length;
+    // ELIMINADO: conteo de rutas completadas
+    // final completedRoutesCount = userRoutes.where((route) => route.isCompleted).length;
 
 
     final sportBreakdown = <String, int>{};
@@ -418,7 +373,7 @@ class RouteController extends GetxController {
       'longestRoute': longestRoute,
       'shortestRoute': shortestRoute,
       'sportBreakdown': sportBreakdown,
-      'completedRoutes': completedRoutesCount,
+      // ELIMINADO: 'completedRoutes': completedRoutesCount,
     };
   }
 
