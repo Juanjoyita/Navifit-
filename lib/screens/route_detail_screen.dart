@@ -1,11 +1,11 @@
 // lib/screens/route_detail_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../models/route_model.dart'; // Asegúrate de que tu RouteModel tiene un 'duration' de tipo int
+import '../models/route_model.dart';
 import '../controllers/route_controller.dart';
 import '../controllers/sport_controller.dart';
 import '../controllers/auth_controller.dart';
-import 'dart:async'; // ¡IMPORTANTE: Añadir para usar Timer!
+import 'dart:async';
 
 class RouteDetailScreen extends StatefulWidget {
   const RouteDetailScreen({super.key});
@@ -15,7 +15,6 @@ class RouteDetailScreen extends StatefulWidget {
 }
 
 class _RouteDetailScreenState extends State<RouteDetailScreen> {
-  // Definición de tu paleta de colores
   static const Color primaryDark = Color(0xFF202221);
   static const Color secondaryDark = Color(0xFF303531);
   static const Color accentGoldLight = Color(0xFFB68B4B);
@@ -23,14 +22,11 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
   static const Color primaryText = Color(0xFFFFFFFF);
   static const Color secondaryText = Color(0xFFBBBBBB);
 
-  // --- Lógica del Temporizador de Cuenta Regresiva ---
   Timer? _timer;
-  late int _initialDuration; // Guarda la duración original de la ruta
-  late int _remainingSeconds; // Tiempo restante actual en el temporizador
+  late int _initialDuration;
+  late int _remainingSeconds;
   bool _isRunning = false;
   
-  // Instancias de los controladores
-  // Se inicializan aquí o en initState para que estén disponibles antes de build
   final RouteController routeController = Get.find<RouteController>();
   final SportController sportController = Get.find<SportController>();
   final AuthController authController = Get.find<AuthController>();
@@ -38,31 +34,26 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
   @override
   void initState() {
     super.initState();
-    // Recupera la ruta pasada como argumento
     final RouteModel? route = Get.arguments as RouteModel?;
 
-    // Asigna la duración inicial. Si es null o menor a 0, usa 0.
     _initialDuration = route?.duration ?? 0;
     if (_initialDuration < 0) {
-      _initialDuration = 0; // Asegura que no sea negativo
+      _initialDuration = 0;
     }
     _remainingSeconds = _initialDuration;
 
-    // Puedes añadir un print para depuración en la consola
     print('RouteDetailScreen: Initial Duration set to $_initialDuration seconds.');
   }
 
   @override
   void dispose() {
-    _timer?.cancel(); // ¡Importante: Detener el timer cuando el widget se destruye!
+    _timer?.cancel();
     super.dispose();
   }
 
   void _startCountdown() {
-    // No iniciar si ya está corriendo o si no queda tiempo
     if (_isRunning || _remainingSeconds <= 0) {
       if (_remainingSeconds <= 0 && !_isRunning) {
-        // Muestra un mensaje si intentan iniciar con 0 tiempo restante
         Get.snackbar(
           'Tiempo Agotado',
           'No queda tiempo para iniciar la cuenta regresiva. Reinicia primero.',
@@ -88,7 +79,7 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
         if (_remainingSeconds > 0) {
           _remainingSeconds--;
         } else {
-          _stopCountdown(); // Detener cuando llega a cero
+          _stopCountdown();
           Get.snackbar(
             '¡Tiempo Agotado!',
             'El tiempo estimado para la ruta ha terminado.',
@@ -96,21 +87,18 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
             backgroundColor: Colors.redAccent.withOpacity(0.9),
             colorText: primaryText,
             icon: const Icon(Icons.timer_off, color: primaryText),
-            duration: const Duration(seconds: 5), // Haz que el snackbar dure más
+            duration: const Duration(seconds: 5),
           );
-          // Opcional: Vibra o emite un sonido
-          // import 'package:flutter/services.dart';
-          // SystemSound.play(SystemSoundType.alert);
         }
       });
     });
   }
 
   void _stopCountdown() {
-    if (!_isRunning && _timer == null) return; // Evitar detener si no está corriendo y no hay timer
+    if (!_isRunning && _timer == null) return;
 
     _timer?.cancel();
-    _timer = null; // Limpiar el timer
+    _timer = null;
     _isRunning = false;
     Get.snackbar(
       'Temporizador Detenido',
@@ -122,9 +110,9 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
   }
 
   void _resetCountdown() {
-    _stopCountdown(); // Primero detén si está corriendo
+    _stopCountdown();
     setState(() {
-      _remainingSeconds = _initialDuration; // Reiniciar al valor original
+      _remainingSeconds = _initialDuration;
     });
     Get.snackbar(
       'Temporizador Reiniciado',
@@ -134,8 +122,6 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
       colorText: primaryText,
     );
   }
-  // --- Fin Lógica del Temporizador de Cuenta Regresiva ---
-
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +164,6 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Título de la Ruta
             Text(
               route.name,
               style: TextStyle(
@@ -189,7 +174,6 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
             ),
             const SizedBox(height: 15),
 
-            // Descripción (opcional)
             if (route.description != null && route.description!.isNotEmpty)
               Text(
                 route.description!,
@@ -203,7 +187,6 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
             Divider(color: accentGoldMedium.withOpacity(0.3), height: 1),
             const SizedBox(height: 20),
 
-            // Detalles de la ruta
             _buildDetailRow(
               icon: Icons.straighten,
               label: 'Distancia:',
@@ -243,7 +226,6 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
 
             const SizedBox(height: 20),
 
-            // Puntos de inicio y fin (coordenadas) - Mantenemos esto si quieres mostrar las coordenadas sin el mapa
             Text(
               'Coordenadas:',
               style: TextStyle(
@@ -263,7 +245,6 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
             ),
             const SizedBox(height: 25),
 
-            // --- Sección del Temporizador de Cuenta Regresiva ---
             Text(
               'Tiempo Restante Estimado:',
               style: TextStyle(
@@ -277,16 +258,15 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
               child: Column(
                 children: [
                   Text(
-                    // Usa _remainingSeconds, no route.duration
                     routeController.formatDuration(_remainingSeconds),
                     style: TextStyle(
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
                       color: _remainingSeconds <= 60 && _remainingSeconds > 0
-                          ? Colors.orangeAccent // Naranja si queda menos de un minuto
+                          ? Colors.orangeAccent
                           : _remainingSeconds == 0
-                              ? Colors.redAccent // Rojo si se agotó el tiempo
-                              : accentGoldLight, // Normal si queda mucho
+                              ? Colors.redAccent
+                              : accentGoldLight,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -295,7 +275,7 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
                     children: [
                       ElevatedButton.icon(
                         onPressed: _isRunning || _remainingSeconds <= 0
-                            ? null // Deshabilitar si ya está corriendo o el tiempo llegó a cero
+                            ? null
                             : _startCountdown,
                         icon: const Icon(Icons.play_arrow, color: primaryDark),
                         label: Text(
@@ -309,8 +289,8 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
                         ),
                       ),
                       ElevatedButton.icon(
-                        onPressed: _isRunning ? _stopCountdown : null, // Habilitar solo si está corriendo
-                        icon: const Icon(Icons.pause, color: primaryDark), // Icono de pausa
+                        onPressed: _isRunning ? _stopCountdown : null,
+                        icon: const Icon(Icons.pause, color: primaryDark),
                         label: const Text(
                           'Pausar',
                           style: TextStyle(fontSize: 16, color: primaryDark),
@@ -324,8 +304,7 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  // Botón de Reiniciar siempre visible cuando no está corriendo, o si el tiempo llegó a cero
-                  if (!_isRunning) // Mostrar solo si no está corriendo
+                  if (!_isRunning)
                     OutlinedButton.icon(
                       onPressed: _resetCountdown,
                       icon: const Icon(Icons.refresh, color: accentGoldMedium),
@@ -337,7 +316,6 @@ class _RouteDetailScreenState extends State<RouteDetailScreen> {
                 ],
               ),
             ),
-            // --- Fin Sección del Temporizador de Cuenta Regresiva ---
           ],
         ),
       ),

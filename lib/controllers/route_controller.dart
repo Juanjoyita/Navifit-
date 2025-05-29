@@ -20,9 +20,9 @@ class RouteController extends GetxController {
   var startPoint = Rxn<LatLng>();
   var endPoint = Rxn<LatLng>();
   var isCreatingRoute = false.obs;
-  var selectedRoute = Rxn<RouteModel>(); // Para manejar la ruta seleccionada en detalle
-  var isLoading = false.obs; // Estado general de carga (ej. al cargar rutas)
-  var isSaving = false.obs; // Estado específico para operaciones de guardado/actualización
+  var selectedRoute = Rxn<RouteModel>();
+  var isLoading = false.obs; 
+  var isSaving = false.obs; 
 
   @override
   void onInit() {
@@ -69,25 +69,17 @@ class RouteController extends GetxController {
   int? calculateEstimatedDurationInSeconds(double? distanceInMeters, String sport) {
     if (distanceInMeters == null || distanceInMeters <= 0 || sport.isEmpty) return null;
 
-    double speedMPS; // Metros por segundo
+    double speedMPS; 
 
-    // Es bueno tener estas velocidades centralizadas, por ejemplo, en SportController
-    // Pero por ahora, el switch aquí es funcional.
     switch (sport.toLowerCase()) {
       case 'running':
-        speedMPS = 3.5; // Ej: 12.6 km/h
+        speedMPS = 3.5; 
         break;
       case 'ciclismo':
-        speedMPS = 6.0; // Ej: 21.6 km/h
+        speedMPS = 6.0; 
         break;
       case 'senderismo':
-        speedMPS = 1.0; // Ej: 3.6 km/h
-        break;
-      case 'caminata':
-        speedMPS = 1.4; // ~5 km/h
-        break;
-      case 'natacion': // Asegúrate que el string de deporte coincida (ej: 'natacion' vs 'natación')
-        speedMPS = 0.8; // ~2.88 km/h
+        speedMPS = 1.0; 
         break;
       default:
         speedMPS = 1.39; // Velocidad de caminata por defecto si el deporte no está mapeado
@@ -177,10 +169,10 @@ class RouteController extends GetxController {
     final int actualDuration = calculateEstimatedDurationInSeconds(actualDistance, sport) ?? 0;
 
     try {
-      isSaving.value = true; // Inicia el estado de guardado
+      isSaving.value = true; 
 
       final newRoute = RouteModel(
-        id: null, // El ID lo asignará Appwrite
+        id: null,
         userId: currentUserId,
         name: name.trim(),
         startLatitude: startPoint.value!.latitude,
@@ -189,16 +181,15 @@ class RouteController extends GetxController {
         endLongitude: endPoint.value!.longitude,
         distance: actualDistance,
         duration: actualDuration,
-        createdAt: DateTime.now(), // La fecha de creación se genera aquí
+        createdAt: DateTime.now(), 
         description: description?.trim(),
         sport: sport,
-        // Si la dificultad es vacía, guárdala como null
         difficulty: difficulty?.isEmpty == true ? null : difficulty,
       );
 
       final savedRoute = await _appwriteService.createUserRoute(newRoute);
 
-      userRoutes.insert(0, savedRoute); // Añade la nueva ruta al principio de la lista
+      userRoutes.insert(0, savedRoute); 
 
       Get.snackbar(
         'Éxito',
@@ -208,8 +199,8 @@ class RouteController extends GetxController {
         colorText: Colors.white,
       );
 
-      resetRouteCreation(); // Limpia los puntos de selección
-      Get.back(); // Regresa a la pantalla anterior (ej. mapa o lista)
+      resetRouteCreation(); 
+      Get.back(); 
     } catch (e) {
       print('RouteController: Error al guardar ruta: $e');
       Get.snackbar(
@@ -220,17 +211,17 @@ class RouteController extends GetxController {
         colorText: Colors.white,
       );
     } finally {
-      isSaving.value = false; // Finaliza el estado de guardado
+      isSaving.value = false; 
     }
   }
 
   // Elimina una ruta de Appwrite
   Future<void> deleteRoute(String routeId) async {
     try {
-      isLoading.value = true; // Podrías usar isDeleting para granularidad
+      isLoading.value = true; 
 
       await _appwriteService.deleteUserRoute(routeId);
-      userRoutes.removeWhere((route) => route.id == routeId); // Elimina de la lista local
+      userRoutes.removeWhere((route) => route.id == routeId); 
 
       Get.snackbar(
         'Éxito',
@@ -294,14 +285,11 @@ class RouteController extends GetxController {
     }
   }
 
-  // ELIMINADO: markRouteAsCompleted ya que isCompleted no existe en RouteModel
-  // Future<void> markRouteAsCompleted(String routeId) async { ... }
 
-
-  // Busca rutas por término de búsqueda (ej. nombre o descripción)
+  // Busca rutas por término de búsqueda 
   Future<void> searchRoutes(String searchTerm) async {
     if (searchTerm.trim().isEmpty) {
-      await loadUserRoutes(); // Si la búsqueda está vacía, cargar todas las rutas
+      await loadUserRoutes(); 
       return;
     }
 
@@ -347,7 +335,7 @@ class RouteController extends GetxController {
         'longestRoute': null,
         'shortestRoute': null,
         'sportBreakdown': <String, int>{},
-        // ELIMINADO: 'completedRoutes' ya que isCompleted no existe
+
       };
     }
 
@@ -355,8 +343,7 @@ class RouteController extends GetxController {
     final averageDistance = totalDistance / userRoutes.length;
     final longestRoute = userRoutes.reduce((a, b) => a.distance > b.distance ? a : b);
     final shortestRoute = userRoutes.reduce((a, b) => a.distance < b.distance ? a : b);
-    // ELIMINADO: conteo de rutas completadas
-    // final completedRoutesCount = userRoutes.where((route) => route.isCompleted).length;
+    
 
 
     final sportBreakdown = <String, int>{};
@@ -373,7 +360,7 @@ class RouteController extends GetxController {
       'longestRoute': longestRoute,
       'shortestRoute': shortestRoute,
       'sportBreakdown': sportBreakdown,
-      // ELIMINADO: 'completedRoutes': completedRoutesCount,
+
     };
   }
 

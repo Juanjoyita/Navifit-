@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../controllers/mission_controller.dart';
 import '../controllers/sport_controller.dart';
 import '../controllers/location_controller.dart';
-import '../widgets/sport_card.dart'; // Asegúrate de que esta importación es correcta y SportCard existe
+import '../widgets/sport_card.dart';
 
 class SelectSportScreen extends StatelessWidget {
   final SportController sportController = Get.put(SportController());
@@ -13,32 +13,31 @@ class SelectSportScreen extends StatelessWidget {
 
   final List<String> difficulties = ['Fácil', 'Media', 'Difícil'];
 
-  // Definición de tu nueva paleta de colores para esta pantalla
-  static const Color primaryDark = Color(0xFF202221); // Casi Negro / Gris Muy Oscuro (Fondo)
-  static const Color secondaryDark = Color(0xFF303531); // Gris Verdoso Muy Oscuro (Fondo para elementos)
-  static const Color accentDarkGreen = Color(0xFF4D574E); // Verde Grisáceo Oscuro
-  static const Color accentGoldLight = Color(0xFFB68B4B); // Marrón Claro / Dorado Arena (Texto principal, acentos)
-  static const Color accentGoldMedium = Color(0xFF956E2F); // Marrón Medio / Dorado Oscuro (Botones, elementos interactivos)
-  static const Color accentGoldDark = Color(0xFF654922); // Marrón Oscuro / Bronce Oscuro (Acentos fuertes, borde de botones)
+  static const Color primaryDark = Color(0xFF202221);
+  static const Color secondaryDark = Color(0xFF303531);
+  static const Color accentDarkGreen = Color(0xFF4D574E);
+  static const Color accentGoldLight = Color(0xFFB68B4B);
+  static const Color accentGoldMedium = Color(0xFF956E2F);
+  static const Color accentGoldDark = Color(0xFF654922);
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryDark, // Fondo con el color más oscuro de la paleta
+      backgroundColor: primaryDark,
       appBar: AppBar(
         title: Text(
           "Selecciona tu Deporte",
-          style: TextStyle(color: accentGoldLight), // Título de la appbar en dorado claro
+          style: TextStyle(color: accentGoldLight),
         ),
-        backgroundColor: secondaryDark, // AppBar en un gris verdoso un poco más claro que el fondo principal
+        backgroundColor: secondaryDark,
         elevation: 0,
-        iconTheme: IconThemeData(color: accentGoldLight), // Ícono de back/hamburguesa en dorado claro
+        iconTheme: IconThemeData(color: accentGoldLight),
         actions: [
           IconButton(
-            icon: Icon(Icons.person, color: accentGoldLight), // Icono de persona en dorado claro
+            icon: Icon(Icons.person, color: accentGoldLight),
             onPressed: () {
-              Get.toNamed('/profile'); // Navega a la pantalla de perfil
+              Get.toNamed('/profile');
             },
             tooltip: 'Ver Perfil',
           ),
@@ -50,8 +49,8 @@ class SelectSportScreen extends StatelessWidget {
           Text(
             "Elige un deporte",
             style: TextStyle(
-              fontSize: 24, // Tamaño de fuente aumentado
-              color: accentGoldLight, // Texto en dorado claro
+              fontSize: 24,
+              color: accentGoldLight,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -64,8 +63,6 @@ class SelectSportScreen extends StatelessWidget {
                     sport: sport,
                     isSelected: isSelected,
                     onTap: () => sportController.selectSport(sport),
-                    // Colores del SportCard adaptados a la nueva paleta
-                    // Usamos accentGoldMedium para el seleccionado y secondaryDark para los no seleccionados
                     color: isSelected ? accentGoldMedium : secondaryDark.withOpacity(0.7),
                   );
                 }).toList(),
@@ -74,8 +71,8 @@ class SelectSportScreen extends StatelessWidget {
           Text(
             "Elige una dificultad",
             style: TextStyle(
-              fontSize: 24, // Tamaño de fuente aumentado
-              color: accentGoldLight, // Texto en dorado claro
+              fontSize: 24,
+              color: accentGoldLight,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -84,11 +81,11 @@ class SelectSportScreen extends StatelessWidget {
                 children: difficulties.map((difficulty) {
                   final isSelected = sportController.selectedDifficulty.value == difficulty;
                   return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8), // Margen vertical aumentado
+                    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                     decoration: BoxDecoration(
-                      color: secondaryDark, // Fondo del contenedor de la dificultad en gris verdoso oscuro
+                      color: secondaryDark,
                       border: Border.all(
-                        color: isSelected ? accentGoldLight : Colors.transparent, // Borde dorado claro si seleccionado
+                        color: isSelected ? accentGoldLight : Colors.transparent,
                         width: 1.5,
                       ),
                       borderRadius: BorderRadius.circular(10),
@@ -97,14 +94,14 @@ class SelectSportScreen extends StatelessWidget {
                       title: Text(
                         difficulty,
                         style: TextStyle(
-                          color: isSelected ? accentGoldLight : Colors.white70, // Texto en dorado claro si seleccionado, blanco tenue si no
-                          fontSize: 18, // Tamaño de fuente aumentado
-                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal, // Negrita si seleccionado
+                          color: isSelected ? accentGoldLight : Colors.white70,
+                          fontSize: 18,
+                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                         ),
                       ),
                       value: difficulty,
                       groupValue: sportController.selectedDifficulty.value,
-                      activeColor: accentGoldLight, // Radio button en dorado claro
+                      activeColor: accentGoldLight,
                       onChanged: (value) => sportController.selectDifficulty(value!),
                     ),
                   );
@@ -112,17 +109,17 @@ class SelectSportScreen extends StatelessWidget {
               )),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20), // Padding aumentado
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: accentGoldMedium, // Fondo del botón en dorado oscuro
-                foregroundColor: primaryDark, // Texto del botón en el color de fondo para contraste
-                padding: const EdgeInsets.symmetric(vertical: 18), // Padding aumentado
+                backgroundColor: accentGoldMedium,
+                foregroundColor: primaryDark,
+                padding: const EdgeInsets.symmetric(vertical: 18),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), // Bordes más suaves
-                  side: BorderSide(color: accentGoldLight, width: 2), // Borde dorado claro y más grueso
+                  borderRadius: BorderRadius.circular(15),
+                  side: BorderSide(color: accentGoldLight, width: 2),
                 ),
-                elevation: 8, // Mayor elevación
+                elevation: 8,
               ),
               onPressed: () async {
                 if (sportController.isValidSelection()) {
@@ -141,16 +138,16 @@ class SelectSportScreen extends StatelessWidget {
                     Get.snackbar(
                       "Error",
                       "No se pudo obtener la ubicación o las rutas: $e",
-                      backgroundColor: accentDarkGreen.withOpacity(0.9), // Snackar en verde grisáceo oscuro
+                      backgroundColor: accentDarkGreen.withOpacity(0.9),
                       colorText: Colors.white,
-                      snackPosition: SnackPosition.BOTTOM, // Posición del snackbar
+                      snackPosition: SnackPosition.BOTTOM,
                     );
                   }
                 } else {
                   Get.snackbar(
                     "Falta información",
                     "Debes elegir un deporte y una dificultad",
-                    backgroundColor: accentGoldDark.withOpacity(0.9), // Snackbar en marrón oscuro
+                    backgroundColor: accentGoldDark.withOpacity(0.9),
                     colorText: Colors.white,
                     snackPosition: SnackPosition.BOTTOM,
                   );
@@ -158,11 +155,11 @@ class SelectSportScreen extends StatelessWidget {
               },
               child: const Text(
                 "Aplicar",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold), // Texto más grande y negrita
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
           ),
-          const SizedBox(height: 10), // Espacio final
+          const SizedBox(height: 10),
         ],
       ),
     );

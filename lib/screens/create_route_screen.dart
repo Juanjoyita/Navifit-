@@ -29,8 +29,8 @@ class CreateRouteScreen extends StatelessWidget {
             icon: const Icon(Icons.refresh),
             onPressed: () {
               routeController.resetRouteCreation();
-              sportController.selectedSport.value = ''; // Reiniciar la selección de deporte
-              sportController.selectedDifficulty.value = ''; // Reiniciar la selección de dificultad
+              sportController.selectedSport.value = '';
+              sportController.selectedDifficulty.value = ''; 
               nameController.clear();
               descriptionController.clear();
             },
@@ -78,7 +78,7 @@ class CreateRouteScreen extends StatelessWidget {
                 step: 2,
                 title: 'Punto de destino',
                 isActive: !routeController.isSelectingStartPoint.value && 
-                         routeController.startPoint.value != null,
+                      routeController.startPoint.value != null,
                 isCompleted: routeController.endPoint.value != null,
               ),
             ],
@@ -397,8 +397,8 @@ class CreateRouteScreen extends StatelessWidget {
                 child: OutlinedButton.icon(
                   onPressed: () {
                     routeController.resetRouteCreation();
-                    sportController.selectedSport.value = ''; // Reiniciar
-                    sportController.selectedDifficulty.value = ''; // Reiniciar
+                    sportController.selectedSport.value = ''; 
+                    sportController.selectedDifficulty.value = ''; 
                     nameController.clear();
                     descriptionController.clear();
                   },
@@ -468,7 +468,7 @@ class CreateRouteScreen extends StatelessWidget {
               TextField(
                 controller: nameController,
                 decoration: const InputDecoration(
-                  labelText: 'Nombre de la ruta *', // Marcado como obligatorio
+                  labelText: 'Nombre de la ruta *', 
                   hintText: 'Ej: Mi ruta favorita',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.route),
@@ -499,7 +499,7 @@ class CreateRouteScreen extends StatelessWidget {
                     ? null 
                     : sportController.selectedSport.value,
                 decoration: const InputDecoration(
-                  labelText: 'Tipo de deporte *', // Marcado como obligatorio
+                  labelText: 'Tipo de deporte *', 
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.sports),
                 ),
@@ -514,7 +514,7 @@ class CreateRouteScreen extends StatelessWidget {
                     sportController.selectedSport.value = value;
                   }
                 },
-                validator: (value) { // Añadir validación
+                validator: (value) { 
                   if (value == null || value.isEmpty) {
                     return 'Selecciona un deporte';
                   }
@@ -524,7 +524,6 @@ class CreateRouteScreen extends StatelessWidget {
               
               const SizedBox(height: 16),
               
-              // Selector de dificultad
               Obx(() => DropdownButtonFormField<String>(
                 value: sportController.selectedDifficulty.value.isEmpty 
                     ? null 
@@ -540,9 +539,8 @@ class CreateRouteScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Icon(
-                          sportController.getDifficultyIcon(difficulty), // Usa el método de SportController
-                          color: sportController.getDifficultyColor(difficulty), // Usa el método de SportController
-                          size: 20,
+                          sportController.getDifficultyIcon(difficulty),
+                          color: sportController.getDifficultyColor(difficulty), 
                         ),
                         const SizedBox(width: 8),
                         Text(difficulty),
@@ -559,12 +557,11 @@ class CreateRouteScreen extends StatelessWidget {
               
               const SizedBox(height: 16),
               
-              // Información de la ruta (distancia y duración)
+
               Obx(() {
                 final estimatedDistance = routeController.estimatedDistance;
                 final selectedSport = sportController.selectedSport.value;
-                
-                // Asegurarse de que selectedSport no esté vacío antes de calcular la duración
+              
                 final estimatedDuration = selectedSport.isNotEmpty
                     ? routeController.calculateEstimatedDurationInSeconds(estimatedDistance, selectedSport)
                     : null; // Si no hay deporte seleccionado, no hay duración estimada.

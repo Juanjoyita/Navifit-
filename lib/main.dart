@@ -1,7 +1,7 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:appwrite/appwrite.dart'; // Mantienes esta importación para configurar el cliente aquí
+import 'package:appwrite/appwrite.dart'; 
 import 'package:versus_match/screens/saved_routes.dart';
 
 // Controladores
@@ -12,7 +12,7 @@ import 'controllers/location_controller.dart';
 import 'controllers/mission_controller.dart';
 
 // Pantallas
-import 'screens/start_screen.dart'; // <--- NUEVA IMPORTACIÓN
+import 'screens/start_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
 import 'screens/select_sport_screen.dart';
@@ -22,7 +22,6 @@ import 'screens/map_screen.dart' as map_screen;
 import 'screens/mission_route_screen.dart';
 import 'package:versus_match/screens/mission_details.dart';
 import 'screens/route_detail_screen.dart';
- // Asegúrate de importar SavedRoutesScreen si la usas en las rutas
 
 
 // Servicios
@@ -32,23 +31,20 @@ import 'services/appwrite_service.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Configura el cliente de Appwrite (mantengo tu estructura actual)
+  // Configura el cliente de Appwrite
   final Client client = Client()
       .setEndpoint('https://cloud.appwrite.io/v1')
       .setProject('67f4970e00257170a0c8')
-      .setSelfSigned(status: true); // Solo en desarrollo/prueba
+      .setSelfSigned(status: true); 
 
   // Inyectar el servicio compartido
   Get.put(AppwriteService(client: client));
   final AppwriteService appwriteService = Get.find<AppwriteService>();
 
-  // ***** ORDEN DE INYECCIÓN DE DEPENDENCIAS CORREGIDO *****
-  // ⚠️ Importante: primero los controladores que se usan dentro de otros o que no tienen dependencias circulares.
+
   Get.put(SportController());
   Get.put(LocationController());
 
-  // Luego los que dependen de AppwriteService o de otros controladores ya inyectados
-  // Asegúrate de que AuthController y RouteController se inyecten después de AppwriteService
   Get.put(AuthController());
   Get.put(MissionController(appwriteService: appwriteService));
   Get.put(RouteController()); // Este ahora encontrará SportController, si lo usa internamente.

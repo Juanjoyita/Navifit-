@@ -1,36 +1,35 @@
-// lib/controllers/auth_controller.dart
+
 
 import 'package:get/get.dart';
-import 'package:flutter/material.dart'; // Necesario para Colors y Get.snackbar
+import 'package:flutter/material.dart'; 
 import '../services/appwrite_service.dart';
-import 'package:appwrite/models.dart' as models; // Para el modelo de User
-import 'package:appwrite/appwrite.dart'; // Para AppwriteException y Client, Account
-import 'package:intl/intl.dart'; // ¡Asegúrate de que esta importación esté presente!
+import 'package:appwrite/models.dart' as models; 
+import 'package:appwrite/appwrite.dart'; 
+import 'package:intl/intl.dart'; 
 
 class AuthController extends GetxController {
   // Obtiene la instancia de AppwriteService que ya fue inyectada
   final AppwriteService _appwriteService = Get.find<AppwriteService>();
 
   // Variables reactivas
-  var isLoading = false.obs; // Para controlar el estado de carga general de las operaciones de auth
-  var user = Rxn<models.User>(); // Observable para el usuario actual (puede ser nulo)
-  var errorMessage = ''.obs; // Para mensajes de error detallados
-
+  var isLoading = false.obs; 
+  var user = Rxn<models.User>();
+  var errorMessage = ''.obs; 
   // Método para formatear la fecha de creación del usuario
   String formatDateTime(String? isoString) {
     if (isoString == null || isoString.isEmpty) {
       return 'N/A';
     }
     try {
-      final dateTime = DateTime.parse(isoString).toLocal(); // Convertir a hora local
-      return DateFormat('dd/MM/yyyy HH:mm').format(dateTime); // Formato deseado
+      final dateTime = DateTime.parse(isoString).toLocal(); 
+      return DateFormat('dd/MM/yyyy HH:mm').format(dateTime);
     } catch (e) {
       print('Error parsing date string: $e');
       return 'Fecha inválida';
     }
   }
 
-  // REEMPLAZO DEL MÉTODO register CON LA VERSIÓN OPTIMIZADA QUE PROPORCIONASTE
+
   Future<void> register(String email, String password, String name) async {
     try {
       isLoading.value = true;
@@ -67,9 +66,7 @@ class AuthController extends GetxController {
       );
 
       // 5. Navegar directamente a la pantalla principal de la aplicación
-      // Cambia '/profile' por la ruta que consideres como pantalla principal
-      // Por ejemplo: '/selectSport', '/dashboard', '/home', etc.
-      Get.offAllNamed('/selectSport'); // ⚠️ Cambia esta ruta según tu flujo de navegación
+      Get.offAllNamed('/selectSport'); 
 
     } on AppwriteException catch (e) {
       errorMessage.value = e.message ?? 'Error de registro desconocido.';
@@ -99,8 +96,7 @@ class AuthController extends GetxController {
   Future<void> login(String email, String password) async {
     try {
       isLoading.value = true;
-      errorMessage.value = ''; // Limpiar errores anteriores
-      // Intenta cerrar sesión activa antes de iniciar una nueva.
+      errorMessage.value = ''; 
       try {
         await _appwriteService.logout();
         await Future.delayed(const Duration(milliseconds: 500));
@@ -110,7 +106,7 @@ class AuthController extends GetxController {
 
       await _appwriteService.login(email: email, password: password);
       await fetchUser();
-      Get.offAllNamed('/selectSport'); // Redirigir a la pantalla de perfil (o selectSport si es tu flujo)
+      Get.offAllNamed('/selectSport');
       Get.snackbar(
         'Éxito',
         'Inicio de sesión exitoso.',
@@ -146,13 +142,13 @@ class AuthController extends GetxController {
       user.value = await _appwriteService.getCurrentUser();
       print('Usuario cargado (AuthController): ${user.value?.email}');
     } on AppwriteException catch (e) {
-      // Si el usuario no está autenticado, Appwrite lanza una excepción (401)
+
       if (e.code == 401) {
-        user.value = null; // No hay usuario logeado
+        user.value = null; 
       } else {
         // Otros errores al cargar el usuario
         print('Error al obtener el usuario (AuthController): $e');
-        // Puedes mostrar un snackbar si este fetchUser es crítico y no se maneja en la UI
+
       }
     } catch (e) {
       print('Error inesperado al obtener el usuario (AuthController): $e');
@@ -163,10 +159,10 @@ class AuthController extends GetxController {
   Future<void> logout() async {
     try {
       isLoading.value = true;
-      errorMessage.value = ''; // Limpiar errores anteriores
+      errorMessage.value = ''; 
       await _appwriteService.logout();
-      user.value = null; // Limpiar el usuario en el controlador
-      Get.offAllNamed('/login'); // Redirigir a la pantalla de login
+      user.value = null;
+      Get.offAllNamed('/login'); 
       Get.snackbar(
         'Sesión cerrada',
         'Has cerrado sesión exitosamente',
@@ -200,20 +196,19 @@ class AuthController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    fetchUser(); // Intenta cargar el usuario al iniciar la app
+    fetchUser(); 
   }
 
-  // --- MÉTODO updateUserName (es crucial que permanezca para la funcionalidad de actualización de perfil) ---
+  // --- MÉTODO updateUserName 
   Future<void> updateUserName(String newName) async {
     isLoading.value = true;
     errorMessage.value = '';
 
     try {
       // Llama al método updateName de Appwrite a través de AppwriteService
-      await _appwriteService.updateUserName(newName); // Llama al servicio
+      await _appwriteService.updateUserName(newName); 
 
-      // Si la actualización es exitosa, refresca los datos del usuario en el controlador
-      // para que los cambios se reflejen automáticamente en la UI.
+
       await fetchUser();
 
       Get.snackbar(

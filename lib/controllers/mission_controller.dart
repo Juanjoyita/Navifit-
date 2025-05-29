@@ -22,12 +22,12 @@ class MissionController extends GetxController {
   // Método para cargar todas las misiones sin filtros iniciales
   Future<void> loadAllMissions() async {
     isLoading.value = true;
-    errorMessage.value = ''; // Limpiar mensaje de error anterior
+    errorMessage.value = ''; 
     try {
       print('loadAllMissions: Intentando obtener todas las misiones sin filtros...');
       final List<Mission> result = await appwriteService.getMissions();
 
-      // <--- AÑADIR ESTOS PRINTS PARA DEPURACIÓN --->
+
       print('loadAllMissions: Misiones obtenidas del servicio (${result.length} documentos):');
       if (result.isEmpty) {
         print('  ¡La lista de resultados del servicio está VACÍA!');
@@ -36,9 +36,9 @@ class MissionController extends GetxController {
           print('  - ID: ${m.id}, Título: "${m.title}", Deporte: "${m.sport}", Dificultad: "${m.difficulty}"');
         }
       }
-      // <--- FIN DE PRINTS DEPURACIÓN --->
 
-      missions.assignAll(result); // Actualiza la lista observable
+
+      missions.assignAll(result);
       print('loadAllMissions: Misiones cargadas exitosamente en observable: ${missions.length}');
 
       if (missions.isEmpty) {
@@ -62,7 +62,6 @@ class MissionController extends GetxController {
       print('fetchMissions: Buscando misiones por deporte: $sport, dificultad: $difficulty');
       final List<Mission> result = await appwriteService.getMissions(sport: sport, difficulty: difficulty);
 
-      // <--- AÑADIR ESTOS PRINTS PARA DEPURACIÓN (si usas esta función) --->
       print('fetchMissions: Misiones filtradas obtenidas del servicio (${result.length}):');
       if (result.isEmpty) {
         print('  ¡La lista de resultados filtrados del servicio está VACÍA!');
@@ -71,7 +70,7 @@ class MissionController extends GetxController {
           print('  - ID: ${m.id}, Título: "${m.title}", Deporte: "${m.sport}", Dificultad: "${m.difficulty}"');
         }
       }
-      // <--- FIN DE PRINTS DEPURACIÓN --->
+
 
       missions.assignAll(result);
       print('fetchMissions: Misiones filtradas cargadas en observable: ${missions.length}');

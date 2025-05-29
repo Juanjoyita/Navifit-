@@ -1,20 +1,18 @@
 // lib/models/route_model.dart
 import 'package:latlong2/latlong.dart';
-// No necesitamos 'dart:convert' si Appwrite maneja el campo 'points' como JSON nativo.
-// Si aún lo usas como String JSON, entonces sí se necesitaría.
-// import 'dart:convert'; // Para jsonEncode/jsonDecode si el campo 'points' es String en Appwrite
+
 
 class RouteModel {
-  final String? id; // El ID de Appwrite (puede ser nulo al crear)
-  final String userId; // El ID del usuario creador
+  final String? id; 
+  final String userId; 
   final String name;
   final double startLatitude;
   final double startLongitude;
   final double endLatitude;
   final double endLongitude;
 
-  final double distance; // En metros (requerido por Appwrite)
-  final int duration;   // En segundos (requerido por Appwrite)
+  final double distance; 
+  final int duration;   
 
   final String? description;
   final String sport;
@@ -22,7 +20,7 @@ class RouteModel {
   final DateTime createdAt;
   final DateTime? updatedAt;
 
-  // ELIMINADAS: isCompleted y completedAt según tu solicitud
+
 
 
   RouteModel({
@@ -40,10 +38,10 @@ class RouteModel {
     this.difficulty,
     required this.createdAt,
     this.updatedAt,
-    // ELIMINADOS: isCompleted y completedAt del constructor
+
   });
 
-  // Constructor factory para crear RouteModel desde un mapa (ej. desde Appwrite)
+
   factory RouteModel.fromJson(Map<String, dynamic> json) {
     final String? docId = json['\$id'] as String?;
     final String? created = json['\$createdAt'] as String?;
@@ -64,11 +62,11 @@ class RouteModel {
       difficulty: json['difficulty'] as String?,
       createdAt: created != null ? DateTime.parse(created) : DateTime.now(),
       updatedAt: updated != null ? DateTime.parse(updated) : null,
-      // ELIMINADOS: isCompleted y completedAt del fromJson
+
     );
   }
 
-  // Método para convertir RouteModel a un mapa para Appwrite
+
   Map<String, dynamic> toJson() {
     return {
       'userId': userId,
@@ -82,13 +80,10 @@ class RouteModel {
       'description': description,
       'sport': sport,
       'difficulty': difficulty,
-      // ELIMINADOS: isCompleted y completedAt del toJson
-      // NO INCLUIR 'createdAt' ni 'updatedAt' aquí. Appwrite los maneja automáticamente.
-      // Tampoco el 'id' porque Appwrite lo genera
+
     };
   }
 
-  // Método copyWith para facilitar la creación de nuevas instancias con propiedades modificadas
   RouteModel copyWith({
     String? id,
     String? userId,
@@ -104,7 +99,7 @@ class RouteModel {
     String? difficulty,
     DateTime? createdAt,
     DateTime? updatedAt,
-    // ELIMINADOS: isCompleted y completedAt del copyWith
+
   }) {
     return RouteModel(
       id: id ?? this.id,
@@ -124,14 +119,14 @@ class RouteModel {
     );
   }
 
-  // GETTERS PARA CONVERTIR Latitudes/Longitudes a LatLng
+
   LatLng get startPoint => LatLng(startLatitude, startLongitude);
   LatLng get endPoint => LatLng(endLatitude, endLongitude);
 
-  // Método adicional para debug/logging
+
   @override
   String toString() {
     return 'RouteModel(id: $id, name: $name, sport: $sport, startPoint: (${startLatitude}, ${startLongitude}), endPoint: (${endLatitude}, ${endLongitude}), distance: ${distance.toStringAsFixed(2)})';
-    // ELIMINADOS: isCompleted y completedAt del toString
+
   }
 }

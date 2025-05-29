@@ -8,47 +8,45 @@ class RegisterScreen extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
 
-  // Definición de tu nueva paleta de colores para esta pantalla
-  static const Color primaryDark = Color(0xFF202221); // Casi Negro / Gris Muy Oscuro (Fondo)
-  static const Color secondaryDark = Color(0xFF303531); // Gris Verdoso Muy Oscuro (Fondo para elementos, AppBar)
-  static const Color accentDarkGreen = Color(0xFF4D574E); // Verde Grisáceo Oscuro
-  static const Color accentGoldLight = Color(0xFFB68B4B); // Marrón Claro / Dorado Arena (Texto principal, acentos)
-  static const Color accentGoldMedium = Color(0xFF956E2F); // Marrón Medio / Dorado Oscuro (Botones, elementos interactivos)
-  static const Color accentGoldDark = Color(0xFF654922); // Marrón Oscuro / Bronce Oscuro (Acentos fuertes, borde de botones)
+  static const Color primaryDark = Color(0xFF202221);
+  static const Color secondaryDark = Color(0xFF303531);
+  static const Color accentDarkGreen = Color(0xFF4D574E);
+  static const Color accentGoldLight = Color(0xFFB68B4B);
+  static const Color accentGoldMedium = Color(0xFF956E2F);
+  static const Color accentGoldDark = Color(0xFF654922);
 
   RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryDark, // Fondo general de la pantalla
+      backgroundColor: primaryDark,
       appBar: AppBar(
         title: Text(
           'Únete a NaviFit',
           style: TextStyle(
-            color: accentGoldLight, // Título de la appbar en dorado claro
+            color: accentGoldLight,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: secondaryDark, // AppBar en un gris verdoso más claro
+        backgroundColor: secondaryDark,
         elevation: 0,
-        iconTheme: IconThemeData(color: accentGoldLight), // Ícono de back en dorado claro
+        iconTheme: IconThemeData(color: accentGoldLight),
       ),
       body: Container(
-        // El gradiente lo cambiamos para que se ajuste a la paleta
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [primaryDark, secondaryDark], // Gradiente entre los dos tonos más oscuros
+            colors: [primaryDark, secondaryDark],
           ),
         ),
         child: Obx(() {
           return authController.isLoading.value
               ? Center(
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(accentGoldLight), // Indicador de carga en dorado claro
+                    valueColor: AlwaysStoppedAnimation<Color>(accentGoldLight),
                   ),
                 )
               : SingleChildScrollView(
@@ -58,13 +56,13 @@ class RegisterScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(height: 30),
-                        Icon(Icons.sports_score, size: 80, color: accentGoldLight), // Ícono principal en dorado claro
+                        Icon(Icons.sports_score, size: 80, color: accentGoldLight),
                         const SizedBox(height: 20),
                         Text(
                           'Comienza tu viaje fitness',
                           style: TextStyle(
-                            color: accentGoldLight, // Título en dorado claro
-                            fontSize: 28, // Tamaño de fuente un poco más grande
+                            color: accentGoldLight,
+                            fontSize: 28,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -72,8 +70,8 @@ class RegisterScreen extends StatelessWidget {
                         Text(
                           'Una experiencia extraordinaria te espera',
                           style: TextStyle(
-                            color: accentGoldLight.withOpacity(0.7), // Slogan en dorado claro con opacidad
-                            fontSize: 18, // Tamaño de fuente un poco más grande
+                            color: accentGoldLight.withOpacity(0.7),
+                            fontSize: 18,
                           ),
                         ),
                         const SizedBox(height: 40),
@@ -98,13 +96,12 @@ class RegisterScreen extends StatelessWidget {
                         const SizedBox(height: 40),
                         Container(
                           width: double.infinity,
-                          height: 60, // Altura un poco mayor para el botón
+                          height: 60,
                           decoration: BoxDecoration(
-                            // Eliminamos el color de fondo aquí ya que el ElevatedButton lo manejará
                             borderRadius: BorderRadius.circular(15),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.5), // Sombra más pronunciada
+                                color: Colors.black.withOpacity(0.5),
                                 blurRadius: 10,
                                 offset: Offset(0, 6),
                               ),
@@ -112,13 +109,13 @@ class RegisterScreen extends StatelessWidget {
                           ),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: accentGoldMedium, // Fondo del botón en dorado oscuro
-                              foregroundColor: primaryDark, // Color del texto/icono en el color de fondo
+                              backgroundColor: accentGoldMedium,
+                              foregroundColor: primaryDark,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
-                                side: BorderSide(color: accentGoldLight, width: 2), // Borde dorado claro y más grueso
+                                side: BorderSide(color: accentGoldLight, width: 2),
                               ),
-                              elevation: 0, // La sombra la maneja el Container padre
+                              elevation: 0,
                             ),
                             onPressed: () {
                               authController.register(
@@ -130,22 +127,22 @@ class RegisterScreen extends StatelessWidget {
                             child: Text(
                               'CREAR CUENTA',
                               style: TextStyle(
-                                fontSize: 20, // Texto más grande
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                letterSpacing: 2, // Mayor espaciado
-                                color: primaryDark, // Color de texto en el fondo
+                                letterSpacing: 2,
+                                color: primaryDark,
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(height: 25), // Espacio un poco mayor
+                        const SizedBox(height: 25),
                         TextButton(
-                          onPressed: () => Get.offNamed('/'), // Navegar a la ruta raíz que asumimos es Login
+                          onPressed: () => Get.offNamed('/'),
                           child: Text(
                             '¿Ya tienes cuenta? Inicia Sesión',
                             style: TextStyle(
-                              color: accentGoldLight, // Texto del TextButton en dorado claro
-                              fontSize: 17, // Tamaño de fuente un poco más grande
+                              color: accentGoldLight,
+                              fontSize: 17,
                               decoration: TextDecoration.underline,
                               decorationColor: accentGoldLight,
                             ),
@@ -160,7 +157,6 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  // Widget para los campos de texto
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,
@@ -169,9 +165,9 @@ class RegisterScreen extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: secondaryDark.withOpacity(0.6), // Fondo del TextField en gris verdoso semi-transparente
-        borderRadius: BorderRadius.circular(15), // Bordes más redondeados
-        border: Border.all(color: accentGoldMedium.withOpacity(0.5), width: 1.5), // Borde sutil dorado oscuro
+        color: secondaryDark.withOpacity(0.6),
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: accentGoldMedium.withOpacity(0.5), width: 1.5),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
@@ -183,19 +179,19 @@ class RegisterScreen extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: isPassword,
-        style: TextStyle(color: accentGoldLight, fontSize: 17), // Texto de entrada en dorado claro
-        cursorColor: accentGoldLight, // Color del cursor
+        style: TextStyle(color: accentGoldLight, fontSize: 17),
+        cursorColor: accentGoldLight,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: TextStyle(color: accentGoldLight.withOpacity(0.8)), // Label en dorado claro con opacidad
-          prefixIcon: Icon(icon, color: accentGoldLight), // Ícono en dorado claro
-          border: InputBorder.none, // Eliminamos el borde predeterminado
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 18), // Padding interno aumentado
+          labelStyle: TextStyle(color: accentGoldLight.withOpacity(0.8)),
+          prefixIcon: Icon(icon, color: accentGoldLight),
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: accentGoldLight, width: 2), // Borde enfocado en dorado claro y más grueso
+            borderSide: BorderSide(color: accentGoldLight, width: 2),
           ),
-          enabledBorder: InputBorder.none, // Aseguramos que no haya borde cuando no está enfocado
+          enabledBorder: InputBorder.none,
         ),
       ),
     );
